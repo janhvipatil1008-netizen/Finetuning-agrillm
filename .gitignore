@@ -1,0 +1,14 @@
+# --- Raw & intermediate data (never committed; regenerate from SOURCES.md) ---
+data/raw/
+data/interim/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+
+# --- Large artifacts ---
+*.parquet
+
+# --- Secrets & environments ---
+.env
+venv/
