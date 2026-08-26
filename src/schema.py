@@ -1,126 +1,123 @@
-"""Strict output schema for agri-llm advisories.
-
-Every model generation — training target and inference output — must validate
-against `Advisory`. Validation failure is a hard reject: it means the sample
-never enters `data/final/`, or the inference response is retried/escalated.
-
-Pydantic v2.
 """
+schema.py — the shape of every answer this model will ever produce.
 
-from __future__ import annotations
+FROZEN once training-data generation starts. A change after that point
+invalidates the dataset, the reward function and the benchmark together.
+
+Design notes worth keeping:
+
+* Dose is not a string. CIB&RC states dose on at least eight bases (per ha,
+  per tree, per plant, per kg seed, per sq m, as a percentage, as a per-litre
+  dilution, and as prose). A single `dose_per_acre: str` cannot represent
+  orchard or seed-treatment claims, and a model forced into that field will
+  invent an acre figure.
+
+* phi_days: None means unknown, 0 means a genuine zero-day interval. These
+  never collapse into each other. Where CIB&RC prints a range, label_db keeps
+  phi_min/phi_max/phi_raw and the Advisory emits the LARGER value — the safety
+  choice is made here, deliberately, not buried in a regex.
+
+* Spray volume is a range, unlike PHI. PHI is a legal label value where one
+  safe number is correct. Spray volume varies with crop stage and equipment,
+  so the range is the answer. It stays numeric so the reward function can
+  check it; free text would make it unverifiable.
+"""
 
 from typing import Literal, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field, model_validator
 
-CauseType = Literal["pest", "disease", "nutrient", "abiotic", "weed"]
+Basis = Literal[
+    "per_acre",           # already converted from per_ha by label_db
+    "per_ha",             # as printed in CIB&RC
+    "per_tree",
+    "per_plant",
+    "per_kg_seed",
+    "per_sq_m",
+    "concentration_pct",  # e.g. 0.025% — NEVER area-converted
+    "per_litre_water",    # e.g. 2.5 ml/l — NEVER area-converted
+    "free_text",          # prose method, common in bio-pesticides
+]
+
+Unit = Literal["g", "ml", "kg", "l", "%"]
+
+MASS_VOL = {"g", "ml", "kg", "l"}
 
 
 class Cause(BaseModel):
-    """A single candidate diagnosis for the farmer's reported symptoms."""
+    name: str
+    type: Literal["pest", "disease", "nutrient", "abiotic", "weed"]
+    confidence: float = Field(ge=0, le=1)
+    evidence: str
 
-    model_config = ConfigDict(extra="forbid")
 
-    name: str = Field(
-        ...,
-        min_length=2,
-        description="Common name of the pest/disease/disorder, e.g. 'pink bollworm'.",
-    )
-    type: CauseType = Field(
-        ...,
-        description="Category of the causal agent.",
-    )
-    confidence: float = Field(
-        ...,
-        ge=0.0,
-        le=1.0,
-        description="Calibrated likelihood this is the cause, given the symptoms described.",
-    )
-    evidence: str = Field(
-        ...,
-        min_length=3,
-        description="Symptoms/context from the query that support this cause.",
-    )
+class Dose(BaseModel):
+    basis: Basis
+    value_min: Optional[float] = None
+    value_max: Optional[float] = None
+    unit: Optional[Unit] = None
+    raw: str                     # verbatim CIB&RC cell — the audit trail
+
+    @model_validator(mode="after")
+    def _check(self):
+        if self.basis == "free_text":
+            return self
+        if self.value_min is None or self.unit is None:
+            raise ValueError(f"numeric basis {self.basis} needs value_min and unit")
+        if self.value_max is not None and self.value_max < self.value_min:
+            raise ValueError("value_max < value_min")
+        # The real hazard is not a bad unit string, it is 0.025 labelled
+        # per_acre with unit '%' — a concentration wearing an area basis.
+        if self.basis == "concentration_pct" and self.unit != "%":
+            raise ValueError("concentration_pct must use unit '%'")
+        if self.basis != "concentration_pct" and self.unit not in MASS_VOL:
+            raise ValueError(f"basis {self.basis} cannot use unit {self.unit!r}")
+        return self
 
 
 class ChemicalOption(BaseModel):
-    """One CIB&RC label-claim-backed chemical control option.
+    active_ingredient: str
+    formulation: str
+    dose: Dose
+    spray_volume_min_l_per_acre: Optional[int] = Field(default=None, ge=0)
+    spray_volume_max_l_per_acre: Optional[int] = Field(default=None, ge=0)
+    phi_days: Optional[int] = Field(default=None, ge=0)
+    caution: str
 
-    Every field here must trace to the CIB&RC register extract. If a value is
-    not in the register, the option must be omitted entirely rather than guessed.
-    """
-
-    model_config = ConfigDict(extra="forbid")
-
-    active_ingredient: str = Field(
-        ...,
-        min_length=2,
-        description="Active ingredient with strength, e.g. 'emamectin benzoate 5% SG'.",
-    )
-    formulation: str = Field(
-        ...,
-        min_length=1,
-        description="Formulation type, e.g. 'SG', 'SC', 'EC', 'WG'.",
-    )
-    dose_per_acre: str = Field(
-        ...,
-        min_length=1,
-        description="Label dose per acre with units, e.g. '80 g/acre'.",
-    )
-    spray_volume_l_per_acre: int = Field(
-        ...,
-        gt=0,
-        description="Water volume per acre in litres for the recommended spray.",
-    )
-    phi_days: int = Field(
-        ...,
-        ge=0,
-        description="Pre-harvest interval (waiting period) in days.",
-    )
-    caution: str = Field(
-        ...,
-        min_length=3,
-        description="Resistance, phytotoxicity, residue, bee/beneficial or mixing cautions.",
-    )
+    @model_validator(mode="after")
+    def _check_volume(self):
+        lo, hi = self.spray_volume_min_l_per_acre, self.spray_volume_max_l_per_acre
+        if (lo is None) != (hi is None):
+            raise ValueError("spray volume needs both bounds or neither")
+        if lo is not None and hi < lo:
+            raise ValueError("spray volume max < min")
+        return self
 
 
 class Advisory(BaseModel):
-    """Top-level advisory response. This is the model's entire output."""
+    in_scope: bool
+    query_understood: bool
+    clarifying_question: Optional[str] = None
+    likely_causes: list[Cause] = []
+    non_chemical_first: list[str] = []
+    chemical_options: list[ChemicalOption] = []
+    safety: list[str] = []
+    escalate_to_expert: bool
 
-    model_config = ConfigDict(extra="forbid")
+    @model_validator(mode="after")
+    def _invariants(self):
+        # Out of scope means no recommendation. No exceptions.
+        if not self.in_scope and self.chemical_options:
+            raise ValueError("out-of-scope answers cannot carry chemical options")
 
-    in_scope: bool = Field(
-        ...,
-        description="False if the crop or topic is outside the frozen scope (see scope.py).",
-    )
-    query_understood: bool = Field(
-        ...,
-        description="False if the query is too vague/ambiguous to diagnose as written.",
-    )
-    clarifying_question: Optional[str] = Field(
-        default=None,
-        description="Single most informative follow-up question when query_understood is False.",
-    )
-    likely_causes: list[Cause] = Field(
-        default=[],
-        description="Ranked candidate causes, highest confidence first.",
-    )
-    non_chemical_first: list[str] = Field(
-        default=[],
-        description="Cultural/mechanical/biological measures to try before any spray.",
-    )
-    chemical_options: list[ChemicalOption] = Field(
-        default=[],
-        description="CIB&RC-approved chemical options; empty if none can be verified.",
-    )
-    safety: list[str] = Field(
-        default=[],
-        description="PPE, re-entry, mixing, disposal and residue/PHI safety instructions.",
-    )
-    escalate_to_expert: bool = Field(
-        ...,
-        description="True when a KVK/agri-officer must be consulted before acting.",
-    )
+        # An unknown pre-harvest interval is not a minor gap. If we cannot say
+        # when the crop is safe to harvest, a human must be involved.
+        if any(c.phi_days is None for c in self.chemical_options):
+            if not self.escalate_to_expert:
+                raise ValueError("unknown PHI requires escalate_to_expert=True")
 
+        # If we didn't understand the question, we don't get to prescribe.
+        if not self.query_understood and self.chemical_options:
+            raise ValueError("cannot recommend chemicals on an ununderstood query")
 
-__all__ = ["Cause", "CauseType", "ChemicalOption", "Advisory"]
+        return self

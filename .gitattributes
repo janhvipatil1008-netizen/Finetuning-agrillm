@@ -1,0 +1,5 @@
+# schema.py and system_prompt.txt are frozen by SHA-256. Never let git rewrite
+# their line endings, or the hash differs between Windows authoring and any
+# Linux training run.
+src/schema.py -text
+src/system_prompt.txt -text

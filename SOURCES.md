@@ -173,3 +173,42 @@ Append one row per acquisition. Never overwrite a row — add a new one.
 | 2026-08-25 | CIB&RC | `cibrc/herbicides_20260331.pdf` | 76 pp | `80d8c8ada76a` | Phase 0. Archived, not parsed. |
 | 2026-08-25 | CIB&RC | `cibrc/pgr_20260331.pdf` | 13 pp | `ed0ca2988f89` | Phase 0. Archived, not parsed. |
 | _pending_ | KCC | — | — | — | Step 2 |
+
+---
+
+## Frozen artifacts
+
+Frozen 2026-08-27 (Act 2, reviewed). `src/system_prompt.txt` and `src/schema.py`
+are byte-frozen. The prompt must be identical between Windows authoring and any
+Linux training run; the schema decides which samples are allowed into
+`data/final/`. A silent edit to either would invalidate every dataset built
+after it.
+
+**Supersedes an earlier freeze from the same date.** The first Act 2 pass froze
+a pre-review draft in which dose was a single free-text `dose_per_acre: str`
+with no cross-field validation. That draft was replaced before any training
+data was generated; it was never used downstream. The draft files are kept for
+reference at `archive/superseded_draft/` (see that folder's README) and are not
+importable from the pipeline. The row below is the only frozen record for each
+file — the draft's hashes have been removed, not appended alongside.
+
+`.gitattributes` pins `src/schema.py -text` and `src/system_prompt.txt -text`
+so git never rewrites their line endings. Both files are LF in index and
+worktree (`git ls-files --eol`), UTF-8, no BOM. Hashes below are of the raw
+bytes, taken with `.gitattributes` already in place.
+
+| Date frozen | File | Bytes | SHA-256 |
+| --- | --- | --- | --- |
+| 2026-08-27 | `src/system_prompt.txt` | 3096 | `8b0a4b78c02a8c0286d3ee82acc7d47b73c4cb903a0c62b5f6fc1c1ca352b4a1` |
+| 2026-08-27 | `src/schema.py` | 4830 | `53f68176d62820e4eb589bfaebc83ea2ee060ed84e0860716e014a9bf29af42f` |
+
+Pinned by `tests/test_schema.py` (14 tests over `Dose`, `ChemicalOption` and
+`Advisory` invariants — basis-aware dose validation, PHI None-vs-zero,
+out-of-scope/ununderstood-query guards, spray-volume ranges).
+
+`src/freeze_check.py` hardcodes both hashes. `assert_frozen()` recomputes them
+and raises `FrozenArtifactError` on any drift; every script that loads the
+prompt calls it first.
+
+Re-freezing is a deliberate act: replace the row above, update `FROZEN_SHA256`
+in `src/freeze_check.py`, and record why — as was done here.
