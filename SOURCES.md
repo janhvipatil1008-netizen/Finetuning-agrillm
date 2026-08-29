@@ -15,6 +15,40 @@ data/final/        # train / val / test splits shipped to fine-tuning
 
 ---
 
+## Reproducing `data/interim/` from `data/raw/`
+
+`data/interim/` is gitignored (regenerable, per the convention above) — the
+CIB&RC registers below must already be in place per §1.1 before this runs.
+The single official command:
+
+```
+python tools/run_phase3.py
+```
+
+This runs, in order, each as its own subprocess so no script's globals leak
+into another's:
+
+1. `phase3_step2_extract.py` — PDFs -> raw CSVs + `quarantine.csv`
+2. `phase3_step2c_merge.py` — merges the 49 phantom continuation rows
+   diagnosed in `reports/phase3_step2b_phantom.md` (a cell that wraps across
+   a page break otherwise resurfaces as a fabricated label-claim row)
+3. `phase3_step2e_fix_row7.py` — corrects the one quarantine-parent field
+   merge documented in `reports/phase3_row7_check.md`
+
+Every step's precondition is checked before it runs and aborts loudly, by
+name, if unmet — e.g. step 3 refuses to run if step 2's manifest is missing,
+rather than failing partway through with a stack trace. The pipeline is
+idempotent: re-running it is safe, and an already-merged/already-fixed step
+no-ops.
+
+Not run by this command (one-time analysis, not part of reproducing the
+data from a frozen set of rules): `phase3_step2b_phantom.py` /
+`phase3_step2b_report.py` (the diagnosis that produced the frozen 49-row
+merge set) and `phase3_step2d_verify_sample.py` (regenerates the hand-check
+sample in `data/interim/verify_sample.csv`).
+
+---
+
 ## 0. Licensing, attribution and redistribution
 
 The CIB&RC registers below are **Government of India** publications, issued by the
