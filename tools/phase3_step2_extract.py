@@ -122,6 +122,7 @@ import json
 import random
 import re
 import sys
+from collections import Counter, defaultdict
 from pathlib import Path
 
 import camelot
@@ -199,12 +200,80 @@ def parse_footnote_marker_line(s: str) -> tuple[str, str] | None:
         return None  # bare asterisks only — a document-end marker, not a definition
     return s[:i], rest
 
+# --- column-header (two-tier) detection ------------------------------------ #
+# A row is a COLUMN-LABEL header ("Crop | Common name of the pest | Dosage/ha
+# | ...") when its glyphs are bold and it has 2+ content segments. Bold is the
+# structural signal, not a vocabulary of header words: the whole-corpus
+# bold-fraction histogram is sharply bimodal (2671 rows at 0.00, 953 at 1.00,
+# ~141 anywhere between), because CIB&RC sets every column label bold and every
+# data row regular. A vocabulary detector was built first and rejected — it
+# both missed real headers (insecticides p92 r2, p91 r12/r13, p102 r14) and
+# false-positived on real data rows that merely use header-ish words
+# (insecticides p99 r8/r9: "Mosquitoes larvae | Clean surface water |
+# 25-50 g a.i./ha" is a genuine public-health dose row, not a header).
+# Single-segment bold rows are chemical names and stay `chemical_header`.
+BOLD_HEADER_MIN_FRACTION = 0.9
+
+
+def row_bold_fraction(page, cells, height: float) -> float | None:
+    """Fraction of glyphs in this row's band that are bold. None if no glyphs."""
+    y_lo = min(c.y1 for c in cells)
+    y_hi = max(c.y2 for c in cells)
+    x_lo = min(c.x1 for c in cells)
+    x_hi = max(c.x2 for c in cells)
+    top_lo, top_hi = height - y_hi, height - y_lo
+    chars = [c for c in page.chars
+             if top_lo - 1 <= c["top"] <= top_hi + 1
+             and x_lo - 1 <= c["x0"] <= x_hi + 1
+             and c["text"].strip()]
+    if not chars:
+        return None
+    return sum(1 for c in chars if "Bold" in c["fontname"]) / len(chars)
+
+
+# --- type guard on fallback_subset assignment ------------------------------ #
+# `best_subset_assignment` places segments by x-midpoint distance alone; it
+# cannot tell a dose figure from a sentence, so a long method sentence lands
+# in whichever dose/dilution band its midpoint happens to fall nearest
+# (bio_insecticides p10 Gerbera: "Apply the Nemastin @ 50 gm/sq.m at the time
+# of planting" -> dilution_water). The guard rejects that RESULT; it does not
+# choose the column. Geometry still decides placement — this only refuses an
+# outcome that cannot be a dose/dilution value.
+GUARDED_COLUMNS = ("dose_ai", "dose_formulation", "dilution_water")
+GUARD_MIN_LEN = 40
+LEADING_NUMERIC_RE = re.compile(r"^[\(\[]?\s*\d")
+# "1st spray", "2nd application" — a leading ORDINAL is prose, not a quantity.
+LEADING_ORDINAL_RE = re.compile(r"^[\(\[]?\s*\d+\s*(st|nd|rd|th)\b", re.I)
+
+
+def violates_type_guard(text: str) -> bool:
+    """Too long to be a dose/dilution value AND not led by a quantity.
+
+    The leading-numeric test is what keeps genuine compound doses out of the
+    guard: insecticides p87's "108 (Spiropidion 60 + Acetamiprid 48) - 135
+    (Spiropidion 75 + Acetamiprid 60)" is 77 chars but starts with a digit, so
+    it is a dose and passes. "Apply the Nemastin @ 50 gm/sq.m..." is 54 chars
+    starting with a letter, so it is not.
+
+    Leading ORDINALS are excluded from that reprieve: insecticides p55's
+    "(1st spray when insect pest reaches ETL. Repeat one spray at 10-15 days
+    interval...)" is 110 chars of pure prose that a bare leading-digit test
+    waved through, because "(1" satisfied it.
+    """
+    t = " ".join(str(text or "").split())
+    if len(t) <= GUARD_MIN_LEN:
+        return False
+    if LEADING_ORDINAL_RE.match(t):
+        return True
+    return not LEADING_NUMERIC_RE.match(t)
+
+
 RAW_CSV_FIELDS = [
     "source_file", "source_page", "source_table_index", "source_row_index",
     "section", "subsection", "assignment_kind",
     "crop", "pest_or_disease", "dose_ai", "dose_formulation",
-    "dilution_water", "waiting_period_phi",
-    "is_chemical_header", "phi_cell_present",
+    "dilution_water", "waiting_period_phi", "method",
+    "is_chemical_header", "is_column_header", "phi_cell_present",
     "unresolved_marker", "footnote_text", "flag_truncated_cell",
     "raw_row_text",
 ]
@@ -287,11 +356,18 @@ def phi_cell_present_geometric(t, grid_sub: dict, tol: float = 25.0) -> bool:
 
 
 def resolve_phi_presence(t, grid_subs: dict, section_map_fn: dict,
-                         fn: str, page: int, height: float) -> dict[str, bool]:
+                         fn: str, page: int, height: float,
+                         page_obj=None) -> dict[str, bool]:
     """Per SUBSECTION seen in this table: True if ANY row's own resolved
     PHI band is non-blank (content is definitive proof the cell exists —
     checked BEFORE any geometry, per the p2 false-negative above); else
-    fall back to `phi_cell_present_geometric`."""
+    fall back to `phi_cell_present_geometric`.
+
+    Column-header rows are skipped: a bold "Waiting period (days)" LABEL in
+    the PHI band is not evidence that any row carries a PHI VALUE, and
+    counting it would mask the ABSENT/PRESENT-AND-EMPTY distinction this
+    field exists to preserve.
+    """
     any_phi_content: dict[str, bool] = {}
     seen_subs: set[str] = set()
     for row_cells in t.cells:
@@ -303,6 +379,9 @@ def resolve_phi_presence(t, grid_subs: dict, section_map_fn: dict,
         seen_subs.add(subsection)
         segs = row_segments(row_cells)
         kind, resolved_or_content, _ = classify_row(segs)
+        if page_obj is not None and is_column_header_row(page_obj, row_cells,
+                                                         height, segs):
+            continue
         phi_text = ""
         if kind == "ordinal_6":
             phi_text = resolved_or_content[5]
@@ -318,6 +397,14 @@ def resolve_phi_presence(t, grid_subs: dict, section_map_fn: dict,
         result[sub] = any_phi_content.get(
             sub, phi_cell_present_geometric(t, grid_subs[sub]))
     return result
+
+
+def is_column_header_row(page, cells, height: float, segs: list[dict]) -> bool:
+    content = [s for s in segs if s["text"]]
+    if len(content) < 2:
+        return False           # single-segment bold rows are chemical names
+    frac = row_bold_fraction(page, cells, height)
+    return frac is not None and frac >= BOLD_HEADER_MIN_FRACTION
 
 
 def row_section(fn: str, page: int, cell0_y1: float, height: float,
@@ -355,145 +442,256 @@ def find_markers(values: list[str]) -> set[str]:
 
 
 def process_file(fn: str, section_map: dict, grid: dict,
-                  footnotes: dict[str, str]) -> tuple[list[dict], list[dict], int]:
-    """Returns (raw_rows, quarantine_rows, total_source_rows)."""
+                  footnotes: dict[str, str]) -> tuple[list[dict], list[dict], int, dict]:
+    """Returns (raw_rows, quarantine_rows, total_source_rows, stats).
+
+    Two passes. Pass A resolves every row geometrically and records, per
+    chemical block, whether that block is free-text-method-shaped. Pass B
+    needs that block-level answer before it can apply the type guard — the
+    guard's two outcomes (reroute to `method` vs quarantine) are decided by
+    the shape of the block the row sits in, which is not knowable while that
+    block is still being read.
+    """
     path = RAW / fn
-    with pdfplumber.open(path) as pdf:
+    pdf = pdfplumber.open(path)
+    try:
         npages = len(pdf.pages)
         height = float(pdf.pages[0].height)
-    tables = camelot.read_pdf(str(path), pages=f"1-{npages}", flavor="lattice")
+        tables = camelot.read_pdf(str(path), pages=f"1-{npages}", flavor="lattice")
 
-    grid_subs = {sub: grid[fn]["bands_by_subsection"][sub]
-                for sub in CROP_ADVISORY_SUBSECTIONS[fn]}
+        grid_subs = {sub: grid[fn]["bands_by_subsection"][sub]
+                    for sub in CROP_ADVISORY_SUBSECTIONS[fn]}
 
+        staged: list[dict] = []
+        total_source_rows = 0
+        cur_crop = ""
+        cur_chem = ""
+        cur_state_key = None
+
+        # ---------------- pass A: classify + geometric assignment ---------- #
+        for t_idx, t in enumerate(tables):
+            page = int(t.page)
+            page_obj = pdf.pages[page - 1]
+            page_section, page_subsection = section_map.get(fn, {}).get(
+                page, ("unclassified", "unclassified"))
+            table_phi_present_cache = resolve_phi_presence(
+                t, grid_subs, section_map.get(fn, {}), fn, page, height, page_obj)
+
+            for r_idx, row_cells in enumerate(t.cells):
+                total_source_rows += 1
+                section, subsection = row_section(
+                    fn, page, float(row_cells[0].y1), height,
+                    page_section, page_subsection)
+
+                state_key = (section, subsection)
+                if state_key != cur_state_key:
+                    cur_crop, cur_chem = "", ""
+                    cur_state_key = state_key
+
+                segs = row_segments(row_cells)
+                kind, resolved_or_content, content_texts = classify_row(segs)
+                raw_row_text = " || ".join(content_texts) if content_texts else ""
+                is_crop_advisory = (section == "crop-advisory"
+                                    and subsection in grid_subs)
+
+                # --- FIX 1: two-tier column-label header ------------------- #
+                # Detected before any other classification so its label text
+                # can never reach a semantic column, and so it cannot advance
+                # the crop/chemical forward-fill state (a row reading
+                # crop='Crop' would otherwise be inherited by every following
+                # blank-crop row).
+                if is_column_header_row(page_obj, row_cells, height, segs):
+                    kind = "column_header"
+
+                staged.append({
+                    "fn": fn, "page": page, "t_idx": t_idx, "r_idx": r_idx,
+                    "section": section, "subsection": subsection,
+                    "kind": kind, "segs": segs,
+                    "resolved_or_content": resolved_or_content,
+                    "content_texts": content_texts,
+                    "raw_row_text": raw_row_text,
+                    "is_crop_advisory": is_crop_advisory,
+                    "phi_present": (table_phi_present_cache.get(subsection)
+                                    if is_crop_advisory else None),
+                    "resolved6": [""] * 6,
+                    "chem": "", "block": None,
+                })
+
+                rec = staged[-1]
+                if kind == "column_header":
+                    continue
+                if kind == "residual_over6" or r_idx in TRUNCATED_CELL_ROWS.get((fn, page), []):
+                    continue
+
+                resolved6 = [""] * 6
+                if kind == "chemical_header":
+                    if is_crop_advisory:
+                        cur_chem = content_texts[0]
+                        cur_crop = ""
+                elif kind == "ordinal_6" and is_crop_advisory:
+                    resolved6 = list(resolved_or_content)
+                elif kind == "fallback_subset" and is_crop_advisory:
+                    assign = best_subset_assignment(
+                        resolved_or_content, grid_subs[subsection]["centers"])
+                    if assign is not None:
+                        for seg, b in zip(resolved_or_content, assign):
+                            resolved6[b] = seg["text"]
+
+                if is_crop_advisory:
+                    if resolved6[0]:
+                        cur_crop = resolved6[0]
+                    else:
+                        resolved6[0] = cur_crop
+                    rec["chem"] = cur_chem
+                    rec["block"] = (section, subsection, cur_chem)
+                rec["resolved6"] = resolved6
+    finally:
+        pdf.close()
+
+    # ---------------- block shape, from pass A's geometric result --------- #
+    # "Free-text-method shape" = the block SYSTEMATICALLY carries method
+    # prose, i.e. at least half its data rows have a segment that cannot be a
+    # dose/dilution value. That is the evidence a "Method of application"
+    # column exists in the source for this block, which is what decides
+    # whether a guarded segment has a legitimate destination.
+    #
+    # A narrower first definition — "every data row has dose_ai AND
+    # dose_formulation blank" — was implemented and rejected on inspection of
+    # what it quarantined: bio_fungicides rows such as
+    #   "- | 2.5 kg per ha (05 g/litre water) (Foliar | Spray Pseudomonas
+    #    fluorescens 1.75% WP uniformly on the crop. | 500 lit per ha"
+    # carry a real dose AND real method text AND a real dilution, so a
+    # blank-dose test called them not-method-shaped and quarantined 39 of
+    # bio_fungicides' 147 rows whose method column plainly exists. Keying on
+    # the prose itself, rather than on dose happening to be absent, is what
+    # the instruction's "if the block has that shape" actually means.
+    block_rows: dict[tuple, list[dict]] = defaultdict(list)
+    for rec in staged:
+        if rec["block"] and rec["kind"] in ("ordinal_6", "fallback_subset"):
+            block_rows[rec["block"]].append(rec)
+    # Measured only on segments that landed in a GUARDED column. Testing every
+    # segment instead counts a long pest description ("Mealy bugs
+    # (Phenococcus solenopsis, Thrips (Thips tabaci), Jassids (Amrasca
+    # devastans)...") as evidence of a method column, which inflated this from
+    # 60 blocks to 277 — long text in the pest column says nothing about
+    # whether a dose/dilution column is receiving prose.
+    method_shaped = set()
+    for blk, rs in block_rows.items():
+        if not rs:
+            continue
+        prose_rows = sum(
+            1 for r in rs
+            if any(violates_type_guard(r["resolved6"][i]) for i in (2, 3, 4)))
+        if prose_rows / len(rs) >= 0.5:
+            method_shaped.add(blk)
+
+    # ---------------- pass B: type guard + emit --------------------------- #
     raw_rows: list[dict] = []
     quarantine_rows: list[dict] = []
-    total_source_rows = 0
+    stats = Counter()
 
-    cur_crop = ""
-    cur_chem = ""
-    cur_state_key = None  # (section, subsection) — resets forward-fill on change
+    for rec in staged:
+        fnm, page, t_idx, r_idx = rec["fn"], rec["page"], rec["t_idx"], rec["r_idx"]
+        section, subsection = rec["section"], rec["subsection"]
+        kind = rec["kind"]
+        raw_row_text = rec["raw_row_text"]
 
-    for t_idx, t in enumerate(tables):
-        page = int(t.page)
-        page_section, page_subsection = section_map.get(fn, {}).get(
-            page, ("unclassified", "unclassified"))
-
-        # Per SUBSECTION actually seen among this table's rows (not the
-        # page's single nominal tag — a boundary-page table like insecticides
-        # p89 has rows whose row-level subsection differs from the page-level
-        # default), content-first then geometric fallback (see
-        # `resolve_phi_presence`).
-        table_phi_present_cache = resolve_phi_presence(
-            t, grid_subs, section_map.get(fn, {}), fn, page, height)
-
-        for r_idx, row_cells in enumerate(t.cells):
-            total_source_rows += 1
-            section, subsection = row_section(
-                fn, page, float(row_cells[0].y1), height, page_section, page_subsection)
-
-            state_key = (section, subsection)
-            if state_key != cur_state_key:
-                cur_crop, cur_chem = "", ""
-                cur_state_key = state_key
-
-            segs = row_segments(row_cells)
-            kind, resolved_or_content, content_texts = classify_row(segs)
-            raw_row_text = " || ".join(content_texts) if content_texts else ""
-
-            is_crop_advisory = section == "crop-advisory" and subsection in grid_subs
-            table_phi_present = (table_phi_present_cache.get(subsection)
-                                 if is_crop_advisory else None)
-
-            # --- fumigation-style overflow: quarantine, cols_unresolved ---
-            if kind == "residual_over6":
-                quarantine_rows.append({
-                    "source_file": fn, "source_page": page,
-                    "source_table_index": t_idx, "source_row_index": r_idx,
-                    "reason_code": "cols_unresolved",
-                    "section": section, "subsection": subsection,
-                    "raw_row_text": raw_row_text,
-                })
-                continue
-
-            # --- known character-loss defect: quarantine, truncated_cell ---
-            if r_idx in TRUNCATED_CELL_ROWS.get((fn, page), []):
-                quarantine_rows.append({
-                    "source_file": fn, "source_page": page,
-                    "source_table_index": t_idx, "source_row_index": r_idx,
-                    "reason_code": "truncated_cell",
-                    "section": section, "subsection": subsection,
-                    "raw_row_text": raw_row_text,
-                })
-                continue
-
-            resolved6 = [""] * 6
-            if kind == "chemical_header":
-                if is_crop_advisory:
-                    cur_chem = content_texts[0]
-                    cur_crop = ""
-            elif kind == "ordinal_6" and is_crop_advisory:
-                resolved6 = list(resolved_or_content)
-            elif kind == "fallback_subset" and is_crop_advisory:
-                assign = best_subset_assignment(
-                    resolved_or_content, grid_subs[subsection]["centers"]) \
-                    if subsection in grid_subs else None
-                if assign is not None:
-                    for seg, b in zip(resolved_or_content, assign):
-                        resolved6[b] = seg["text"]
-                else:
-                    resolved6 = [""] * 6
-
-            if is_crop_advisory:
-                if resolved6[0]:
-                    cur_crop = resolved6[0]
-                else:
-                    resolved6[0] = cur_crop
-                # active_ingredient is set only by header rows; carried here
-                cur_active_ingredient = cur_chem
-            else:
-                cur_active_ingredient = ""
-
-            markers = find_markers(content_texts)
-            footnote_texts = []
-            unresolved_marker = False
-            for m in markers:
-                if m in footnotes:
-                    footnote_texts.append(footnotes[m])
-                else:
-                    unresolved_marker = True
-            footnote_text = "; ".join(sorted(set(footnote_texts)))
-
-            raw_rows.append({
-                "source_file": fn, "source_page": page,
+        def q(reason):
+            quarantine_rows.append({
+                "source_file": fnm, "source_page": page,
                 "source_table_index": t_idx, "source_row_index": r_idx,
-                "section": section, "subsection": subsection,
-                "assignment_kind": kind,
-                "crop": resolved6[0] if is_crop_advisory else "",
-                "pest_or_disease": resolved6[1] if is_crop_advisory else "",
-                "dose_ai": resolved6[2] if is_crop_advisory else "",
-                "dose_formulation": resolved6[3] if is_crop_advisory else "",
-                "dilution_water": resolved6[4] if is_crop_advisory else "",
-                "waiting_period_phi": resolved6[5] if is_crop_advisory else "",
-                "is_chemical_header": kind == "chemical_header",
-                "phi_cell_present": table_phi_present if is_crop_advisory else "",
-                "unresolved_marker": unresolved_marker,
-                "footnote_text": footnote_text,
-                "flag_truncated_cell": False,
-                "raw_row_text": raw_row_text,
+                "reason_code": reason, "section": section,
+                "subsection": subsection, "raw_row_text": raw_row_text,
             })
-            # stash active_ingredient onto the row we just appended
-            raw_rows[-1]["active_ingredient"] = cur_active_ingredient if is_crop_advisory else ""
 
-    return raw_rows, quarantine_rows, total_source_rows
+        if kind == "residual_over6":
+            q("cols_unresolved")
+            stats["quarantine_residual_over6"] += 1
+            continue
+        if r_idx in TRUNCATED_CELL_ROWS.get((fnm, page), []):
+            q("truncated_cell")
+            stats["quarantine_truncated"] += 1
+            continue
+
+        resolved6 = list(rec["resolved6"])
+        method_text = ""
+
+        # --- FIX 3: type guard on the geometric RESULT --------------------- #
+        if kind == "fallback_subset" and rec["is_crop_advisory"]:
+            offenders = [i for i, col in ((2, "dose_ai"), (3, "dose_formulation"),
+                                          (4, "dilution_water"))
+                         if violates_type_guard(resolved6[i])]
+            if offenders:
+                stats["guard_fired_rows"] += 1
+                if rec["block"] in method_shaped:
+                    # FIX 2: the destination that did not exist before
+                    moved = [resolved6[i] for i in offenders]
+                    method_text = " ".join(m for m in moved if m).strip()
+                    for i in offenders:
+                        resolved6[i] = ""
+                    stats["guard_rerouted_to_method"] += 1
+                else:
+                    q("cols_unresolved")
+                    stats["guard_quarantined"] += 1
+                    continue
+
+        markers = find_markers(rec["content_texts"])
+        footnote_texts, unresolved_marker = [], False
+        for m in markers:
+            if m in footnotes:
+                footnote_texts.append(footnotes[m])
+            else:
+                unresolved_marker = True
+
+        ca = rec["is_crop_advisory"]
+        raw_rows.append({
+            "source_file": fnm, "source_page": page,
+            "source_table_index": t_idx, "source_row_index": r_idx,
+            "section": section, "subsection": subsection,
+            "assignment_kind": kind,
+            "active_ingredient": rec["chem"] if ca else "",
+            "crop": resolved6[0] if ca else "",
+            "pest_or_disease": resolved6[1] if ca else "",
+            "dose_ai": resolved6[2] if ca else "",
+            "dose_formulation": resolved6[3] if ca else "",
+            "dilution_water": resolved6[4] if ca else "",
+            "waiting_period_phi": resolved6[5] if ca else "",
+            "method": method_text,
+            "is_chemical_header": kind == "chemical_header",
+            "is_column_header": kind == "column_header",
+            "phi_cell_present": rec["phi_present"] if ca else "",
+            "unresolved_marker": unresolved_marker,
+            "footnote_text": "; ".join(sorted(set(footnote_texts))),
+            "flag_truncated_cell": False,
+            "raw_row_text": raw_row_text,
+        })
+        if kind == "column_header":
+            stats["column_header_rows"] += 1
+        if method_text:
+            stats["rows_with_method"] += 1
+
+    stats["method_shaped_blocks"] = len(method_shaped)
+    return raw_rows, quarantine_rows, total_source_rows, stats
 
 
-def write_csv(path: Path, rows: list[dict], fields: list[str]) -> None:
-    with open(path, "w", newline="", encoding="utf-8") as f:
+def write_csv(path: Path, rows: list[dict], fields: list[str]) -> Path:
+    """Write `rows` to `path`; on Windows the target can be locked by Excel
+    if the file is open for review, so fall back to a sibling `.locked.csv`
+    and say so loudly rather than losing the whole run's output."""
+    try:
+        target = path
+        f = open(target, "w", newline="", encoding="utf-8")
+    except PermissionError:
+        target = path.with_suffix(".locked.csv")
+        print(f"   !! {path.name} is locked (open elsewhere?) — writing "
+              f"{target.name} instead", flush=True)
+        f = open(target, "w", newline="", encoding="utf-8")
+    with f:
         w = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
         w.writeheader()
         for r in rows:
             w.writerow(r)
+    return target
 
 
 def main() -> None:
@@ -501,21 +699,28 @@ def main() -> None:
     section_map = load_section_map()
     grid = load_grid()
 
-    fields = RAW_CSV_FIELDS[:8] + ["active_ingredient"] + RAW_CSV_FIELDS[8:]
+    fields = RAW_CSV_FIELDS[:7] + ["active_ingredient"] + RAW_CSV_FIELDS[7:]
 
     all_quarantine: list[dict] = []
     per_file_counts = {}
     total_source_rows_all = 0
+    all_stats = Counter()
 
     for fn in IN_SCOPE:
         print(f"== {fn}", flush=True)
         footnotes = build_footnote_registry(RAW / fn)
-        print(f"   footnote registry: {footnotes}", flush=True)
-        raw_rows, quarantine_rows, total_source = process_file(fn, section_map, grid, footnotes)
+        print(f"   footnote registry: {sorted(footnotes)}", flush=True)
+        raw_rows, quarantine_rows, total_source, stats = process_file(
+            fn, section_map, grid, footnotes)
+        all_stats.update(stats)
 
         out_name = fn.replace(".pdf", "_raw.csv")
         write_csv(INTERIM / out_name, raw_rows, fields)
-        print(f"   wrote {INTERIM / out_name} ({len(raw_rows)} rows)", flush=True)
+        print(f"   wrote {INTERIM / out_name} ({len(raw_rows)} rows) "
+              f"col_hdr={stats['column_header_rows']} "
+              f"method={stats['rows_with_method']} "
+              f"guard_reroute={stats['guard_rerouted_to_method']} "
+              f"guard_quar={stats['guard_quarantined']}", flush=True)
 
         all_quarantine.extend(quarantine_rows)
         total_source_rows_all += total_source
@@ -570,14 +775,32 @@ def main() -> None:
                if r["source_file"] == fn_b and int(r["source_page"]) == pg_b]
         if pool:
             sample.append(random.choice(pool))
-    chosen_ids = {(r["source_file"], r["source_page"], r["source_table_index"], r["source_row_index"])
-                  for r in sample}
+    def ids(rs):
+        return {(r["source_file"], r["source_page"], r["source_table_index"],
+                 r["source_row_index"]) for r in rs}
+
+    # Weighted toward what actually changed this run, per instruction:
+    # 8 fallback_subset rows (the class the type guard acts on) and 6 rows
+    # carrying method text (the bio free-text blocks, whose destination is
+    # new). Drawn before the general fill so they cannot be crowded out.
+    fb_pool = [r for r in all_raw_rows
+               if r["assignment_kind"] == "fallback_subset"
+               and (r["source_file"], r["source_page"], r["source_table_index"],
+                    r["source_row_index"]) not in ids(sample)]
+    sample += random.sample(fb_pool, min(8, len(fb_pool)))
+
+    method_pool = [r for r in all_raw_rows
+                   if r["method"].strip()
+                   and (r["source_file"], r["source_page"], r["source_table_index"],
+                        r["source_row_index"]) not in ids(sample)]
+    sample += random.sample(method_pool, min(6, len(method_pool)))
+
     remaining = [r for r in all_raw_rows
-                if (r["source_file"], r["source_page"], r["source_table_index"], r["source_row_index"])
-                not in chosen_ids]
+                if (r["source_file"], r["source_page"], r["source_table_index"],
+                    r["source_row_index"]) not in ids(sample)]
     sample += random.sample(remaining, max(0, 25 - len(sample)))
-    write_csv(INTERIM / "verify_sample.csv", sample, fields)
-    print(f"\nwrote {INTERIM / 'verify_sample.csv'} ({len(sample)} rows)")
+    written = write_csv(INTERIM / "verify_sample.csv", sample, fields)
+    print(f"\nwrote {written} ({len(sample)} rows)")
 
     # --- summary ------------------------------------------------------------
     print("\n=== per-file counts ===")
@@ -610,6 +833,34 @@ def main() -> None:
     n_footnoted = sum(1 for r in all_raw_rows if r["footnote_text"])
     print(f"  unresolved_marker=True rows: {n_unresolved}")
     print(f"  footnote_text populated rows: {n_footnoted}")
+
+    print("\n=== this run's three fixes ===")
+    print(f"  [1] column_header rows detected : {all_stats['column_header_rows']}")
+    print(f"  [2] rows with method text       : {all_stats['rows_with_method']}")
+    print(f"      free-text-method blocks     : {all_stats['method_shaped_blocks']}")
+    print(f"  [3] type guard fired on rows    : {all_stats['guard_fired_rows']}")
+    print(f"        -> rerouted to method     : {all_stats['guard_rerouted_to_method']}")
+    print(f"        -> quarantined            : {all_stats['guard_quarantined']}")
+
+    print("\n=== assignment_kind distribution ===")
+    kinds: dict[str, int] = {}
+    for r in all_raw_rows:
+        kinds[r["assignment_kind"]] = kinds.get(r["assignment_kind"], 0) + 1
+    for k, v in sorted(kinds.items(), key=lambda kv: -kv[1]):
+        print(f"  {k:<20} {v}")
+
+    print("\n=== header-fragment residual check ===")
+    hdr_labels = {"crop", "name of crop", "name of the crop", "common name",
+                  "common name of the target organism", "dosage", "dose",
+                  "formulation", "method of application", "waiting period",
+                  "phi", "a.i.", "a.i", "dilution in water"}
+    residual = [r for r in all_raw_rows
+                if " ".join(r["crop"].split()).lower() in hdr_labels
+                or " ".join(r["pest_or_disease"].split()).lower() in hdr_labels]
+    print(f"  rows still carrying a header label in crop/pest: {len(residual)}")
+    for r in residual:
+        print(f"    {r['source_file']} p{r['source_page']} r{r['source_row_index']} "
+              f"kind={r['assignment_kind']} crop={r['crop']!r} pest={r['pest_or_disease']!r}")
 
 
 if __name__ == "__main__":
