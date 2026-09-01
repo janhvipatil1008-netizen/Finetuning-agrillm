@@ -25,7 +25,29 @@ as a mismatch: 219 liquid rows here, 47 of them "failing" with a median ratio
 of 1.124, which is a density, not an error. Liquids are therefore reported
 separately and only when they fall outside a plausible density band
 (0.80-1.35). Solids are the high-confidence signal: 129 of 136 land within
-10% of 1.0, so the 7 that do not are worth reading individually.
+10% of 1.0.
+
+DISPOSITION (as of 2026-09-01). 3 solid mismatches, all resolved into
+data/final/known_contradictions.csv -- for a solid, g_a.i. = g_product x % is
+exact, so a failure here means the a.i./formulation pair is internally
+inconsistent and neither number can be trusted, the same standard Step C used
+for a two-row disagreement:
+    Flubendiamide 20% WG, tomato   (insecticides p33 r3)  -- found in Step C
+    Copper Hydroxide 53.8% DF, grape (fungicides p8 r25)  -- reason=strength_mismatch
+    Pyrifluinazon 20% WG, cotton   (insecticides p45 r11) -- reason=strength_mismatch
+
+3 liquid outliers are NOT data errors and were deliberately left unresolved:
+outside the checked density band does not mean outside every plausible
+density, only outside the 0.80-1.35 g/ml window this script uses as a coarse
+filter. A concentration cell sitting in a mass/volume column (the Imidacloprid
+17.80%SL row reads '0.06-0.08' against '300-400', which looks like a
+concentration_pct value misplaced into the numeric-basis column) or a
+CFU-based biopesticide with no true density (Trichoderma viride 1.5% AS) are
+different failure shapes from a strength-header mismatch, and resolving them
+needs a look at the source cell, not a wider density band:
+    Imidacloprid 17.80%SL, grape      (insecticides p37 r23) ratio ~0.00
+    Indoxacarb 15.80%EC, soybean      (insecticides p38 r19) ratio 0.57
+    Trichoderma viride 1.5% AS, tomato (bio_fungicides p9 r14) ratio 2.00
 """
 from __future__ import annotations
 

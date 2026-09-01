@@ -208,3 +208,39 @@ recover most of the 22 trainable rows currently ungradeable. The remaining 5
 - `test_the_investigated_ambiguous_groups_are_still_present` — the four row
   groups classified above still exist, so a classification cannot lapse
   silently.
+
+---
+
+## Addendum — 2 strength-consistency contradictions added
+
+`tools/phase6_stepD_strength_check.py` (does `dose_ai == dose_formulation x
+stated_strength_percent`?) found 3 SOLID-formulation rows where the pair is
+arithmetically impossible — for a solid, `g_a.i. = g_product x %` is exact, so
+a failure means the row's own two dose columns disagree about what product
+they describe. One of the three was the Flubendiamide 20% WG defect already
+in this report's (c) table. The other two are genuinely new findings, not
+present in the 27-set ambiguity sweep above because each is a **single row**
+with no sibling to disagree with — the internal a.i./formulation
+inconsistency is the defect, not a clash between two rows.
+
+Added to `data/final/known_contradictions.csv` with `reason=strength_mismatch`:
+
+| crop | product | source | a.i. stated | implies | header says | ratio |
+|---|---|---|---|---|---|---|
+| grape | Copper Hydroxide 53.8% DF | fungicides p8 r25 | 525 g / 1500 g | ~35% | 53.8% | 0.65 |
+| cotton | Pyrifluinazon 20% WG | insecticides p45 r11 | 100 g / 375 g | ~27% | 20% | 1.33 |
+
+Same standard as class (c): the document (or the row's own internal pairing)
+is inconsistent, extraction is faithful, and there is nothing to parse-fix.
+Excluded by the verifier the same way — scoped to the candidates a
+recommendation resolves to, never the whole (crop, pest) pair.
+
+`known_contradictions.csv` is now **12 rows in 7 groups** (5 two-row
+disagreement groups + 2 single-row strength-mismatch rows). Gradeable
+trainable rows (dose-parseable, minus documented contradictions): **616**
+(628 trainable − 12 contradicted).
+
+The 3 liquid-formulation outliers the same tool found are **not** added here:
+a liquid needs a density term the check cannot supply, and "outside the
+0.80–1.35 band" is a coarse filter, not proof of a data error. See the tool's
+docstring for the per-row reasoning.

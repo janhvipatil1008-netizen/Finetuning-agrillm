@@ -1479,14 +1479,16 @@ def test_the_investigated_ambiguous_groups_are_still_present(resources):
 
 
 def test_documented_contradictions_are_excluded_by_name(verify_mod, resources):
-    """The 5 class-(c) groups: CIB&RC states two values and we cannot resolve
-    it. They are excluded with a reason naming the source pages, so they read
-    as a documented ceiling rather than an unfixed bug."""
+    """The 5 class-(c) two-way-disagreement groups plus 2 class-strength_mismatch
+    single rows (Copper Hydroxide grape p8r25, Pyrifluinazon cotton p45r11,
+    both solid formulations whose a.i./formulation pair fails g x % = exact).
+    They are excluded with a reason naming the source pages, so they read as a
+    documented ceiling rather than an unfixed bug."""
     from pest_matcher import match_pest
     db, df = resources.label_db, resources.label_db.df
     contradicted = [r for r in db.rows if r.contradiction]
-    assert len(contradicted) == 10, f"expected 10 rows in 5 groups, got {len(contradicted)}"
-    assert len({r.contradiction.split(":")[0] for r in contradicted}) == 5
+    assert len(contradicted) == 12, f"expected 12 rows in 7 groups, got {len(contradicted)}"
+    assert len({r.contradiction.split(":")[0] for r in contradicted}) == 7
 
     checked = 0
     for row in contradicted:
@@ -1511,17 +1513,34 @@ def test_documented_contradictions_are_excluded_by_name(verify_mod, resources):
         assert "documented CIB&RC contradiction" in r.exclusion_reason
         assert r.passed is False
         checked += 1
-    assert checked >= 4, f"only {checked} contradiction rows exercised"
+    assert checked >= 5, f"only {checked} contradiction rows exercised"
 
 
 def test_contradiction_ledger_names_its_evidence(verify_mod):
     """Each reason must cite the source file and page, or it is an assertion
     rather than a record."""
     led = verify_mod.load_contradictions()
-    assert len(led) == 10
+    assert len(led) == 12
     for key, reason in led.items():
         assert any(f in reason for f in ("insecticides p", "fungicides p")), reason
         assert ":" in reason, "reason must carry its group_id"
+
+
+def test_strength_mismatch_contradictions_are_present(verify_mod, resources):
+    """The 2 solid strength-consistency failures from
+    tools/phase6_stepD_strength_check.py: dose_ai != dose_formulation x stated
+    strength, for a SOLID formulation where g_a.i. = g_product x % is exact
+    (no density term to absorb the gap). Neither number in the pair can be
+    trusted, so the row is a documented ceiling rather than a graded miss."""
+    led = verify_mod.load_contradictions()
+    copper = led.get(("fungicides_20260331.pdf", "8", "25"))
+    pyri = led.get(("insecticides_20260331.pdf", "45", "11"))
+    assert copper is not None and "strength_mismatch" in copper
+    assert pyri is not None and "strength_mismatch" in pyri
+
+    db = resources.label_db
+    assert db.rows[396].contradiction and "strength_mismatch" in db.rows[396].contradiction
+    assert db.rows[201].contradiction and "strength_mismatch" in db.rows[201].contradiction
 
 
 def test_one_contradicted_product_does_not_sink_the_whole_pair(
