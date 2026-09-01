@@ -125,6 +125,7 @@ __all__ = [
     "GATE_NAMES",
     "TRAINABLE_BRANCHES",
     "expected_answerable",
+    "load_contradictions",
     "load_label_db",
     "ai_identity_key",
     "normalise_ai",
@@ -282,6 +283,33 @@ def formulation_key(text: Optional[str]) -> tuple[Optional[str], Optional[float]
 # label_db
 # --------------------------------------------------------------------------
 
+DEFAULT_CONTRADICTIONS_PATH = (
+    Path(__file__).resolve().parents[1] / "data" / "final" /
+    "known_contradictions.csv")
+
+
+def load_contradictions(path: Path | str | None = None) -> dict:
+    """Rows CIB&RC itself states two ways — a documented ceiling, not a bug.
+
+    Five groups, ten rows, each investigated against the source PDF and
+    recorded in reports/phase6_stepC_ambiguity_investigation.md class (c).
+    They cannot be resolved at our end: the document contains the
+    contradiction. Marking them keeps them from being re-investigated and
+    makes their exclusion read as a decision.
+
+    Keyed on (source_file, source_page, source_row_index) — stable provenance
+    — not on row position, which moves when label_db is rebuilt.
+    """
+    path = Path(path) if path else DEFAULT_CONTRADICTIONS_PATH
+    if not path.exists():
+        return {}
+    import csv as _csv
+    with open(path, newline="", encoding="utf-8") as fh:
+        return {(r["source_file"], r["source_page"], r["source_row_index"]):
+                f'{r["group_id"]}: {r["reason"]}'
+                for r in _csv.DictReader(fh)}
+
+
 def load_label_db(path: Path | str) -> pd.DataFrame:
     """Load label_db from parquet. Refuses a CSV path.
 
@@ -316,6 +344,7 @@ class _Row:
     defective: bool
     biological: bool
     application_method: str
+    contradiction: str
 
 
 class LabelDB:
@@ -325,7 +354,9 @@ class LabelDB:
     costs a pass over 740 rows and must not happen per item.
     """
 
-    def __init__(self, df: pd.DataFrame, table: SynonymTable):
+    def __init__(self, df: pd.DataFrame, table: SynonymTable,
+                 contradictions: Optional[dict] = None):
+        contradictions = contradictions or {}
         self.df = df
         self.table = table
         self.rows: list[_Row] = []
@@ -354,6 +385,9 @@ class LabelDB:
                 defective=bool(r["flag_pest_bled"]) or bool(r["crop_multi_crop_split"]),
                 biological=str(r["source_file"]).startswith("bio_"),
                 application_method=str(r.get("application_method", "") or ""),
+                contradiction=contradictions.get(
+                    (str(r["source_file"]), str(r["source_page"]),
+                     str(r["source_row_index"])), ""),
             )
             self.rows.append(row)
             for c in canon:
@@ -427,8 +461,8 @@ class VerifyResources:
         df = load_label_db(label_db_path
                            or root / "data" / "final" / "label_db.parquet")
         table = load_table(synonym_table_path) if synonym_table_path else load_table()
-        return cls(label_db=LabelDB(df, table), table=table,
-                   restricted=RESTRICTED_AI)
+        return cls(label_db=LabelDB(df, table, load_contradictions()),
+                   table=table, restricted=RESTRICTED_AI)
 
 
 @dataclass
@@ -755,6 +789,18 @@ def verify(output: str, ctx: VerifyContext,
                   f"G5: no CIB&RC claim for {opt.active_ingredient!r} on "
                   f"{ctx.crop_slug} / {ctx.pest_query!r}")
     gates["G5_triple_registered"] = g5
+
+    # ---- documented CIB&RC contradictions: drop, do not grade -----------
+    # Fires on the CANDIDATES this recommendation resolves to, not on every
+    # row of the (crop, pest) pair — one contradicted product must not make
+    # the pair's other registered chemicals ungradeable.
+    contradicted = [r for _o, rws in matched for r in rws if r.contradiction]
+    if contradicted:
+        return _result(gates, checks, failures, mode, excluded=True,
+                       reason=("documented CIB&RC contradiction — "
+                               + contradicted[0].contradiction),
+                       answerability=answerability, advisory=adv,
+                       ambiguous=ambiguous)
 
     # ---- G6: an unknown PHI forces escalation ---------------------------
     # Verifies the model's phi_not_applicable claim in BOTH directions. Where

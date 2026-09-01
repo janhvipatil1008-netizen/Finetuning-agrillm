@@ -1065,9 +1065,13 @@ def test_one_advisory_carries_both_phi_states(verify_mod, resources):
 # verifier must not pick one — the grade would depend on row order.
 
 def _shared_formulation_groups(resources, *, disagree_on):
-    """Candidate sets a formulation cannot separate, filtered by what they
-    disagree about. Found rather than hardcoded."""
-    from verify import formulation_key
+    """A candidate set the verifier's own key cannot separate, still
+    disagreeing on something it grades.
+
+    Documented CIB&RC contradictions are skipped: those are excluded earlier,
+    by name, and are not the ambiguity path under test.
+    """
+    from verify import formulation_key, strain_key
     from pest_matcher import match_pest
     db, df = resources.label_db, resources.label_db.df
     for (crop, canon, comps), idxs in db._by_triple.items():
@@ -1075,44 +1079,101 @@ def _shared_formulation_groups(resources, *, disagree_on):
             continue
         groups = {}
         for i in idxs:
-            groups.setdefault(
-                formulation_key(df.at[i, "active_ingredient"]), []).append(i)
-        for fk, g in groups.items():
-            if len(g) < 2:
+            groups.setdefault((db.rows[i].application_method,
+                               formulation_key(df.at[i, "active_ingredient"]),
+                               strain_key(df.at[i, "active_ingredient"])),
+                              []).append(i)
+        for _fk, g in groups.items():
+            if len(g) < 2 or any(db.rows[i].contradiction for i in g):
                 continue
             phis = {None if pd.isna(df.at[i, "phi_days"]) else int(df.at[i, "phi_days"])
                     for i in g}
             los = {float(df.at[i, "dose_formulation_value_min"])
                    for i in g if pd.notna(df.at[i, "dose_formulation_value_min"])}
+            bases = {str(df.at[i, "dose_formulation_basis"]) for i in g}
             if disagree_on == "phi" and (len(phis) == 1 or None in phis):
                 continue
-            if disagree_on == "dose" and len(los) < 2:
-                continue
-            if disagree_on == "phi" and not all(db.rows[i].trainable for i in g):
+            if disagree_on == "dose" and (len(los) < 2 or len(bases) > 1):
                 continue
             for surf in ((str(df.at[g[0], "pest_or_disease"]),)
                          + db.rows[g[0]].pest_surface_forms):
                 if match_pest(crop, surf,
                               resources.table).canonical_name == canon:
                     return crop, canon, comps, g, surf
-    pytest.skip(f"no candidate set disagreeing on {disagree_on}")
+    pytest.skip(f"no non-contradicted set disagreeing on {disagree_on}")
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def ambiguous_phi(resources):
-    return _shared_formulation_groups(resources, disagree_on="phi")
+    """A candidate set that disagrees — INJECTED, because after b1/b2/(a)/(c)
+    no gradeable one survives in the shipped data.
+
+    Every remaining real disagreement is a documented CIB&RC contradiction,
+    excluded by name before the ambiguity path, and the one exception
+    (Beauveria bassiana on cotton) is untrainable. That is the right end
+    state, and it means these tests must construct the condition rather than
+    find it — otherwise they would silently stop testing, the same way the
+    overlapping-band fixture did when b2 separated it.
+
+    A real trainable multi-row group is temporarily given a second dose.
+    """
+    from verify import formulation_key, strain_key
+    from pest_matcher import match_pest
+    db, df = resources.label_db, resources.label_db.df
+    target = None
+    for (crop, canon, comps), idxs in db._by_triple.items():
+        groups = {}
+        for i in idxs:
+            groups.setdefault((db.rows[i].application_method,
+                               formulation_key(df.at[i, "active_ingredient"]),
+                               strain_key(df.at[i, "active_ingredient"])),
+                              []).append(i)
+        for _fk, g in groups.items():
+            if len(g) < 2 or any(db.rows[i].contradiction for i in g):
+                continue
+            if not all(db.rows[i].trainable for i in g):
+                continue
+            if pd.isna(df.at[g[0], "dose_formulation_value_min"]):
+                continue
+            surf = next((x for x in ((str(df.at[g[0], "pest_or_disease"]),)
+                                     + db.rows[g[0]].pest_surface_forms)
+                         if match_pest(crop, x,
+                                       resources.table).canonical_name == canon),
+                        None)
+            if surf:
+                target = (crop, canon, comps, g, surf)
+                break
+        if target:
+            break
+    if target is None:
+        pytest.skip("no trainable multi-row group to inject into")
+
+    crop, canon, comps, g, surf = target
+    victim = g[-1]
+    original = df.at[victim, "dose_formulation_value_min"]
+    df.at[victim, "dose_formulation_value_min"] = float(original) * 20 + 1
+    try:
+        yield target
+    finally:
+        df.at[victim, "dose_formulation_value_min"] = original
 
 
 def _answer(resources, crop, comps, rows, surf, *, dose=None, phi=None,
-            escalate=False):
+            escalate=None):
     df = resources.label_db.df
     d = df.loc[rows[0]]
+    stated_phi = ((None if pd.isna(d["phi_days"]) else int(d["phi_days"]))
+                  if phi is None else phi)
+    if escalate is None:
+        # the schema forbids an unknown PHI without escalation
+        escalate = stated_phi is None
+    # the FULL label string: naming one component of a co-formulation is a
+    # different registered product, and G5 rejects it correctly
     return advisory(
-        [chem(sorted(comps)[0], str(d["active_ingredient"]),
+        [chem(str(d["active_ingredient"]), str(d["active_ingredient"]),
               float(d["dose_formulation_value_min"]) if dose is None else dose,
-              str(d["dose_formulation_unit"]), "per_ha",
-              (None if pd.isna(d["phi_days"]) else int(d["phi_days"]))
-              if phi is None else phi)],
+              str(d["dose_formulation_unit"]),
+              str(d["dose_formulation_basis"]) or "per_ha", stated_phi)],
         escalate=escalate,
         causes=[{"name": surf, "type": "pest", "confidence": 0.9,
                  "evidence": "observed"}],
@@ -1129,7 +1190,7 @@ def test_ambiguous_phi_excludes_the_item_in_gate_mode(
     c = ctx_for(verify_mod, resources, crop, surf)
     r = verify_mod.verify(_answer(resources, crop, comps, rows, surf), c, "gate")
     assert r.excluded is True
-    assert "C2_phi" in r.ambiguous
+    assert "C1_dose" in r.ambiguous
     assert r.exclusion_reason and "ambiguous ground truth" in r.exclusion_reason
     assert r.passed is False
     assert all(r.gates.values()), "exclusion is not a gate failure"
@@ -1142,8 +1203,8 @@ def test_ambiguous_phi_is_reported_separately_in_score_mode(
     crop, _canon, comps, rows, surf = ambiguous_phi
     c = ctx_for(verify_mod, resources, crop, surf)
     r = verify_mod.verify(_answer(resources, crop, comps, rows, surf), c, "score")
-    assert r.ambiguous == ["C2_phi"]
-    assert "C2_phi" not in r.checks, "must not be scored 0.0"
+    assert r.ambiguous == ["C1_dose"]
+    assert "C1_dose" not in r.checks, "must not be scored 0.0"
     assert r.excluded is False, "score mode reports, it does not exclude"
     assert r.total == 1.0, "the remaining checks all pass, so the score is 1.0"
 
@@ -1157,7 +1218,7 @@ def test_ambiguous_phi_blocks_in_filter_mode(
     r = verify_mod.verify(_answer(resources, crop, comps, rows, surf), c, "filter")
     assert r.passed is False
     assert r.total == 0.0
-    assert "C2_phi" in r.ambiguous
+    assert "C1_dose" in r.ambiguous
 
 
 def test_the_three_modes_resolve_ambiguity_differently(
@@ -1169,7 +1230,7 @@ def test_the_three_modes_resolve_ambiguity_differently(
     g, s, f = (verify_mod.verify(out, c, m) for m in ("gate", "score", "filter"))
     assert (g.excluded, s.excluded, f.excluded) == (True, False, False)
     assert (g.passed, s.passed, f.passed) == (False, True, False)
-    assert g.ambiguous == s.ambiguous == f.ambiguous == ["C2_phi"]
+    assert g.ambiguous == s.ambiguous == f.ambiguous == ["C1_dose"]
 
 
 # --- requirement 4: consistency with EVERY candidate is not ambiguity ------
@@ -1207,9 +1268,9 @@ def test_a_wrong_answer_is_not_rescued_by_ambiguity(
     crop, _canon, comps, rows, surf = ambiguous_phi
     c = ctx_for(verify_mod, resources, crop, surf)
     r = verify_mod.verify(
-        _answer(resources, crop, comps, rows, surf, phi=9999), c, "score")
-    assert r.checks.get("C2_phi") == 0.0
-    assert "C2_phi" not in r.ambiguous
+        _answer(resources, crop, comps, rows, surf, dose=999999.0), c, "score")
+    assert r.checks.get("C1_dose") == 0.0
+    assert "C1_dose" not in r.ambiguous
 
 
 def test_alternate_rate_expressions_are_not_a_disagreement(
@@ -1415,3 +1476,71 @@ def test_the_investigated_ambiguous_groups_are_still_present(resources):
         ((464, 468), "Pyriofenone 18% SC, grape — same values, PHI 7 vs 5"),
     ]:
         assert expected in groups, f"row group {expected} ({label}) is gone"
+
+
+def test_documented_contradictions_are_excluded_by_name(verify_mod, resources):
+    """The 5 class-(c) groups: CIB&RC states two values and we cannot resolve
+    it. They are excluded with a reason naming the source pages, so they read
+    as a documented ceiling rather than an unfixed bug."""
+    from pest_matcher import match_pest
+    db, df = resources.label_db, resources.label_db.df
+    contradicted = [r for r in db.rows if r.contradiction]
+    assert len(contradicted) == 10, f"expected 10 rows in 5 groups, got {len(contradicted)}"
+    assert len({r.contradiction.split(":")[0] for r in contradicted}) == 5
+
+    checked = 0
+    for row in contradicted:
+        d = df.loc[row.index]
+        if not row.canonicals or pd.isna(d["dose_formulation_value_min"]):
+            continue
+        canon = sorted(row.canonicals)[0]
+        surf = next((x for x in ((str(d["pest_or_disease"]),) + row.pest_surface_forms)
+                     if match_pest(row.crop_slug, x,
+                                   resources.table).canonical_name == canon), None)
+        if surf is None:
+            continue
+        phi = None if pd.isna(d["phi_days"]) else int(d["phi_days"])
+        out = advisory([chem(str(d["active_ingredient"]), str(d["active_ingredient"]),
+                             float(d["dose_formulation_value_min"]),
+                             str(d["dose_formulation_unit"]),
+                             str(d["dose_formulation_basis"]), phi)],
+                       escalate=phi is None, non_chemical=["remove residue"])
+        r = verify_mod.verify(out, ctx_for(verify_mod, resources,
+                                           row.crop_slug, surf), "gate")
+        assert r.excluded is True, f"row {row.index} not excluded"
+        assert "documented CIB&RC contradiction" in r.exclusion_reason
+        assert r.passed is False
+        checked += 1
+    assert checked >= 4, f"only {checked} contradiction rows exercised"
+
+
+def test_contradiction_ledger_names_its_evidence(verify_mod):
+    """Each reason must cite the source file and page, or it is an assertion
+    rather than a record."""
+    led = verify_mod.load_contradictions()
+    assert len(led) == 10
+    for key, reason in led.items():
+        assert any(f in reason for f in ("insecticides p", "fungicides p")), reason
+        assert ":" in reason, "reason must carry its group_id"
+
+
+def test_one_contradicted_product_does_not_sink_the_whole_pair(
+        verify_mod, resources):
+    """cotton/Whitefly has a contradicted Diafenthiuron claim and many clean
+    ones. Only the contradicted product may be excluded."""
+    db, df = resources.label_db, resources.label_db.df
+    rows = db.for_pair("cotton", "Whitefly")
+    clean = [r for r in rows
+             if not r.contradiction and r.trainable and not r.defective
+             and str(df.at[r.index, "dose_formulation_basis"]) == "per_ha"
+             and pd.notna(df.at[r.index, "phi_days"])]
+    assert any(r.contradiction for r in rows), "fixture pair must include one"
+    assert clean, "fixture pair must also have a clean option"
+    d = df.loc[clean[0].index]
+    out = advisory([chem(str(d["active_ingredient"]), str(d["active_ingredient"]),
+                         float(d["dose_formulation_value_min"]),
+                         str(d["dose_formulation_unit"]), "per_ha",
+                         int(d["phi_days"]))],
+                   non_chemical=["remove residue"])
+    r = verify_mod.verify(out, ctx_for(verify_mod, resources, "cotton", "Whitefly"))
+    assert r.excluded is False, r.exclusion_reason
