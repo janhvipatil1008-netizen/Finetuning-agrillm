@@ -126,7 +126,9 @@ __all__ = [
     "TRAINABLE_BRANCHES",
     "expected_answerable",
     "load_label_db",
+    "ai_identity_key",
     "normalise_ai",
+    "strain_key",
     "verify",
 ]
 
@@ -206,6 +208,52 @@ def normalise_ai(name: Optional[str]) -> frozenset[str]:
         if head:
             out.add(head)
     return frozenset(out)
+
+
+# Markers CIB&RC uses to introduce a strain / accession designation. Anything
+# after one of these, up to the next bracket or comma, identifies a distinct
+# registered product.
+_STRAIN_RX = re.compile(
+    r"(?:strain(?:\s*no\.?)?|accession(?:\s*no\.?)?|isolate|"
+    r"(?=[^(),]*\bCFU\b)|(?=[^(),]*\bpotency\b))\s*[:.\-]?\s*([^(),]+)",
+    re.IGNORECASE)
+
+
+def strain_key(active_ingredient: Optional[str]) -> str:
+    """The strain designation, normalised, or '' when the product has none.
+
+    Five NPV products differ ONLY by strain — GBS/HNPV-01, NBRI-8821,
+    IBH-17268, BIL/HV-9, IBL-17268 — and are separately registered with
+    different doses. `normalise_ai` cuts at the first digit and
+    `formulation_key` reads only code and strength, so without this they all
+    collapse to one candidate set (Step C, class b2).
+
+    Deliberately crude: it has to be STABLE and DISTINGUISHING, not pretty.
+    Alphanumerics only, capped, so punctuation and spacing variants of one
+    designation still land on one key.
+    """
+    if not active_ingredient:
+        return ""
+    m = _STRAIN_RX.search(str(active_ingredient))
+    if not m:
+        return ""
+    return re.sub(r"[^A-Za-z0-9]", "", m.group(1)).upper()[:16]
+
+
+def ai_identity_key(active_ingredient: Optional[str]) -> tuple:
+    """Identity of the registered PRODUCT, for narrowing candidate rows.
+
+    NOT the ban-list key. `normalise_ai` gives the bare molecule set and is
+    what G4 checks restrictions against, because a ban applies to the molecule
+    and must not be evadable by appending a strain. This one adds the strain
+    so two products of the same molecule stay distinct.
+
+        normalise_ai      -> {'nuclear polyhedrosis virus of helicoverpa'}
+                             ban lookup; same for every strain
+        ai_identity_key   -> (frozenset(...), 'GBSHNPV01')
+                             candidate narrowing; different per strain
+    """
+    return (normalise_ai(active_ingredient), strain_key(active_ingredient))
 
 
 _CODE_RX = re.compile(
@@ -463,6 +511,13 @@ def _narrow_candidates(rows: list["_Row"], formulation: Optional[str],
         # An unqualified query cannot silently pick the unqualified row: a
         # farmer who did not say "soil drench" may still mean one.
         pass
+    # 3. STRAIN. Five NPV products share a molecule, a code and a strength
+    #    and differ only by strain designation.
+    want_strain = strain_key(formulation)
+    if want_strain and len(rows) > 1:
+        hits = [r for r in rows if strain_key(r.active_ingredient) == want_strain]
+        rows = hits or rows
+
     if len(rows) <= 1 or not formulation:
         return rows
     want = formulation_key(formulation)
@@ -760,29 +815,26 @@ def verify(output: str, ctx: VerifyContext,
 
     # ---- G8: dose basis. A right number on the wrong basis is worse -----
     # than a wrong number, so this gates rather than grading (C1 spec).
+    #
+    # ANY compatible candidate is enough. CIB&RC sometimes states one claim on
+    # two bases -- Azoxystrobin 8.3% + Mancozeb 66.7% WG on grape is 1500 g/ha
+    # AND 0.30%, same pest, same PHI 21; Metiram 70% WG on pomegranate is
+    # 200 g/ha AND 150-200 per 100 L. Those rows are alternate EXPRESSIONS of
+    # one registration, not competing claims, so a model stating either basis
+    # is right and neither consensus nor ambiguity applies.
     g8 = True
     for opt, rows in matched:
-        verdicts = []
-        for r in rows:
-            label_basis = str(
-                ctx.label_db.df.at[r.index, "dose_formulation_basis"])
-            verdicts.append(None if not label_basis
-                            else _basis_compatible(opt.dose.basis, label_basis))
-        got = _consensus(verdicts)
-        if got is AMBIGUOUS:
-            ambiguous.append("G8_dose_basis")
-            _fail(failures,
-                  f"AMBIGUOUS: {opt.active_ingredient!r} matches CIB&RC rows "
-                  f"stating the dose on different bases — cannot grade "
-                  f"{opt.dose.basis}")
-        elif got is False:
+        bases = [str(ctx.label_db.df.at[r.index, "dose_formulation_basis"])
+                 for r in rows]
+        bases = [b for b in bases if b]
+        if not bases:
+            continue
+        if not any(_basis_compatible(opt.dose.basis, b) for b in bases):
             g8 = False
-            bases = sorted({str(ctx.label_db.df.at[r.index,
-                                                   "dose_formulation_basis"])
-                            for r in rows})
             _fail(failures,
                   f"G8: {opt.active_ingredient!r} dose stated "
-                  f"{opt.dose.basis} but CIB&RC states it {'/'.join(bases)}")
+                  f"{opt.dose.basis} but CIB&RC states it "
+                  f"{'/'.join(sorted(set(bases)))}")
     gates["G8_dose_basis"] = g8
 
     # ---- G9: a dose basis of 'unstated' has to be earned ----------------
@@ -847,8 +899,16 @@ def _check_dose(ctx, matched, checks, failures, ambiguous) -> None:
     """C1 — (value, unit, basis) as a triple. Basis already gated by G8."""
     scored: list[float] = []
     for opt, rows in matched:
+        # Only candidates stating the dose on the basis the model used are
+        # relevant: an area rate and a concentration for the same claim are
+        # alternate expressions, and comparing across them invents a conflict.
+        same_basis = [
+            row for row in rows
+            if _basis_compatible(
+                opt.dose.basis,
+                str(ctx.label_db.df.at[row.index, "dose_formulation_basis"]))]
         verdicts: list[Optional[bool]] = []
-        for row in rows:
+        for row in (same_basis or rows):
             r = ctx.label_db.df.loc[row.index]
             lo, hi, label_unit = _label_dose_bounds(r, opt.dose.basis)
             if lo is None or label_unit is None:
@@ -876,7 +936,8 @@ def _check_dose(ctx, matched, checks, failures, ambiguous) -> None:
             continue                       # no numeric ground truth: unscored
         if got is AMBIGUOUS:
             ambiguous.append("C1_dose")
-            bands = sorted({_band_text(ctx, r, opt.dose.basis) for r in rows})
+            bands = sorted({_band_text(ctx, r, opt.dose.basis)
+                            for r in (same_basis or rows)})
             _fail(failures,
                   f"AMBIGUOUS: {opt.active_ingredient!r} dose "
                   f"{opt.dose.value_min}{opt.dose.unit} matches some but not "
@@ -885,7 +946,8 @@ def _check_dose(ctx, matched, checks, failures, ambiguous) -> None:
             continue
         scored.append(1.0 if got else 0.0)
         if not got:
-            bands = sorted({_band_text(ctx, r, opt.dose.basis) for r in rows})
+            bands = sorted({_band_text(ctx, r, opt.dose.basis)
+                            for r in (same_basis or rows)})
             _fail(failures,
                   f"C1: {opt.active_ingredient!r} dose {opt.dose.value_min}"
                   f"{opt.dose.unit} {opt.dose.basis}; CIB&RC states "

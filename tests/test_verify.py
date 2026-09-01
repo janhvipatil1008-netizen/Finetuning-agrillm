@@ -1176,61 +1176,82 @@ def test_the_three_modes_resolve_ambiguity_differently(
 
 def test_an_answer_consistent_with_every_candidate_is_correct(
         verify_mod, resources):
-    """gram / Helicoverpa armigera / NPV ('AS', 2.0) has four candidate rows
-    whose bands are 250-500 (x3) and 500-1000. They disagree — but 500 ml/ha
-    is authorised by all four, so there is nothing to be ambiguous about."""
-    from verify import formulation_key
-    db, df = resources.label_db, resources.label_db.df
-    found = None
-    for (crop, canon, comps), idxs in db._by_triple.items():
-        groups = {}
-        for i in idxs:
-            groups.setdefault(
-                formulation_key(df.at[i, "active_ingredient"]), []).append(i)
-        for fk, g in groups.items():
-            if len(g) < 2:
-                continue
-            bands = [(df.at[i, "dose_formulation_value_min"],
-                      df.at[i, "dose_formulation_value_max"]) for i in g]
-            if any(pd.isna(b[0]) or pd.isna(b[1]) for b in bands):
-                continue
-            if len({float(b[0]) for b in bands}) < 2:
-                continue
-            lo, hi = max(float(b[0]) for b in bands), min(float(b[1]) for b in bands)
-            if lo <= hi:
-                found = (crop, canon, comps, g, lo)
-                break
-        if found:
-            break
-    if not found:
-        pytest.skip("no overlapping-band candidate set")
-    crop, canon, comps, g, common = found
-    from pest_matcher import match_pest
-    surf = next(s for s in ((str(df.at[g[0], "pest_or_disease"]),)
-                            + db.rows[g[0]].pest_surface_forms)
-                if match_pest(crop, s, resources.table).canonical_name == canon)
+    """Requirement 4, three ways.
+
+    Consistent with EVERY candidate is correct — the candidates disagree about
+    which product was meant, not about whether this answer is right.
+    Consistent with NONE is wrong under every reading, and ambiguity must not
+    rescue it. Only a mixture is ungradeable.
+
+    Asserted on the fold plus a real remaining ambiguous group. No label_db
+    candidate set has OVERLAPPING dose bands any more: the one that did
+    (gram / NPV, 250-500 x3 and 500-1000) was four separately registered
+    strains, and the b2 strain key correctly separated them.
+    """
+    f, A = verify_mod._consensus, verify_mod.AMBIGUOUS
+    assert f([True, True, True]) is True       # inside every band
+    assert f([False, False]) is False          # outside every band
+    assert f([True, False]) is A               # inside some
+
+    ok = verify_mod._dose_value_ok
+    assert ok(500.0, 250.0, 500.0) and ok(500.0, 500.0, 1000.0)
+    assert f([ok(500.0, 250.0, 500.0), ok(500.0, 500.0, 1000.0)]) is True
+    assert f([ok(300.0, 250.0, 500.0), ok(300.0, 500.0, 1000.0)]) is A
+    assert f([ok(5000.0, 250.0, 500.0), ok(5000.0, 500.0, 1000.0)]) is False
+
+
+def test_a_wrong_answer_is_not_rescued_by_ambiguity(
+        verify_mod, resources, ambiguous_phi):
+    """On a real ambiguous group: an interval matching NO candidate fails C2
+    outright rather than being excused as ungradeable."""
+    crop, _canon, comps, rows, surf = ambiguous_phi
     c = ctx_for(verify_mod, resources, crop, surf)
+    r = verify_mod.verify(
+        _answer(resources, crop, comps, rows, surf, phi=9999), c, "score")
+    assert r.checks.get("C2_phi") == 0.0
+    assert "C2_phi" not in r.ambiguous
 
-    inside_all = verify_mod.verify(
-        _answer(resources, crop, comps, g, surf, dose=common, escalate=True),
-        c, "score")
-    assert inside_all.checks.get("C1_dose") == 1.0
-    assert "C1_dose" not in inside_all.ambiguous, \
-        "consistent with every candidate is correct, not ambiguous"
 
-    outside_all = verify_mod.verify(
-        _answer(resources, crop, comps, g, surf, dose=common * 10,
-                escalate=True), c, "score")
-    assert outside_all.checks.get("C1_dose") == 0.0
-    assert "C1_dose" not in outside_all.ambiguous, \
-        "wrong under every reading is WRONG; ambiguity must not rescue it"
-
-    partial = verify_mod.verify(
-        _answer(resources, crop, comps, g, surf,
-                dose=min(float(df.at[i, "dose_formulation_value_min"])
-                         for i in g), escalate=True), c, "score")
-    assert "C1_dose" in partial.ambiguous
-    assert "C1_dose" not in partial.checks
+def test_alternate_rate_expressions_are_not_a_disagreement(
+        verify_mod, resources):
+    """CIB&RC states one claim on two bases — Azoxystrobin 8.3% + Mancozeb
+    66.7% WG on grape is 1500 g/ha AND 0.30%, same pest, same PHI 21; Metiram
+    70% WG on pomegranate is 200 g/ha AND 150-200 per 100 L. Those rows are
+    alternate EXPRESSIONS of one registration, not competing claims, so a
+    model stating either basis must grade cleanly."""
+    from pest_matcher import match_pest
+    db, df = resources.label_db, resources.label_db.df
+    checked = 0
+    for i_ha, i_alt in ((516, 517), (441, 445)):
+        if i_ha not in df.index or i_alt not in df.index:
+            continue
+        d, row = df.loc[i_ha], db.rows[i_ha]
+        if not row.canonicals:
+            continue
+        canon = sorted(row.canonicals)[0]
+        surf = next((s for s in ((str(d["pest_or_disease"]),)
+                                 + row.pest_surface_forms)
+                     if match_pest(d["crop_slug"], s,
+                                   resources.table).canonical_name == canon), None)
+        if surf is None:
+            continue
+        c = ctx_for(verify_mod, resources, d["crop_slug"], surf)
+        for src in (i_ha, i_alt):
+            out = advisory([chem(sorted(row.ai_components)[0],
+                                 str(d["active_ingredient"]),
+                                 float(df.at[src, "dose_formulation_value_min"]),
+                                 str(df.at[src, "dose_formulation_unit"]),
+                                 str(df.at[src, "dose_formulation_basis"]),
+                                 int(d["phi_days"]))],
+                           non_chemical=["remove residue"])
+            r = verify_mod.verify(out, c)
+            assert not r.ambiguous, (
+                f"row {src}: alternate rate expression reported ambiguous: "
+                f"{r.ambiguous}")
+            assert r.gates["G8_dose_basis"] is True
+            assert r.checks.get("C1_dose") in (None, 1.0)
+            checked += 1
+    assert checked >= 2, "neither alternate-expression pair was exercised"
 
 
 def test_consensus_fold(verify_mod):
@@ -1280,7 +1301,7 @@ def test_exclusion_and_failure_remain_distinguishable(
 def _multi_row_sets(resources):
     """Every candidate set a formulation string cannot separate, split by
     whether its rows agree on the two things the verifier checks."""
-    from verify import formulation_key
+    from verify import formulation_key, strain_key
     db, df = resources.label_db, resources.label_db.df
 
     def state(i):
@@ -1300,7 +1321,8 @@ def _multi_row_sets(resources):
             # mirror the verifier's narrowing key: method THEN formulation
             groups.setdefault(
                 (db.rows[i].application_method,
-                 formulation_key(df.at[i, "active_ingredient"])), []).append(i)
+                 formulation_key(df.at[i, "active_ingredient"]),
+                 strain_key(df.at[i, "active_ingredient"])), []).append(i)
         for fk, g in groups.items():
             if len(g) < 2:
                 continue
@@ -1326,15 +1348,15 @@ def test_multi_row_sets_that_agree_today_still_agree(resources):
     agree, disagree = _multi_row_sets(resources)
     agree_groups = {tuple(sorted(g)) for g in agree.values()}
     disagree_groups = {tuple(sorted(g)) for g in disagree.values()}
-    assert (len(agree), len(agree_groups)) == (8, 5), (
+    assert (len(agree), len(agree_groups)) == (5, 2), (
         f"agreeing multi-row sets changed: {len(agree)} triple-keys over "
-        f"{len(agree_groups)} row groups (was 8 over 5). A set that starts "
-        f"disagreeing becomes silently ambiguous."
+        f"{len(agree_groups)} row groups (was 5 over 2 after b1+b2; 8 over 5 "
+        f"before). A set that starts disagreeing becomes silently ambiguous."
     )
-    assert (len(disagree), len(disagree_groups)) == (21, 13), (
+    assert (len(disagree), len(disagree_groups)) == (17, 9), (
         f"ambiguous sets changed: {len(disagree)} triple-keys over "
-        f"{len(disagree_groups)} row groups (was 21 over 13 after the b1 "
-        f"application-method fix; 27 over 17 before it). See "
+        f"{len(disagree_groups)} row groups (was 17 keys over 9 groups "
+        f"after b1+b2; 17 groups before). See "
         f"reports/phase6_stepC_ambiguity_investigation.md."
     )
 
@@ -1375,7 +1397,7 @@ def test_agreeing_sets_are_not_reported_ambiguous(verify_mod, resources):
             f"ambiguous: {r.ambiguous}")
         assert r.excluded is False, f"{crop}/{canon} must not be excluded"
         checked += 1
-    assert checked >= 3, (
+    assert checked >= 1, (
         f"only {checked} agreeing sets were exercised — the guard would pass "
         f"vacuously")
 
