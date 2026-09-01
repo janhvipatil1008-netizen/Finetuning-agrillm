@@ -159,6 +159,49 @@ Zero raster images on every sampled page rules out the scanned-page failure mode
 The high vector-rectangle count is the drawn table grid, which means ruled cell
 borders exist for a lattice-flavour table parser to key on.
 
+### 1.5 Prohibition list — banned / refused registration / restricted in use
+
+**A separate document from the MUP registers above, and the only source of
+prohibition data in this repo.** The MUP registers are a *registration*
+register and carry no prohibition content whatsoever — verified in Phase 7
+Step E by a regex sweep for `ban|prohibit|restrict|withdraw|refus|s.27A`
+across all 231 parsed pages, which returned only false positives
+("Bandicota" the rat genus, "Banana", "Bangalore"). Absence from label_db is
+not evidence of a ban, and presence in it is not evidence of legality.
+
+| Field | Value |
+| --- | --- |
+| Publisher | Directorate of Plant Protection, Quarantine & Storage (PPQS), Dept. of Agriculture & Farmers Welfare — same directorate as the MUP registers |
+| Title | LIST OF PESTICIDES WHICH ARE BANNED, REFUSED REGISTRATION AND RESTRICTED IN USE |
+| Edition | **Updated on 31.07.2026** (as printed on the document's own cover line) |
+| URL | <https://ppqs.gov.in/sites/default/files/list_of_pesticides_which_are_banned_refused_registration_and_restricted_in_use.pdf> |
+| Download date | **2026-09-01** |
+| Local file | `data/raw/cibrc/banned_restricted_20230601.pdf` (6 pp, 129,383 bytes) |
+| sha256 | `6bdd966bcbc1901503cfb0f91b740221016856a6923c5688602fdbbe29a3afe4` |
+| Statutory basis | s.27A Insecticides Act 1968 notifications, RC decisions, and Supreme Court orders, cited per row |
+| Role in pipeline | **The ban authority.** Sole input to `data/final/restricted_ai.csv`, which gates G4 in the verifier. |
+
+Its three sections map exactly onto `restricted_ai.py`'s three tiers:
+
+| section | content | rows | tier |
+| --- | --- | --- | --- |
+| I.A | banned for manufacture, import and use | 49 | `banned` |
+| I.B | banned for use, manufacture for export continues | 5 | `banned` |
+| I.C | withdrawn (reversible if data is submitted and accepted) | 8 | `banned` |
+| II | refused registration | 18 | `refused_registration` |
+| III | restricted in use, with per-entry conditions | 16 | `restricted_use` |
+
+Built into `data/final/restricted_ai.csv` (98 rows — the 96 above plus two
+corrected-spelling/alias duplicates) by
+`tools/phase7_stepE_build_restricted_ai.py`, which machine-verifies every
+transcribed name against the source PDF text before writing. See
+`reports/phase7_stepE_restricted_ai.md`.
+
+**The local filename retains the `20230601` stamp** from the URL slug it was
+first located under; the document itself says 31.07.2026. Renaming it would
+break the hash-to-filename record above, so the discrepancy is noted here
+instead.
+
 ---
 
 ## 2. Kisan Call Centre (KCC) Query Dataset
@@ -221,6 +264,7 @@ Append one row per acquisition. Never overwrite a row — add a new one.
 | 2026-08-25 | CIB&RC | `cibrc/bio_fungicides_20260331.pdf` | 20 pp | `a993757ec05e` | Phase 0. Text layer OK. |
 | 2026-08-25 | CIB&RC | `cibrc/herbicides_20260331.pdf` | 76 pp | `80d8c8ada76a` | Phase 0. Archived, not parsed. |
 | 2026-08-25 | CIB&RC | `cibrc/pgr_20260331.pdf` | 13 pp | `ed0ca2988f89` | Phase 0. Archived, not parsed. |
+| 2026-09-01 | PPQS prohibition list | `cibrc/banned_restricted_20230601.pdf` | 6 pp / 96 entries | `6bdd966bcbc1` | Phase 7 Step E. Closes CLAUDE.md Known Gap #1. Sole input to `data/final/restricted_ai.csv`. Doc says "Updated on 31.07.2026". |
 | 2026-09-01 | HuggingFace `Omegaindebt/Kisan_Call_Centre_Transcripts` | `kcc/kcc_filtered.parquet` (derived — no single raw file, see §2) | 1,000,000 → 18,840 (Step B filter) → 5,692 (Step C dedup) | n/a (HF dataset pull, not a static file) | Phase 7. data.gov.in API dead (Step A survey); GODL-India attribution required, see §2. |
 
 ---

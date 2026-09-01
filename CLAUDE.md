@@ -41,6 +41,7 @@ python tools/run_phase3.py                          # data/raw/ -> data/interim/
 python tools/build_label_db.py                      # data/interim/ -> data/final/label_db.{csv,parquet}
 python tools/phase5_stepB_resolve_formulation.py    # patches label_db in place — MUST follow the build
 python tools/phase6_stepB_build_pest_table.py       # -> data/final/pest_synonym_table.csv
+python tools/phase7_stepE_build_restricted_ai.py    # -> data/final/restricted_ai.csv (needs the PPQS PDF)
 ```
 
 `build_label_db.py` regenerates label_db from `data/interim/`, which **undoes
@@ -158,10 +159,13 @@ cells — 335 of 729 name more than one pest.
 filter, passes only on `total == 1.0`), `score` (eval, partial credit),
 `filter` (inference, gates only). Writing three would guarantee they drift.
 
-**It raises `MissingBanListError` at import**, because `data/final/restricted_ai.csv`
-does not exist yet. That is deliberate: an absent ban list must never read as
-"nothing is restricted". Point `AGRI_RESTRICTED_AI` at a list to import it —
-`tests/test_verify.py` does this in a fixture, and pins the raising as contract.
+**It loads `data/final/restricted_ai.csv` at import** and raises
+`MissingBanListError` if that file is absent, empty, or malformed. That is
+deliberate: an absent ban list must never read as "nothing is restricted".
+The file now exists (Phase 7 Step E, 98 rows — see Known gaps), so import
+succeeds normally; before that it did not, and G4 was non-functional. Point
+`AGRI_RESTRICTED_AI` at a different list to override — `tests/test_verify.py`
+does this in a fixture, and still pins the raising as contract.
 
 Nine gates (any failure → `total 0.0`): JSON, schema, empty-when-not-answering,
 restricted a.i., triple registered, unknown-PHI-escalates, trainable row,
@@ -200,11 +204,55 @@ Shaky ground truth is an **exclusion, not leniency**: a defective row sets
 
 ## Known gaps (do not silently paper over)
 
-- **No banned/withdrawn active-ingredient data exists anywhere in the repo.**
-  CIB&RC's list is a *registration* register; prohibitions are published
-  separately. Monocrotophos, Carbofuran, Carbosulfan, Benfuracarb and others
-  appear in label_db. A verifier checking only label_db will score those as
-  correct. This needs a new sourced dataset, not a derivation.
+- ~~**No banned/withdrawn active-ingredient data exists anywhere in the repo.**~~
+  **CLOSED (Phase 7 Step E).** `data/final/restricted_ai.csv` now exists — 98
+  rows built from the PPQS consolidated list *"Pesticides which are Banned,
+  Refused Registration and Restricted in Use"*, **31.07.2026 edition**
+  (`data/raw/cibrc/banned_restricted_20230601.pdf`, sha256 `6bdd966bcbc1…`,
+  logged in `SOURCES.md` §1.5). **G4 is functional and `verify.py` imports
+  normally.** Rebuild with `tools/phase7_stepE_build_restricted_ai.py`, which
+  machine-verifies every transcribed name against the source PDF and refuses
+  to write an unverified list. See `reports/phase7_stepE_restricted_ai.md`.
+
+  The premise that CIB&RC's registers carry prohibition data is **false and
+  was checked**: a sweep of all 231 parsed MUP pages found zero prohibition
+  content (only "Bandicota" the rat genus, "Banana", "Bangalore"). MUP is a
+  registration register; prohibitions come from the separate PPQS list above.
+
+  What actually collides with label_db is **3 rows, not the four molecules
+  this gap used to name**:
+  - **Monocrotophos** (1 row) and **Carbofuran** (2 rows) are on the list, as
+    `restricted_use`.
+  - **Carbosulfan and Benfuracarb are NOT on the PPQS list at all** — not
+    banned, not refused, not restricted — though both are in label_db (2 and
+    1 rows). The earlier claim that they are prohibited was unsupported.
+
+- **Two open judgement calls inside the ban list** (both flagged in
+  `restricted_ai.csv` `notes` and in the Step E report):
+  - **Monocrotophos is encoded conservatively** as `restricted_use` with an
+    empty `restricted_crops` (= every crop). The instruments are narrower:
+    S.O. 1482(E) bans it on *vegetables* only, and S.O. 4294(E) cancels the
+    *36% SL formulation* specifically. The conservative reading was chosen
+    because 36% SL certificates have been void since 2024-10-03 and it is a
+    WHO Class Ib pesticide — but it over-refuses. Reading the 2005 order
+    literally would take its KCC Flag E hits from **37 to 0**, since every
+    mention in that corpus is on a non-vegetable crop.
+  - **Dimethoate** is scoped to `tomato;grape;pomegranate;onion` — the order
+    names a *category* ("fruits and vegetables consumed as raw food items"),
+    not a crop list, so the mapping to scope crops is this project's reading.
+
+- **The ban list cannot express formulation-scoped carve-outs.**
+  `restricted_ai.py`'s scope granularity is (a.i., crop) with no formulation
+  dimension. So Carbofuran's exemption for *3% Encapsulated Granule* cannot
+  be encoded — and label_db's two Carbofuran rows are `Carbofuran 03%CG`,
+  precisely the exempted formulation, so both are refused as false positives.
+  Same limitation affects Monocrotophos 36% SL, Captafol (foliar vs seed
+  dresser) and Cypermethrin (3% smoke generator). Left over-refusing rather
+  than over-approving, deliberately.
+
+- **`restricted_ai.normalise_ai_name` empties any digit-initial name.** It
+  splits at the first digit, so `'2,4,5-T'` → `''` and that entry is inert in
+  the lookup. Out of scope for the 8 crops today, but a real hole.
 - No spray-volume ground truth was extracted, though `ChemicalOption` carries
   `spray_volume_min/max_l_per_acre`.
 - `scope.TARGETS` has two entries with no label_db rows (onion Basal rot, onion
