@@ -51,7 +51,13 @@ TARGETS = {
         {"canonical": "Anthracnose", "type": "disease", "chem": "thin"},
     ],
     "tomato": [
-        {"canonical": "Leaf miner (Tuta absoluta)", "type": "pest", "chem": "rich"},
+        # Phase 6 Step A found these conflated. CIB&RC lists them as separate
+        # organisms IN THE SAME CELL (Spinetoram 11.70% SC: "...Leaf miner
+        # (Liriomyza trifolii), tomato pinworm (Tuta absoluta)"), and every one
+        # of the six in-cell glosses on "leaf miner" reads Liriomyza trifolii.
+        # Different species, different registered chemistry, one former target.
+        {"canonical": "Leaf miner (Liriomyza trifolii)", "type": "pest", "chem": "rich"},
+        {"canonical": "Tomato pinworm (Tuta absoluta)", "type": "pest", "chem": "thin"},
         {"canonical": "Fruit borer", "type": "pest", "chem": "rich"},
         {"canonical": "Early blight", "type": "disease", "chem": "rich"},
         {"canonical": "Late blight", "type": "disease", "chem": "rich"},

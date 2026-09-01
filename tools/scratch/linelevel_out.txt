@@ -1,0 +1,115 @@
+insecticides_20260331.pdf lattice done
+insecticides_20260331.pdf stream done
+fungicides_20260331.pdf lattice done
+fungicides_20260331.pdf stream done
+bio_insecticides_20260331.pdf lattice done
+bio_insecticides_20260331.pdf stream done
+bio_fungicides_20260331.pdf lattice done
+bio_fungicides_20260331.pdf stream done
+
+==========================================================================================
+PAGES WHERE LATTICE LOST WHOLE LINES THAT STREAM PRESERVED
+count = 12 of 231 pages
+
+--- insecticides_20260331.pdf p7  (866 chars, 22 lines lost by lattice only)
+      LATTICE LOST: 'Use Dosage (a.i.) Dilution'
+      LATTICE LOST: 'Glue Line Poisoning 400 ml formulation per meter3 of wood'
+      LATTICE LOST: '0.025% Mix 01 lit of formulation in 99 lit of water to'
+      LATTICE LOST: '0.025% Mix 01 lit of formulation in 99 lit of water to'
+      LATTICE LOST: 'Veneer Dipping'
+      LATTICE LOST: '0.025% Mix 01 lit of formulation in 99 lit of water to'
+      LATTICE LOST: 'Wood Dipping /Brushing'
+      LATTICE LOST: 'Pest Dose rate Manner of application /use pattern'
+      LATTICE LOST: 'One bait of 0.005% ( a In and around premises (Residential, commercial,'
+      LATTICE LOST: 'block of 20 gm each) per institutional, industrial public service premises, cold'
+      LATTICE LOST: 'baiting station as a single storage , Godowns, ware house, municipal locations,'
+      LATTICE LOST: 'Black, Indian house rat/black livestock rearing facilities, damp premises such as'
+      LATTICE LOST: 'Fruit borer (Helicoverpa armigera) 12.6- 18.6 42-62 500 1'
+      LATTICE LOST: 'Thrips (Scirtothrips dorsalis) 18.6- 25.2 62-84 500 1'
+      LATTICE LOST: '12.6- 18.6 42-62 500 1'
+      LATTICE LOST: 'Thrips (Thrips tabaci) 18.5- 25.2 62-84 500 1'
+      LATTICE LOST: 'Tomato 18.6-25.2 62-84 500 1'
+      LATTICE LOST: 'Soybean litura, Semilooper (Chrysodeixis 12.6-18.6 42-62 500 37'
+      LATTICE LOST: 'Red gram 12.6-18.6 42-62 500 25'
+      LATTICE LOST: 'Thrips (Scirtothrips dorsalis) 18.6 - 25.2 42-62'
+      LATTICE LOST: 'Chilli 500 1'
+      LATTICE LOST: '12.6 – 18.6 62-84'
+--- bio_insecticides_20260331.pdf p1  (653 chars, 19 lines lost by lattice only)
+      LATTICE LOST: 'भारत सरकार / Government of India'
+      LATTICE LOST: 'कृषि एव ंककसान कल्याण मंत्रालय / Ministry of Agriculture & Farmers Welfare'
+      LATTICE LOST: 'कृषि एव ंककसान कल्याण षवभाग'
+      LATTICE LOST: 'Department of Agriculture & Farmers Welfare'
+      LATTICE LOST: 'वनस्पति संरक्षण, संगरोध और संग्रह तनदेशालय'
+      LATTICE LOST: 'Directorate of Plant Protection, Quarantine & Storage'
+      LATTICE LOST: 'केंद्रीय कीटनाशी बोर् डएव ंपंजीकरण सममति'
+      LATTICE LOST: 'Central Insecticide Board & Registration Committee'
+      LATTICE LOST: 'N.H.-IV, Faridabad-121 001 (Haryana)'
+      LATTICE LOST: 'MAJOR USES OF PESTICIDES'
+      LATTICE LOST: '(Registered under the Insecticides Act, 1968)'
+      LATTICE LOST: '(As on – 31/03/2026)'
+      LATTICE LOST: '(Based on certificate issued)'
+      LATTICE LOST: '*Disclaimer: ‘The document has been compiled on the basis'
+      LATTICE LOST: 'of available information for guidance and not for legal'
+      LATTICE LOST: 'purposes’.'
+      LATTICE LOST: 'BIO-INSECTICIDES'
+      LATTICE LOST: '1. Major uses of Bio-insecticides - (Page No. 2 to 15).'
+      LATTICE LOST: '2. Public health use - (Page No.15 to 18).'
+--- insecticides_20260331.pdf p1  (393 chars, 8 lines lost by lattice only)
+      LATTICE LOST: 'Disclaimer: The document has been compiled on the basis of available information for guidance and'
+      LATTICE LOST: 'not for legal purposes.'
+      LATTICE LOST: 'INSECTICIDES'
+      LATTICE LOST: '1. Insecticides registered for Agriculture use (Page No. – 02)'
+      LATTICE LOST: '2. Insecticides combination registered for agriculture use (Page No. – 53)'
+      LATTICE LOST: '3. Insecticides registered for Public Health use (Page No. – 85)'
+      LATTICE LOST: '4. Insecticides registered for Household use (Page No. – 90)'
+      LATTICE LOST: '5. Recommended chemicals by FAO for Locust Control (Page No.– 105)'
+--- bio_fungicides_20260331.pdf p1  (345 chars, 11 lines lost by lattice only)
+      LATTICE LOST: 'Government of India'
+      LATTICE LOST: 'Ministry of Agriculture & Farmers Welfare'
+      LATTICE LOST: 'Department of Agriculture& Farmers Welfare'
+      LATTICE LOST: 'Directorate of Plant Protection, Quarantine & Storage'
+      LATTICE LOST: 'Central Insecticide Board & Registration Committee'
+      LATTICE LOST: 'N.H.-IV, Faridabad-121001 (Haryana)'
+      LATTICE LOST: '(Based on certificate issued)'
+      LATTICE LOST: 'Disclaimer: The document has been'
+      LATTICE LOST: 'compiled on the basis of available'
+      LATTICE LOST: 'information for guidance and not for legal'
+      LATTICE LOST: 'purposes.'
+--- fungicides_20260331.pdf p1  (307 chars, 9 lines lost by lattice only)
+      LATTICE LOST: 'Ametoctradine'
+      LATTICE LOST: 'Government of India Ministry of Agriculture &'
+      LATTICE LOST: 'Farmers Welfare'
+      LATTICE LOST: 'Department of Agriculture& Farmers Welfare Directorate of Plant'
+      LATTICE LOST: 'Protection, Quarantine &Storage Central Insecticide Board &Registration'
+      LATTICE LOST: 'Committee N.H.-IV, Faridabad-121001 (Haryana)'
+      LATTICE LOST: 'MAJORUSES OF PESTICIDES'
+      LATTICE LOST: '(Registered under the Insecticides Act, 1968)'
+      LATTICE LOST: '(UPTO - 31/03/2026)'
+--- insecticides_20260331.pdf p101  (279 chars, 5 lines lost by lattice only)
+      LATTICE LOST: 'Ready to use household insecticide Used to control of German & American Cockroaches.'
+      LATTICE LOST: 'Household americana), German cockroach (Blattella 0.03g (in a bait gun), 3-4spot/m2'
+      LATTICE LOST: 'German cockroach (Blattella germanica) Low Density –1 spot /M2'
+      LATTICE LOST: 'American Cockroach (Periplanata Low Density –2 spots /M2'
+      LATTICE LOST: 'americana) High Density – 3 spots /M2'
+--- insecticides_20260331.pdf p107  (53 chars, 2 lines lost by lattice only)
+      LATTICE LOST: 'Black Carpenter Ants per spot (2-4'
+      LATTICE LOST: '(Camponotus spp.) spots per'
+--- insecticides_20260331.pdf p106  (51 chars, 3 lines lost by lattice only)
+      LATTICE LOST: 'Space spray in Mosquitoes,'
+      LATTICE LOST: '50 ml/100m3 01'
+      LATTICE LOST: 'houses houseflies'
+--- fungicides_20260331.pdf p70  (34 chars, 1 lines lost by lattice only)
+      LATTICE LOST: 'Mildew and Alternaria 153 (13.5 + 139.5)'
+--- insecticides_20260331.pdf p91  (16 chars, 1 lines lost by lattice only)
+      LATTICE LOST: 'Mosquitoes health'
+--- fungicides_20260331.pdf p38  (15 chars, 1 lines lost by lattice only)
+      LATTICE LOST: 'plant protection'
+--- bio_fungicides_20260331.pdf p20  (3 chars, 1 lines lost by lattice only)
+      LATTICE LOST: '***'
+
+==========================================================================================
+summary per file: pages where lattice-only-loss occurred / stream-only-loss
+insecticides_20260331.pdf          pages= 109  lat_only_pages=   6 lat_only_chars=  1658  |  str_only_pages=  69 str_only_chars= 12523
+fungicides_20260331.pdf            pages=  83  lat_only_pages=   3 lat_only_chars=   356  |  str_only_pages=  52 str_only_chars=  5627
+bio_insecticides_20260331.pdf      pages=  19  lat_only_pages=   1 lat_only_chars=   653  |  str_only_pages=  15 str_only_chars=  3809
+bio_fungicides_20260331.pdf        pages=  20  lat_only_pages=   2 lat_only_chars=   348  |  str_only_pages=  11 str_only_chars=  2397

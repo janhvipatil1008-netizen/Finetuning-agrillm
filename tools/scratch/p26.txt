@@ -1,0 +1,120 @@
+=== RAW TEXT LAYER ===
+Jassids, Aphids 84 700 500
+900 –
+White fly 108 – 120 500
+Cotton 1000 31
+Jassids, Aphids 84 700 500
+900 –
+White fly 108 – 120 500
+Cucumber 1000 3
+Jassids, Aphids 84 700 500
+900 –
+Tomato White fly, Jassids, Aphids 108 - 120 500 3
+1000
+Chilli White fly, Aphids 108 - 120 900 -1000 500 3
+Dinotefuran 20% SG
+Rice (Paddy) Brown plant hopper 30 –40 150 –200 500 21
+Whitefly, Jassids, Aphids 25 –30 125 –150 500 15
+Cotton
+& Thrips
+Dinotefuran 70 %WG
+Aphids, Whitefly, Leaf
+Cotton 61.2 87 500 17
+Hopper
+Brinjal Jassids, Aphids and Whitefly 61.2 87 500 7
+Brown Plant Hopper, White
+Rice Backed Plant Hopper and 61.2 88 500 32
+Green leaf Hopper
+Emamectin benzoate 05%SG
+Cotton Boll worms 9.5 –11.0 190 –220 500 10
+Okra (Bhindi) Fruit & Shoot Borer 6.75 –8.50 135 –170 500 05
+Cabbage Diamond back moth 7.5 –10 150 –200 500 03
+Chilli Fruit borer, Thrips, Mites
+10 200 500 03
+Brinjal Fruit and Shoot borer 10 200 500 03
+Red gram Pod borer
+11 220 500 –750 14
+(Arhar/Tur)
+Chickpea Pod borer 11 220 500 14
+Grapes Thrips 11 220 500 –1000 05
+Tea Tea looper 10 200 500 01
+Emamectin benzoate 01.90%EC
+Cotton Boll worms 11 580 500 15
+26
+=== lattice: 1 tables ===
+table[0] shape=(26, 6)
+  r0  |  || Jassids, Aphids || 84 || 700 || 500 || 
+  r1  | Cotton || White fly || 108 – 120 || 900 – ↵1000 || 500 || 31
+  r2  |  || Jassids, Aphids || 84 || 700 || 500 || 
+  r3  | Cucumber || White fly || 108 – 120 || 900 – ↵1000 || 500 || 3
+  r4  |  || Jassids, Aphids || 84 || 700 || 500 || 
+  r5  | Tomato || White fly, Jassids, Aphids || 108 - 120 || 900 – ↵1000 || 500 || 3
+  r6  | Chilli || White fly, Aphids || 108 - 120 || 900 -1000 || 500 || 3
+  r7  | Dinotefuran 20% SG ||  ||  ||  ||  || 
+  r8  | Rice (Paddy) || Brown plant hopper || 30 –40 || 150 –200 || 500 || 21
+  r9  | Cotton || Whitefly, Jassids, Aphids ↵& Thrips || 25 –30 || 125 –150 || 500 || 15
+  r10 | Dinotefuran 70 %WG ||  ||  ||  ||  || 
+  r11 | Cotton || Aphids, Whitefly, Leaf ↵Hopper || 61.2 || 87 || 500 || 17
+  r12 | Brinjal || Jassids, Aphids and Whitefly || 61.2 || 87 || 500 || 7
+  r13 | Rice || Brown Plant Hopper, White ↵Backed Plant Hopper and ↵Green leaf Hopper || 61.2 || 88 || 500 || 32
+  r14 | Emamectin benzoate 05%SG ||  ||  ||  ||  || 
+  r15 | Cotton || Boll worms || 9.5 –11.0 || 190 –220 || 500 || 10
+  r16 | Okra (Bhindi) || Fruit & Shoot Borer || 6.75 –8.50 || 135 –170 || 500 || 05
+  r17 | Cabbage || Diamond back moth || 7.5 –10 || 150 –200 || 500 || 03
+  r18 | Chilli || Fruit borer, Thrips, Mites || 10 || 200 || 500 || 03
+  r19 | Brinjal || Fruit and Shoot borer || 10 || 200 || 500 || 03
+  r20 | Red gram ↵(Arhar/Tur) || Pod borer || 11 || 220 || 500 –750 || 14
+  r21 | Chickpea || Pod borer || 11 || 220 || 500 || 14
+  r22 | Grapes || Thrips || 11 || 220 || 500 –1000 || 05
+  r23 | Tea || Tea looper || 10 || 200 || 500 || 01
+  r24 | Emamectin benzoate 01.90%EC ||  ||  ||  ||  || 
+  r25 | Cotton || Boll worms || 11 || 580 || 500 || 15
+=== stream: 2 tables ===
+table[0] shape=(14, 6)
+  r0  |  || Jassids, Aphids || 84 || 700 || 500 || 
+  r1  |  ||  ||  || 900 – ||  || 
+  r2  |  || White fly || 108 – 120 ||  || 500 || 
+  r3  | Cotton ||  ||  || 1000 ||  || 31
+  r4  |  || Jassids, Aphids || 84 || 700 || 500 || 
+  r5  |  ||  ||  || 900 – ||  || 
+  r6  |  || White fly || 108 – 120 ||  || 500 || 
+  r7  |  ||  ||  || 1000 ||  || 
+  r8  | Cucumber ||  ||  ||  ||  || 3
+  r9  |  || Jassids, Aphids || 84 || 700 || 500 || 
+  r10 |  ||  ||  || 900 – ||  || 
+  r11 | Tomato || White fly, Jassids, Aphids || 108 - 120 ||  || 500 || 3
+  r12 |  ||  ||  || 1000 ||  || 
+  r13 | Chilli || White fly, Aphids || 108 - 120 || 900 -1000 || 500 || 3
+table[1] shape=(32, 7)
+  r0  |  ||  ||  || 900 – ||  ||  || 
+  r1  | Tomato || White fly, Jassids, Aphids || 108 - 120 ||  || 500 ||  || 3
+  r2  |  ||  ||  || 1000 ||  ||  || 
+  r3  | Chilli || White fly, Aphids || 108 - 120 || 900 -1000 || 500 ||  || 3
+  r4  | Dinotefuran 20% SG ||  ||  ||  ||  ||  || 
+  r5  | Rice (Paddy) || Brown plant hopper || 30 –40 || 150 –200 || 500 || 21 || 
+  r6  |  || Whitefly, Jassids, Aphids || 25 –30 || 125 –150 || 500 || 15 || 
+  r7  | Cotton ||  ||  ||  ||  ||  || 
+  r8  |  || & Thrips ||  ||  ||  ||  || 
+  r9  | Dinotefuran 70 %WG ||  ||  ||  ||  ||  || 
+  r10 |  || Aphids, Whitefly, Leaf ||  ||  ||  ||  || 
+  r11 | Cotton ||  || 61.2 || 87 || 500 || 17 || 
+  r12 |  || Hopper ||  ||  ||  ||  || 
+  r13 | Brinjal || Jassids, Aphids and Whitefly || 61.2 || 87 || 500 || 7 || 
+  r14 |  || Brown Plant Hopper, White ||  ||  ||  ||  || 
+  r15 | Rice || Backed Plant Hopper and || 61.2 || 88 || 500 || 32 || 
+  r16 |  || Green leaf Hopper ||  ||  ||  ||  || 
+  r17 | Emamectin benzoate 05%SG ||  ||  ||  ||  ||  || 
+  r18 | Cotton || Boll worms || 9.5 –11.0 || 190 –220 || 500 || 10 || 
+  r19 | Okra (Bhindi) || Fruit & Shoot Borer || 6.75 –8.50 || 135 –170 || 500 || 05 || 
+  r20 | Cabbage || Diamond back moth || 7.5 –10 || 150 –200 || 500 || 03 || 
+  r21 | Chilli || Fruit borer, Thrips, Mites ||  ||  ||  ||  || 
+  r22 |  ||  || 10 || 200 || 500 || 03 || 
+  r23 | Brinjal || Fruit and Shoot borer || 10 || 200 || 500 || 03 || 
+  r24 | Red gram || Pod borer ||  ||  ||  ||  || 
+  r25 |  ||  || 11 || 220 || 500 –750 || 14 || 
+  r26 | (Arhar/Tur) ||  ||  ||  ||  ||  || 
+  r27 | Chickpea || Pod borer || 11 || 220 || 500 || 14 || 
+  r28 | Grapes || Thrips || 11 || 220 || 500 –1000 || 05 || 
+  r29 | Tea || Tea looper || 10 || 200 || 500 || 01 || 
+  r30 | Emamectin benzoate 01.90%EC ||  ||  ||  ||  ||  || 
+  r31 | Cotton || Boll worms || 11 || 580 || 500 || 15 || 

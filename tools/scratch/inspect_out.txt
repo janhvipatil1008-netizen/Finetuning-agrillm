@@ -1,0 +1,539 @@
+====================================================================================================
+### fungicides_20260331.pdf p83
+--- RAW TEXT LAYER ---
+Rice Sheath blight 375-500
+Rice (Rhizoctonia solani) (56+120) 2000 17
+& Brown spot
+(Helminthosporium
+oryzae)
+Validamycin5%+Tebuconazole15%SC
+Sheath blight 500
+Rice (Rhizoctonia solani) 50+150 g 1000 47
+and Blast
+(Pyricularia oryzae)
+of Rice
+Valifenalate 6% + Mancozeb 60% WG
+Tomato Early blight &
+120 + 1200 to
+Late blight 2000 to 2500 500 5 days
+150 + 1500
+Potato Late blight
+120 + 1200 to
+2000 to 2500 500 20 days
+150 + 1500
+Grape Downy mildew
+120 + 1200 2000 750 14 days
+Cucumber Downy mildew
+120 +1200 to 2000-2500 500 05 days
+150 + 1500
+* Warning: When used as a foliar spray on Red Delicious variety of apples. This product may
+cause resetting.
+** In case of, fruit trees the values given pertain to the concentration of a.i. in spray solution and
+volume of spray solution required per tree.
+***Ensures better seed germination & plant stand by managing infection of karnal bunt on wheat
+seeds at the time of sowing
+****Dose of 2.0 ml/kg seed to be used in pockets/fields with history of complex of the above
+mentioned insect pests and diseases while dose of 1.0 ml/kg seed to be used in the pockets/fields
+where only the enlisted diseases are predominant.
+****
+83
+--- lattice: 1 tables ---
+  table[0] shape=(8, 6)
+   r0  | Rice || Rice Sheath blight ↵(Rhizoctonia solani) ↵& Brown spot ↵(Helminthosporium ↵oryzae) || (56+120) || 2000 || 375-500 || 17
+   r1  | Validamycin5%+Tebuconazole15%SC ||  ||  ||  ||  || 
+   r2  | Rice || Sheath blight ↵(Rhizoctonia solani) ↵and Blast ↵(Pyricularia oryzae) ↵of Rice || 50+150 g || 1000 || 500 || 47
+   r3  | Valifenalate 6% + Mancozeb 60% WG ||  ||  ||  ||  || 
+   r4  | Tomato || Early blight & ↵Late blight || 120 + 1200 to ↵150 + 1500 || 2000 to 2500 || 500 || 5 days
+   r5  | Potato || Late blight || 120 + 1200 to ↵150 + 1500 || 2000 to 2500 || 500 || 20 days
+   r6  | Grape || Downy mildew || 120 + 1200 || 2000 || 750 || 14 days
+   r7  | Cucumber || Downy mildew || 120 +1200 to ↵150 + 1500 || 2000-2500 || 500 || 05 days
+  MISSING 517 chars: {'e': 71, 's': 43, 't': 41, 'o': 38, 'n': 38, 'i': 37, 'a': 32, 'r': 25, 'd': 23, 'l': 17, 'f': 15, 'p': 14, 'u': 14, '*': 14, 'h': 13, 'c': 11, 'm': 10, 'g': 9, 'y': 8, '.': 8, 'w': 7, 'b': 6, 'v': 5, 'k': 5, '/': 4, '0': 2, '1': 1, '2': 1, '&': 1, ':': 1, ',': 1, 'q': 1, 'x': 1}
+--- stream: 3 tables ---
+  table[0] shape=(5, 6)
+   r0  |  || Rice Sheath blight ||  ||  || 375-500 || 
+   r1  | Rice || (Rhizoctonia solani) || (56+120) || 2000 ||  || 17
+   r2  |  || & Brown spot ||  ||  ||  || 
+   r3  |  || (Helminthosporium ||  ||  ||  || 
+   r4  |  || oryzae) ||  ||  ||  || 
+  table[1] shape=(9, 6)
+   r0  |  || (Helminthosporium ||  ||  ||  || 
+   r1  |  || oryzae) ||  ||  ||  || 
+   r2  | Validamycin5%+Tebuconazole15%SC ||  ||  ||  ||  || 
+   r3  |  || Sheath blight ||  ||  || 500 || 
+   r4  | Rice || (Rhizoctonia solani) || 50+150 g || 1000 ||  || 47
+   r5  |  || and Blast ||  ||  ||  || 
+   r6  |  || (Pyricularia oryzae) ||  ||  ||  || 
+   r7  |  || of Rice ||  ||  ||  || 
+   r8  |  || Valifenalate 6% + Mancozeb 60% WG ||  ||  ||  || 
+  table[2] shape=(17, 6)
+   r0  |  || (Pyricularia oryzae) ||  ||  ||  || 
+   r1  |  || of Rice ||  ||  ||  || 
+   r2  | Valifenalate 6% + Mancozeb 60% WG ||  ||  ||  ||  || 
+   r3  | Tomato || Early blight & ||  ||  ||  || 
+   r4  |  ||  || 120 + 1200 to ||  ||  || 
+   r5  |  || Late blight ||  || 2000 to 2500 || 500 || 5 days
+   r6  |  ||  || 150 + 1500 ||  ||  || 
+   r7  | Potato || Late blight ||  ||  ||  || 
+   r8  |  ||  || 120 + 1200 to ||  ||  || 
+   r9  |  ||  ||  || 2000 to 2500 || 500 || 20 days
+   r10 |  ||  || 150 + 1500 ||  ||  || 
+   r11 | Grape || Downy mildew ||  ||  ||  || 
+   r12 |  ||  ||  || 2000 || 750 || 14 days
+   r13 |  ||  || 120 + 1200 ||  ||  || 
+   r14 | Cucumber || Downy mildew ||  ||  ||  || 
+   r15 |  ||  || 120 +1200 to || 2000-2500 || 500 || 05 days
+   r16 |  ||  || 150 + 1500 ||  ||  || 
+  MISSING 452 chars: {'e': 64, 's': 42, 't': 39, 'n': 35, 'o': 32, 'i': 31, 'a': 24, 'd': 23, 'r': 19, '*': 14, 'l': 13, 'f': 13, 'p': 12, 'u': 12, 'h': 11, 'c': 8, 'g': 8, '.': 8, 'm': 7, 'w': 6, 'b': 5, 'y': 5, 'k': 5, 'v': 4, '/': 4, '0': 1, '1': 1, '2': 1, '&': 1, ':': 1, ',': 1, 'q': 1, 'x': 1}
+
+====================================================================================================
+### insecticides_20260331.pdf p1
+--- RAW TEXT LAYER ---
+भारत सरकार/Government of India
+कृषि एवं ककसान कल्याण मंत्रालय/Ministry of Agriculture & Farmers Welfare
+कृषि एवं ककसान कल्याण षवभाग
+Department of Agriculture & Farmers Welfare
+वनस्पति संरक्षण, संगरोध और संग्रह तनदेशालय
+Directorate of Plant Protection, Quarantine & Storage
+केंद्रीय कीटनाशी बोर् डएवं पंजीकरण सममति
+Central Insecticide Board &Registration Committee
+एन. एच. - 4, फरीदाबाद001 121 – (हररयाणा)
+N.H.-IV, Faridabad-121001(Haryana)
+MAJOR USES OF PESTICIDES
+(Registered under the Insecticides Act, 1968)
+(UPTO–31.03.2026)
+(Based on certificate issued)
+Disclaimer: The document has been compiled on the basis of available information for guidance and
+not for legal purposes.
+INSECTICIDES
+1. Insecticides registered for Agriculture use (Page No. – 02)
+2. Insecticides combination registered for agriculture use (Page No. – 53)
+3. Insecticides registered for Public Health use (Page No. – 85)
+4. Insecticides registered for Household use (Page No. – 90)
+5. Recommended chemicals by FAO for Locust Control (Page No.– 105)
+1
+--- lattice: 0 tables ---
+  MISSING 878 chars: {'e': 87, 'i': 59, 'r': 53, 't': 47, 'a': 47, 'o': 45, 's': 43, 'n': 39, 'c': 37, 'd': 30, 'u': 23, 'f': 21, 'l': 20, 'g': 19, '.': 17, 'm': 16, 'ा': 14, 'र': 14, 'p': 14, 'क': 13, 'h': 11, '1': 10, '(': 10, ')': 10, 'ं': 9, 'b': 9, '0': 9, 'स': 8, '्': 8, '–': 7, 'न': 6, 'य': 6, '2': 6, 'त': 5, 'ए': 5, 'व': 5, 'ण': 5, ',': 5, 'ी': 5, 'ष': 4}
+--- stream: 1 tables ---
+  table[0] shape=(8, 1)
+   r0  | Disclaimer: The document has been compiled on the basis of available information for guidance and
+   r1  | not for legal purposes.
+   r2  | INSECTICIDES
+   r3  | 1.  Insecticides registered for Agriculture use (Page No. – 02)
+   r4  | 2.  Insecticides combination registered for agriculture use (Page No. – 53)
+   r5  | 3.  Insecticides registered for Public Health use (Page No. – 85)
+   r6  | 4.  Insecticides registered for Household use (Page No. – 90)
+   r7  | 5.  Recommended chemicals by FAO for Locust Control (Page No.– 105)
+  MISSING 485 chars: {'e': 37, 'r': 29, 't': 27, 'i': 26, 'a': 26, 'n': 17, 'o': 16, 's': 16, 'ा': 14, 'र': 14, 'c': 14, 'क': 13, 'd': 13, 'f': 11, 'ं': 9, 'u': 9, 'स': 8, 'm': 8, '्': 8, '1': 8, 'g': 6, 'न': 6, 'य': 6, 'l': 6, '.': 6, '0': 6, 'त': 5, 'ए': 5, 'व': 5, 'ण': 5, 'p': 5, ',': 5, 'ी': 5, '(': 5, ')': 5, 'ष': 4, 'ि': 4, 'ल': 4, '&': 4, 'द': 4}
+
+====================================================================================================
+### fungicides_20260331.pdf p1
+--- RAW TEXT LAYER ---
+Ametoctradine
+Government of India Ministry of Agriculture &
+Farmers Welfare
+Department of Agriculture& Farmers Welfare Directorate of Plant
+Protection, Quarantine &Storage Central Insecticide Board &Registration
+Committee N.H.-IV, Faridabad-121001 (Haryana)
+MAJORUSES OF PESTICIDES
+(Registered under the Insecticides Act, 1968)
+(UPTO - 31/03/2026)
+(Based on certificate issued)
+Disclaimer: The document has been compiled on the basis of available
+information for guidance and not for legal purposes.
+FUNGICIDES
+1. Fungicides single product formulations use (Page No. – 02 to 41).
+2. Fungicides combination uses (Page No. – 42 to 79)
+1
+--- lattice: 0 tables ---
+  MISSING 546 chars: {'e': 58, 'i': 45, 'a': 42, 't': 39, 'r': 37, 'o': 36, 'n': 35, 's': 30, 'c': 24, 'd': 23, 'f': 19, 'u': 19, 'm': 15, 'g': 14, 'l': 14, 'p': 11, '.': 8, 'b': 7, '1': 7, 'h': 6, '2': 6, '(': 6, ')': 6, '0': 5, '&': 4, 'v': 3, ',': 3, '-': 3, 'y': 2, 'w': 2, '9': 2, '6': 2, '3': 2, '/': 2, '–': 2, '4': 2, 'q': 1, 'j': 1, '8': 1, ':': 1}
+--- stream: 1 tables ---
+  table[0] shape=(9, 1)
+   r0  | Ametoctradine
+   r1  | Government of India  Ministry of Agriculture &
+   r2  | Farmers Welfare
+   r3  | Department of Agriculture& Farmers Welfare Directorate of Plant
+   r4  | Protection, Quarantine &Storage Central Insecticide Board &Registration
+   r5  | Committee N.H.-IV, Faridabad-121001 (Haryana)
+   r6  | MAJORUSES OF PESTICIDES
+   r7  | (Registered under the Insecticides Act, 1968)
+   r8  | (UPTO - 31/03/2026)
+  MISSING 239 chars: {'e': 23, 'i': 21, 'o': 20, 'n': 18, 's': 17, 'a': 16, 't': 12, 'c': 11, 'd': 11, 'u': 11, 'f': 9, 'r': 8, 'g': 8, 'l': 8, 'm': 6, 'p': 6, '.': 6, 'b': 5, 'h': 3, '2': 3, '(': 3, ')': 3, '1': 2, '–': 2, '4': 2, 'v': 1, '0': 1, '9': 1, ':': 1, '7': 1}
+
+====================================================================================================
+### bio_insecticides_20260331.pdf p1
+--- RAW TEXT LAYER ---
+भारत सरकार / Government of India
+कृषि एव ंककसान कल्याण मंत्रालय / Ministry of Agriculture & Farmers Welfare
+कृषि एव ंककसान कल्याण षवभाग
+Department of Agriculture & Farmers Welfare
+वनस्पति संरक्षण, संगरोध और संग्रह तनदेशालय
+Directorate of Plant Protection, Quarantine & Storage
+केंद्रीय कीटनाशी बोर् डएव ंपंजीकरण सममति
+Central Insecticide Board & Registration Committee
+एन. एच. - 4, फरीदाबाद001 121 – (हररयाणा)
+N.H.-IV, Faridabad-121 001 (Haryana)
+MAJOR USES OF PESTICIDES
+(Registered under the Insecticides Act, 1968)
+(As on – 31/03/2026)
+(Based on certificate issued)
+*Disclaimer: ‘The document has been compiled on the basis
+of available information for guidance and not for legal
+purposes’.
+BIO-INSECTICIDES
+1. Major uses of Bio-insecticides - (Page No. 2 to 15).
+2. Public health use - (Page No.15 to 18).
+1
+--- lattice: 0 tables ---
+  MISSING 686 chars: {'e': 57, 'i': 43, 'a': 41, 't': 36, 'r': 35, 'o': 34, 'n': 30, 's': 30, 'c': 23, 'd': 20, 'f': 16, 'ा': 14, 'र': 14, 'u': 14, 'l': 14, 'क': 13, 'm': 13, '1': 12, '.': 11, 'g': 10, 'p': 10, 'ं': 9, 'b': 9, 'स': 8, '्': 8, 'h': 8, '-': 7, '(': 7, ')': 7, 'न': 6, 'य': 6, '0': 6, '2': 6, 'त': 5, 'ए': 5, 'व': 5, 'ण': 5, ',': 5, 'ी': 5, '/': 4}
+--- stream: 1 tables ---
+  table[0] shape=(22, 1)
+   r0  | भारत सरकार / Government of India
+   r1  | क↵ृ षि एवं ककसान कल्याण मंत्रालय  / Ministry of Agriculture & Farmers  Welfare
+   r2  | क↵ृ षि एवं ककसान कल्याण षवभाग
+   r3  | Department of Agriculture & Farmers Welfare
+   r4  | वनस्पति संरक्षण, संगरोध और संग्रह तनदेशालय
+   r5  | Directorate of Plant Protection, Quarantine & Storage
+   r6  | क↵ें द्रीय कीटनाशी बोर्ड एवं पंजीकरण सममति
+   r7  | Central Insecticide Board & Registration Committee
+   r8  | 
+   r9  | एन. एच. - 4, फरीदाबाद↵ (हररयाणा)
+   r10 | N.H.-IV, Faridabad-121 001 (Haryana)
+   r11 | MAJOR USES OF PESTICIDES
+   r12 | (Registered under the Insecticides Act, 1968)
+   r13 | (As on – 31/03/2026)
+   r14 | (Based on certificate issued)
+   r15 | *Disclaimer: ‘The document has been compiled on the basis
+   r16 | of available information for guidance and not for legal
+   r17 | purposes’.
+   r18 | BIO-INSECTICIDES
+   r19 | 1.  Major uses of Bio-insecticides ↵- (Page No. 2 to 15).
+   r20 | 2.  Public health use ↵- (Page No.15 to 18).
+   r21 | 1
+  MISSING 6 chars: {'0': 2, '1': 2, '2': 1, '–': 1}
+
+====================================================================================================
+### bio_fungicides_20260331.pdf p1
+--- RAW TEXT LAYER ---
+Government of India
+Ministry of Agriculture & Farmers Welfare
+Department of Agriculture& Farmers Welfare
+Directorate of Plant Protection, Quarantine & Storage
+Central Insecticide Board & Registration Committee
+N.H.-IV, Faridabad-121001 (Haryana)
+MAJOR USES OF BIO-PESTICIDES
+(Registered under the Insecticides Act,1968)
+(Based on certificate issued)
+Disclaimer: The document has been
+compiled on the basis of available
+information for guidance and not for legal
+purposes.
+(Updated upto 31.03.2026)
+BIO-PESTICIDES
+1. Major uses of Bio-fungicides (Page No. – 02 to 19)
+--- lattice: 0 tables ---
+  MISSING 490 chars: {'e': 54, 'i': 41, 'a': 39, 'r': 35, 't': 35, 'o': 33, 'n': 27, 's': 27, 'd': 22, 'c': 20, 'f': 17, 'u': 15, 'm': 13, 'l': 12, 'p': 11, 'g': 10, 'b': 9, '.': 7, '1': 7, 'h': 6, '-': 5, '0': 5, '(': 5, ')': 5, '&': 4, '2': 4, 'v': 3, ',': 3, 'y': 2, 'w': 2, 'j': 2, '9': 2, '6': 2, '3': 2, 'q': 1, '8': 1, ':': 1, '–': 1}
+--- stream: 2 tables ---
+  table[0] shape=(6, 1)
+   r0  | Government of India
+   r1  | Ministry of Agriculture & Farmers Welfare
+   r2  | Department of Agriculture& Farmers Welfare
+   r3  | Directorate of Plant Protection, Quarantine & Storage
+   r4  | Central Insecticide Board & Registration Committee
+   r5  | N.H.-IV, Faridabad-121001 (Haryana)
+  table[1] shape=(5, 1)
+   r0  | (Based on certificate issued)
+   r1  | Disclaimer: The document has been
+   r2  | compiled on the basis of available
+   r3  | information for guidance and not for legal
+   r4  | purposes.
+  MISSING 145 chars: {'e': 16, 'i': 13, 's': 12, 'o': 10, 't': 9, 'd': 8, 'c': 6, 'u': 6, 'r': 5, 'a': 5, 'p': 5, 'n': 4, '.': 4, '1': 4, 'g': 3, 'f': 3, 'b': 3, '-': 3, '2': 3, '0': 3, '(': 3, ')': 3, 'm': 2, 'j': 2, '9': 2, '6': 2, '3': 2, ',': 1, 'h': 1, '8': 1, '–': 1}
+
+====================================================================================================
+### fungicides_20260331.pdf p38
+--- RAW TEXT LAYER ---
+Marssonina Leaf 7.5 ml /10 L of
+Apple 3.22 gram/10 L As required 30
+blotch water
+of water depending on the
+(premature leaf
+size of the tree and
+fall)
+plant protection
+Tomato Early blight and 268.75 625
+500 5
+Anthracnose
+Pomegranate Leaf & fruit spot, 182 425
+500 59
+Anthracnose
+Mango Anthracnose, 47.3 /100 lit 110 /100 liter of
+As required 15
+Powdery mildew and water water
+depending on the
+leaf spot
+size of the tree
+Tetraconazole 3.8% w/w EW
+Grape powdery mildew 25-30 625-750 500-1000 30
+Mango powdery mildew 50 1250 1000 24
+Watermelon powdery mildew 40 1000 500 12
+Tea Blister Blight 19 500 175 7
+Cucumber powdery mildew 38 1000 500 10
+Tetraconazole 11.6% w/w (12.5% w/v) SL
+Cotton Root rot 15 120 Sufficient to NA (Seed
+(Rhizoctonia coat the seed dresser)
+solani) uniformly
+Thifluzamide24%SC
+Rice (Paddy) Sheath blight, 90gm 375 gm 500 28
+(Rhizoctonia
+solani)
+Tomato Early blight 120 500 500 7
+Potato Black Scurf 0.6g a.i./10 2.5ml/10 kg - Used as
+kg potato potato tuber seed
+tuber treatment
+Thiophanate Methyl 70%WP
+Papaya Powdery mildew 500gm 715gm 750-1000 4-8
+Apple Scab 500gm 715gm 750-1000 3
+Tomato Ring rot 500gm 715gm 750-1000 7
+Bottle gourd Anthracnose 1000gm 1430gm 750-1000 1
+38
+--- lattice: 1 tables ---
+  table[0] shape=(21, 6)
+   r0  | Apple || Marssonina Leaf ↵blotch ↵(premature leaf ↵fall) || 3.22 gram/10 L ↵of water || 7.5 ml /10 L of ↵water || As required ↵depending on the ↵size of the tree and || 30
+   r1  | Tomato || Early blight and ↵Anthracnose || 268.75 || 625 || 500 || 5
+   r2  | Pomegranate || Leaf & fruit spot, ↵Anthracnose || 182 || 425 || 500 || 59
+   r3  | Mango || Anthracnose, ↵Powdery mildew and ↵leaf spot || 47.3 /100 lit ↵water || 110 /100 liter of ↵water || As required ↵depending on the ↵size of the tree || 15
+   r4  | Tetraconazole 3.8% w/w EW ||  ||  ||  ||  || 
+   r5  | Grape || powdery mildew || 25-30 || 625-750 || 500-1000 || 30
+   r6  | Mango || powdery mildew || 50 || 1250 || 1000 || 24
+   r7  | Watermelon || powdery mildew || 40 || 1000 || 500 || 12
+   r8  | Tea || Blister Blight || 19 || 500 || 175 || 7
+   r9  | Cucumber || powdery mildew || 38 || 1000 || 500 || 10
+   r10 | Tetraconazole 11.6% w/w (12.5% w/v) SL ||  ||  ||  ||  || 
+   r11 | Cotton || Root rot ↵(Rhizoctonia ↵solani) || 15 || 120 || Sufficient  to ↵coat the seed ↵uniformly || NA (Seed ↵dresser)
+   r12 | Thifluzamide24%SC ||  ||  ||  ||  || 
+   r13 | Rice (Paddy) || Sheath blight, ↵(Rhizoctonia ↵solani) || 90gm || 375  gm || 500 || 28
+   r14 | Tomato || Early blight || 120 || 500 || 500 || 7
+   r15 | Potato || Black Scurf || 0.6g a.i./10 ↵kg potato ↵tuber || 2.5ml/10 kg ↵potato tuber || - || Used as ↵seed ↵treatment
+   r16 | Thiophanate Methyl 70%WP ||  ||  ||  ||  || 
+   r17 | Papaya || Powdery mildew || 500gm || 715gm || 750-1000 || 4-8
+   r18 | Apple || Scab || 500gm || 715gm || 750-1000 || 3
+   r19 | Tomato || Ring rot || 500gm || 715gm || 750-1000 || 7
+   r20 | Bottle gourd || Anthracnose || 1000gm || 1430gm || 750-1000 || 1
+  MISSING 15 chars: {'t': 3, 'o': 2, 'n': 2, 'p': 2, 'a': 1, 'r': 1, 'i': 1, 'l': 1, 'e': 1, 'c': 1}
+--- stream: 4 tables ---
+  table[0] shape=(14, 6)
+   r0  |  ||  ||  ||  || size of the tree and || 
+   r1  |  || fall) ||  ||  ||  || 
+   r2  | Tomato || Early blight and || 268.75 || 625 ||  || 
+   r3  |  ||  ||  ||  || 500 || 5
+   r4  |  || Anthracnose ||  ||  ||  || 
+   r5  | Pomegranate || Leaf & fruit spot, || 182 || 425 ||  || 
+   r6  |  ||  ||  ||  || 500 || 59
+   r7  |  || Anthracnose ||  ||  ||  || 
+   r8  | Mango || Anthracnose, || 47.3 /100 lit || 110 /100 liter of ||  || 
+   r9  |  ||  ||  ||  || As required || 15
+   r10 |  || Powdery mildew and || water || water ||  || 
+   r11 |  ||  ||  ||  || depending on the || 
+   r12 |  || leaf spot ||  ||  ||  || 
+   r13 |  ||  ||  ||  || size of the tree || 
+  table[1] shape=(21, 6)
+   r0  |  || Marssonina Leaf ||  || 7.5 ml /10 L of ||  || 
+   r1  | Apple ||  || 3.22 gram/10 L ||  || As required || 30
+   r2  |  || blotch ||  || water ||  || 
+   r3  |  ||  || of water ||  || depending on the || 
+   r4  |  || (premature leaf ||  ||  ||  || 
+   r5  |  ||  ||  ||  || size of the tree and || 
+   r6  |  || fall) ||  ||  ||  || 
+   r7  |  ||  ||  ||  ||  || plant protection
+   r8  | Tomato || Early blight and || 268.75 || 625 ||  || 
+   r9  |  ||  ||  ||  || 500 || 5
+   r10 |  || Anthracnose ||  ||  ||  || 
+   r11 | Pomegranate || Leaf & fruit spot, || 182 || 425 ||  || 
+   r12 |  ||  ||  ||  || 500 || 59
+   r13 |  || Anthracnose ||  ||  ||  || 
+   r14 | Mango || Anthracnose, || 47.3 /100 lit || 110 /100 liter of ||  || 
+   r15 |  ||  ||  ||  || As required || 15
+   r16 |  || Powdery mildew and || water || water ||  || 
+   r17 |  ||  ||  ||  || depending on the || 
+   r18 |  || leaf spot ||  ||  ||  || 
+   r19 |  ||  ||  ||  || size of the tree || 
+   r20 | Tetraconazole 3.8% w/w EW ||  ||  ||  ||  || 
+  table[2] shape=(15, 6)
+   r0  | Mango || Anthracnose, || 47.3 /100 lit || 110 /100 liter of ||  || 
+   r1  |  ||  ||  ||  || As required || 15
+   r2  |  || Powdery mildew and || water || water ||  || 
+   r3  |  ||  ||  ||  || depending on the || 
+   r4  |  || leaf spot ||  ||  ||  || 
+   r5  |  ||  ||  ||  || size of the tree || 
+   r6  | Tetraconazole 3.8% w/w EW ||  ||  ||  ||  || 
+   r7  | Grape || powdery mildew || 25-30 || 625-750 || 500-1000 || 30
+   r8  | Mango || powdery mildew || 50 || 1250 || 1000 || 24
+   r9  | Watermelon || powdery mildew || 40 || 1000 || 500 || 12
+   r10 | Tea || Blister Blight || 19 || 500 || 175 || 7
+   r11 | Cucumber || powdery mildew || 38 || 1000 || 500 || 10
+   r12 |  || Tetraconazole 11.6% w/w (12.5% w/v) SL ||  ||  ||  || 
+   r13 | Cotton || Root rot || 15 || 120 || Sufficient  to || NA (Seed
+   r14 |  || (Rhizoctonia ||  ||  || coat the seed || dresser)
+  table[3] shape=(15, 6)
+   r0  |  || (Rhizoctonia ||  ||  || coat the seed || dresser)
+   r1  |  || solani) ||  ||  || uniformly || 
+   r2  | Thifluzamide24%SC ||  ||  ||  ||  || 
+   r3  | Rice (Paddy) || Sheath blight, || 90gm || 375  gm || 500 || 28
+   r4  |  || (Rhizoctonia ||  ||  ||  || 
+   r5  |  || solani) ||  ||  ||  || 
+   r6  | Tomato || Early blight || 120 || 500 || 500 || 7
+   r7  | Potato || Black Scurf || 0.6g a.i./10 || 2.5ml/10 kg || - || Used as
+   r8  |  ||  || kg potato || potato tuber ||  || seed
+   r9  |  ||  || tuber ||  ||  || treatment
+   r10 | Thiophanate Methyl 70%WP ||  ||  ||  ||  || 
+   r11 | Papaya || Powdery mildew || 500gm || 715gm || 750-1000 || 4-8
+   r12 | Apple || Scab || 500gm || 715gm || 750-1000 || 3
+   r13 | Tomato || Ring rot || 500gm || 715gm || 750-1000 || 7
+   r14 | Bottle gourd || Anthracnose || 1000gm || 1430gm || 750-1000 || 1
+  MISSING 0 chars: {}
+
+====================================================================================================
+### insecticides_20260331.pdf p6
+--- RAW TEXT LAYER ---
+Benfuracarb 03%GR
+Stem borer, Leaf
+Rice (Paddy) folder, Brown plant 1000 33000 - 20
+hopper
+Benfuracarb 40%EC
+Red gram (Tur or
+Pod borer 1000 2500 500 20
+Arhar)
+Benzpyrimoxan 10% SC
+Brown Plant Hopper,
+Rice White Backed Plant 75-100 750-1000 500 31
+Hopper
+Bifenazate 50% WP
+Two Spotted Mite
+Rose 375 750 3000 -
+(Tetranychus urticae)
+Bifenazate 22.60%SC
+Two Spotted Mite
+Rose 120 500 2000 -
+(Tetranychus urticae)
+Grapes Mites 120 500 1000 15
+Bifenthrin 08 %SC
+Red spider mite, Tea
+Tea 40.00 500 400 11
+Mosquito bug
+60 gm (0.006%
+Apple Mites 7.50 ml/tree 10 lit/tree 21
+Conc.)
+Bifenthrin 08.80% CS
+Rice (Paddy) Stem borer, Leaf
+44 500 500 21
+folder
+Bifenthrin 10 %EC
+Cotton Boll worms, White fly 80 800 500 15
+Stem borer, Leaf
+Rice(Paddy) folder, Green leaf 50 500 500 21
+hopper
+Sugarcane Termites 100 1000 500 300
+Bifenthrin 02.50% EC
+1. Pre and post construction: Bifenthrin 2.5% EC shall be applied at 0.05% a.i. conc. i.e. 20.0 ml formulated product
+diluted in 1 liter of water for the control of termites in building during pre and post construction. Treatment should be
+as per IS 6313 (Part 2):2001 for pre construction chemical treatment and IS 6313 (Part-3): 2001 for post construction
+treatment of the existing building.
+6
+--- lattice: 1 tables ---
+  table[0] shape=(22, 8)
+   r0  | Benfuracarb 03%GR ||  ||  ||  ||  ||  ||  || 
+   r1  | Rice (Paddy) || Stem borer, Leaf ↵folder, Brown plant ↵hopper ||  || 1000 ||  || 33000 || - || 20
+   r2  | Benfuracarb 40%EC ||  ||  ||  ||  ||  ||  || 
+   r3  | Red gram (Tur or ↵Arhar) || Pod borer ||  || 1000 ||  || 2500 || 500 || 20
+   r4  | Benzpyrimoxan 10% SC ||  ||  ||  ||  ||  ||  || 
+   r5  | Rice || Brown Plant Hopper, ↵White Backed Plant ↵Hopper ||  || 75-100 ||  || 750-1000 || 500 || 31
+   r6  | Bifenazate 50% WP ||  ||  ||  ||  ||  ||  || 
+   r7  | Rose || Two Spotted Mite ↵(Tetranychus urticae) ||  || 375 ||  || 750 || 3000 || -
+   r8  | Bifenazate 22.60%SC ||  ||  ||  ||  ||  ||  || 
+   r9  | Rose || Two Spotted Mite ↵(Tetranychus urticae) ||  || 120 ||  || 500 || 2000 || -
+   r10 | Grapes || Mites ||  || 120 ||  || 500 || 1000 || 15
+   r11 | Bifenthrin 08 %SC ||  ||  ||  ||  ||  ||  || 
+   r12 | Tea || Red spider mite, Tea ↵Mosquito bug ||  || 40.00 ||  || 500 || 400 || 11
+   r13 | Apple || Mites ||  || 60 gm (0.006% ↵Conc.) ||  || 7.50 ml/tree || 10 lit/tree || 21
+   r14 | Bifenthrin 08.80% CS ||  ||  ||  ||  ||  ||  || 
+   r15 | Rice (Paddy) || Stem borer, Leaf ↵folder ||  || 44 ||  || 500 || 500 || 21
+   r16 | Bifenthrin 10 %EC ||  ||  ||  ||  ||  ||  || 
+   r17 | Cotton ||  || Boll worms, White fly ||  || 80 || 800 || 500 || 15
+   r18 | Rice(Paddy) ||  || Stem borer, Leaf ↵folder, Green leaf ↵hopper ||  || 50 || 500 || 500 || 21
+   r19 | Sugarcane ||  || Termites ||  || 100 || 1000 || 500 || 300
+   r20 | Bifenthrin 02.50% EC ||  ||  ||  ||  ||  ||  || 
+   r21 | Pre and post construction: Bifenthrin 2.5% EC shall be applied at 0.05% a.i. conc. i.e. 20.0 ml formulated product ↵diluted in 1 liter of water for the control of termites in building during pre and post construction. Treatment should be ↵as per IS 6313 (Part 2):2001 for pre construction chemical treatment and IS 6313 (Part-3): 2001 for post construction ↵treatment of the existing building. ||  ||  ||  ||  ||  ||  || 
+  MISSING 2 chars: {'1': 1, '.': 1}
+--- stream: 2 tables ---
+  table[0] shape=(9, 6)
+   r0  | Rice (Paddy) || Stem borer, Leaf ||  ||  ||  || 
+   r1  |  ||  || 44 || 500 || 500 || 21
+   r2  |  || folder ||  ||  ||  || 
+   r3  | Bifenthrin 10 %EC ||  ||  ||  ||  || 
+   r4  | Cotton || Boll worms, White fly || 80 || 800 || 500 || 15
+   r5  |  || Stem borer, Leaf ||  ||  ||  || 
+   r6  | Rice(Paddy) || folder, Green leaf || 50 || 500 || 500 || 21
+   r7  |  || hopper ||  ||  ||  || 
+   r8  | Sugarcane || Termites || 100 || 1000 || 500 || 300
+  table[1] shape=(43, 7)
+   r0  |  || Benfuracarb 03%GR ||  ||  ||  ||  || 
+   r1  |  ||  || Stem borer, Leaf ||  ||  ||  || 
+   r2  |  || Rice (Paddy) || folder, Brown plant || 1000 || 33000 || - || 20
+   r3  |  ||  || hopper ||  ||  ||  || 
+   r4  |  || Benfuracarb 40%EC ||  ||  ||  ||  || 
+   r5  |  || Red gram (Tur or ||  ||  ||  ||  || 
+   r6  |  ||  || Pod borer || 1000 || 2500 || 500 || 20
+   r7  |  || Arhar) ||  ||  ||  ||  || 
+   r8  |  || Benzpyrimoxan 10% SC ||  ||  ||  ||  || 
+   r9  |  ||  || Brown Plant Hopper, ||  ||  ||  || 
+   r10 |  || Rice || White Backed Plant || 75-100 || 750-1000 || 500 || 31
+   r11 |  ||  || Hopper ||  ||  ||  || 
+   r12 |  || Bifenazate 50% WP ||  ||  ||  ||  || 
+   r13 |  ||  || Two Spotted Mite ||  ||  ||  || 
+   r14 |  || Rose ||  || 375 || 750 || 3000 || -
+   r15 |  ||  || (Tetranychus urticae) ||  ||  ||  || 
+   r16 |  || Bifenazate 22.60%SC ||  ||  ||  ||  || 
+   r17 |  ||  || Two Spotted Mite ||  ||  ||  || 
+   r18 |  || Rose ||  || 120 || 500 || 2000 || -
+   r19 |  ||  || (Tetranychus urticae) ||  ||  ||  || 
+   r20 |  || Grapes || Mites || 120 || 500 || 1000 || 15
+   r21 |  || Bifenthrin 08 %SC ||  ||  ||  ||  || 
+   r22 |  ||  || Red spider mite, Tea ||  ||  ||  || 
+   r23 |  || Tea ||  || 40.00 || 500 || 400 || 11
+   r24 |  ||  || Mosquito bug ||  ||  ||  || 
+   r25 |  ||  ||  || 60 gm (0.006% ||  ||  || 
+   r26 |  || Apple || Mites ||  || 7.50 ml/tree || 10 lit/tree || 21
+   r27 |  ||  ||  || Conc.) ||  ||  || 
+   r28 |  || Bifenthrin 08.80% CS ||  ||  ||  ||  || 
+   r29 |  || Rice (Paddy) || Stem borer, Leaf ||  ||  ||  || 
+   r30 |  ||  ||  || 44 || 500 || 500 || 21
+   r31 |  ||  || folder ||  ||  ||  || 
+   r32 |  || Bifenthrin 10 %EC ||  ||  ||  ||  || 
+   r33 |  || Cotton || Boll worms, White fly || 80 || 800 || 500 || 15
+   r34 |  ||  || Stem borer, Leaf ||  ||  ||  || 
+   r35 |  || Rice(Paddy) || folder, Green leaf || 50 || 500 || 500 || 21
+   r36 |  ||  || hopper ||  ||  ||  || 
+   r37 |  || Sugarcane || Termites || 100 || 1000 || 500 || 300
+   r38 |  || Bifenthrin 02.50% EC ||  ||  ||  ||  || 
+   r39 | 1. ||  || Pre and post construction: Bifenthrin 2.5% EC shall be applied at 0.05% a.i. conc. i.e. 20.0 ml formulated product ||  ||  ||  || 
+   r40 |  ||  || diluted in 1 liter of water for the control of termites in building during pre and post construction. Treatment should be ||  ||  ||  || 
+   r41 |  ||  || as per IS 6313 (Part 2):2001 for pre construction chemical treatment and IS 6313 (Part-3): 2001 for post construction ||  ||  ||  || 
+   r42 |  || treatment of the existing building. ||  ||  ||  ||  || 
+  MISSING 0 chars: {}
+
+====================================================================================================
+### bio_fungicides_20260331.pdf p20
+--- RAW TEXT LAYER ---
+Pea Powdery - 500 liter/ha Foliar spray -
+mildew
+***
+--- lattice: 1 tables ---
+  table[0] shape=(1, 6)
+   r0  | Pea || Powdery ↵mildew || - || 500 liter/ha || Foliar spray || -
+  MISSING 3 chars: {'*': 3}
+--- stream: 1 tables ---
+  table[0] shape=(3, 6)
+   r0  | Pea || Powdery || - || 500 liter/ha || Foliar spray || -
+   r1  |  || mildew ||  ||  ||  || 
+   r2  |  || *** ||  ||  ||  || 
+  MISSING 0 chars: {}
+

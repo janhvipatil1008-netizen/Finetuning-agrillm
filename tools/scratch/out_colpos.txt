@@ -1,0 +1,178 @@
+====================================================================================================
+### insecticides_20260331.pdf p87 lattice -> 1 table(s)
+-- table[0] shape=(18,22) page=87
+   nonblank-per-col: [np.int64(18), np.int64(14), np.int64(5), np.int64(1), np.int64(2), np.int64(2), np.int64(4), np.int64(5), np.int64(1), np.int64(2), np.int64(4), np.int64(5), np.int64(2), np.int64(1), np.int64(4), np.int64(2), np.int64(2), np.int64(5), np.int64(2), np.int64(1), np.int64(4), np.int64(2)]
+   r0   idx=[0, 1, 2, 7, 11, 17] :: [0]Okra ↵(Bhindi) | [1]Red spider ↵mites | [2]60 +60 | [7]500 | [11]500 | [17]03
+   r1   idx=[0, 1, 2, 7, 11, 17] :: [0]Brinjal | [1]Whitefly, Red ↵spider mites | [2]60 +60 | [7]500 | [11]500 | [17]05
+   r2   idx=[0, 1, 2, 7, 11, 17] :: [0]Mango | [1]Mealy bug | [2]0.018% | [7]0.075% | [11]Spray fluid as required ↵depending upon size of ↵tree. | [17]15
+   r3   idx=[0, 1, 2, 7, 11, 17] :: [0]Cotton | [1]Mealy bug | [2]75+75 | [7]625 | [11]500 | [17]22
+   r4   idx=[0, 1, 2, 7, 11, 17] :: [0]Grapes | [1]Thrips, Mites ↵and Mealy Bugs | [2]90 + 90 | [7]750 | [11]1000 | [17]60
+   r5   idx=[0] :: [0]Spiropidon 30% w/w + Acetamiprid 24% w/w WG
+   r6   idx=[0, 1, 4, 12, 16, 21] :: [0]Tomato | [1]Thrips (Thrips tabaci), Aphids ↵(Aphis gossypii), Whiteflies ↵(Bemisia tabaci) | [4]108 (Spiropidion 60 + ↵Acetamiprid 48) – 135 ↵(Spiropidion 75 + ↵Acetamiprid 60) | [12]200 - 250 | [16]500 | [21]5
+   r7   idx=[0, 1, 4, 12, 16, 21] :: [0]Cotton | [1]Mealy bugs (Phenococcus ↵solenopsis, Thrips (Thips ↵tabaci), Jassids (Amrasca ↵devastans), Aphids (Aphis ↵gossypii), Whiteflies (Bemisia ↵tabaci) | [4]108 (Spiropidion 60 + ↵Acetamiprid 48) – 135 ↵(Spiropidion 75 + ↵Acetamiprid 60) | [12]200 - 250 | [16]500 | [21]85
+   r8   idx=[0] :: [0]SULFOXAFLOR 7.5% + BUPROFEZIN 15% SC
+   r9   idx=[0, 1, 3, 8, 13, 19] :: [0]Paddy | [1]Brown Plant Hopper (BPH) | [3]60 + 120 – 75 + 150 | [8]800 - 1000 | [13]500 | [19]26
+   r10  idx=[0] :: [0]Tetraniliprole 0.4 % w/w + Fipronil 0.6 % w/w GR
+   r11  idx=[0, 1, 5, 9, 15, 18] :: [0]Rice | [1]Stem borer (Scirpophaga ↵incertulas) and leaf folder ↵(Cnaphalocrocis medinalis) | [5]40 + 60 – 50 + 75 | [9]10 - 12.5 | [15]NA | [18]65
+   r12  idx=[0, 1, 5, 9, 15, 18] :: [0]Sugarcane | [1]Early shoot borer (Chilo ↵infuscatellus) and White grub ↵(Holotrichiaserra ta) | [5]50 + 75 – 60 + 90 | [9]12.5 – 15 | [15]NA | [18]314
+   r13  idx=[0] :: [0]Tetraniliprole 10.81 % w/w + Spirotetramat 21.62 % w/w SC
+   r14  idx=[0, 1, 6, 10, 14, 20] :: [0]Okra | [1]Fruit & Shoot borer, Aphids, ↵Whitefly and Mites | [6]45 +90 | [10]375 | [14]500 | [20]3
+   r15  idx=[0, 1, 6, 10, 14, 20] :: [0]Cabbage | [1]Diamond back moth, Tobacco ↵caterpillar and Aphids | [6]45 +90 | [10]375 | [14]500 | [20]7
+   r16  idx=[0, 1, 6, 10, 14, 20] :: [0]Chilli | [1]Fruit Borer, Thrips, Whitefly and ↵Mites | [6]45 +90 | [10]375 | [14]500 | [20]5
+   r17  idx=[0, 1, 6, 10, 14, 20] :: [0]Brinjal | [1]Shoot and Fruit borer, Whitefly and ↵Mites | [6]45 +90 | [10]375 | [14]500 | [20]5
+====================================================================================================
+### insecticides_20260331.pdf p89 lattice -> 1 table(s)
+-- table[0] shape=(18,22) page=89
+   nonblank-per-col: [np.int64(18), np.int64(8), np.int64(2), np.int64(1), np.int64(2), np.int64(1), np.int64(1), np.int64(5), np.int64(3), np.int64(1), np.int64(1), np.int64(2), np.int64(3), np.int64(2), np.int64(1), np.int64(1), np.int64(2), np.int64(2), np.int64(1), np.int64(1), np.int64(2), np.int64(7)]
+   r0   idx=[0, 1, 6, 9, 14, 19] :: [0]Paddy | [1]Yellow Stem Borer (Scirpophaga ↵incertulas), Leaf Folder ↵(Cnaphalocrocis medinalis), Brown ↵Plant Hopper (Nilaparvata lugens), ↵and White Backed plant Hopper ↵(Sogatella furcifera). | [6]300 + 120 – ↵375 + 150 | [9]10000-↵12500 | [14]- | [19]56
+   r1   idx=[0] :: [0]TOLFENPYRAD 15% + BIFENTHRIN 7.5% SE
+   r2   idx=[0, 2, 7, 11, 16, 20] :: [0]Cotton | [2]Leaf hoppers, Aphids, Thrips, Pink ↵bollworm | [7]112.50 + 56.25 | [11]750 | [16]500 | [20]54
+   r3   idx=[0, 2, 7, 11, 16, 20] :: [0]Transplanted ↵Paddy | [2]Brown plant hopper (Nilaparvata lugens) ↵Green leaf folder (Nephotettix ↵nigropictus) Stem borer (Scirpophaga ↵incertulus) Leaf folder (Cnaphalocrosis ↵medinalis) | [7]112.50 + 56.25 | [11]750 | [16]500 | [20]35
+   r4   idx=[0] :: [0]Tolfenpyrad 18.75% + Emamectin Benzoate 0.94% SC
+   r5   idx=[0, 1, 7, 12, 17, 21] :: [0]Cauliflower | [1]Diamond black moth (Plutella xylostella) ↵Tobacco caterpillar (Spodoptera litura) | [7]140 + 7 | [12]700 | [17]500 | [21]7
+   r6   idx=[0, 1, 7, 12, 17, 21] :: [0]Brinjal | [1]Shoot & Fruit borer (Leucinodes ↵orbonalis), Jassids (Amrasca biguttula ↵biguttula ) | [7]140 + 7 | [12]700 | [17]500 | [21]3
+   r7   idx=[0] :: [0]Tolfenpyrad 30 % + Pyriproxyfen 10 % + Acetamiprid 4% w/w EC
+   r8   idx=[0, 1, 7, 12, 15, 21] :: [0]Chilli | [1]Aphids, Black Thrips, Whitefly and ↵Jassids | [7]150 + 50 + 20 | [12]500 | [15]500 | [21]7
+   r9   idx=[0] :: [0]Flonicamid 15% + Pyriproxyfen 12% + Acetamiprid 2% ME
+   r10  idx=[0, 1, 5, 10, 18, 21] :: [0]Cotton | [1]Aphids, Jassids, Thrips and ↵Whiteflies | [5]75 + 60 + 10 | [10]500 | [18]500 | [21]51
+   r11  idx=[0] :: [0]Triflumezopyrim 4.79% + Spinetoram 8.62% w/w SC
+   r12  idx=[0, 1, 4, 8, 13, 21] :: [0]Paddy | [1]Brown Plant Hopper (Nilaparvata ↵lugens), White Backed Plant ↵Hopper (Sogatellafurcifera), Stem ↵borer (Scirpophaga incertulas) | [4]70 (25+45) | [8]500 | [13]500 | [21]21
+   r13  idx=[0] :: [0]Triflumezopyrim 10% w/w + Spinetoram 12% w/w WG
+   r14  idx=[0, 1, 4, 8, 13, 21] :: [0]Paddy | [1]Brown Plant Hopper (Nilaparvata ↵lugens), White Back Plant Hopper ↵(Sogatella furcifera) Leaf Folder ↵(Cnaphalocrosis medinalis) | [4]55 (25 + ↵30) | [8]250 | [13]500 | [21]21
+   r15  idx=[0] :: [0]PUBLIC HEALTH USE
+   r16  idx=[0, 1, 3, 8, 21] :: [0]Pest | [1]Habitat | [3]a.i. (mg/m2) | [8]Formulation(gm) | [21]Dilution ↵(Ltr.)
+   r17  idx=[0] :: [0]Alpha cypermethrin 05% WP
+====================================================================================================
+### insecticides_20260331.pdf p84 lattice -> 1 table(s)
+-- table[0] shape=(22,22) page=84
+   nonblank-per-col: [np.int64(21), np.int64(14), np.int64(4), np.int64(1), np.int64(3), np.int64(3), np.int64(3), np.int64(4), np.int64(3), np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(1), np.int64(2), np.int64(1), np.int64(5), np.int64(6), np.int64(1), np.int64(1), np.int64(5), np.int64(0)]
+   r0   idx=[0] :: [0]Profenofos 40%+ Fenpyroximate 02.50% w/w EC
+   r1   idx=[0, 1, 6, 11, 16, 20] :: [0]Chilli | [1]Thrips, Mites, Fruit borer | [6]0.4 +0.025 | [11]1000 | [16]500 | [20]07
+   r2   idx=[0, 1, 6, 11, 16, 20] :: [0]Brinjal | [1]Whitefly, Mites (Tetranychus ↵urticae), Fruit & Shoot Borer | [6]0.4 + 0.025 | [11]1000 | [16]500 | [20]07
+   r3   idx=[0] :: [0]Profenofos 40% (w/w) + Lambda Cyhalothrin 1.5% (w/w) EC
+   r4   idx=[0, 1, 6, 11, 16, 20] :: [0]Cotton | [1]Aphids, thrips, Leafhopper, ↵Whitefly, Bollworm | [6]400 + 15 | [11]1000 | [16]500-1000 | [20]15
+   r5   idx=[0] :: [0]Propargite 50% +Bifenthrin 5 % w/w SE
+   r6   idx=[0, 1, 5, 10, 16, 20] :: [0]Okra | [1]Mite, Whitefly & | [5]594 +59.4 – | [10]1100 – ↵1150 | [16]500 | [20]05
+   r7   idx=[1, 5] :: [1]Jassids | [5]621 +62.1
+   r8   idx=[0, 1, 5, 10, 16, 20] :: [0]Tomato | [1]Mite, Whitefly & Jassids | [5]594 +59.4 – ↵621 +62.1 | [10]1100 – 1150 | [16]500 | [20]05
+   r9   idx=[0] :: [0]Propargite 42%+ Hexythiazox 2% EC
+   r10  idx=[0, 1, 2, 7, 12, 17] :: [0]Tea | [1]Red spider Mites | [2]525 +25 | [7]1250 | [12]400 –500 | [17]07
+   r11  idx=[0, 1, 2, 7, 12, 17] :: [0]Chilli | [1]Yellow Mite | [2]525 + 25 | [7]1250 | [12]500 | [17]7
+   r12  idx=[0, 1, 2, 7, 12, 17] :: [0]Apple | [1]European Red ↵Mite | [2]4.2 + 0.2 (g/10 L ↵water) | [7]10 (ml/10 L ↵water) | [12]10-15 L/tree ↵depending on tree ↵canopy | [17]15
+   r13  idx=[0, 1, 2, 7, 12, 17] :: [0]Brinjal | [1]Mite | [2]525+25 | [7]1250 | [12]500 | [17]7
+   r14  idx=[0] :: [0]Pymetrozine 29.2 % + Dinotefuran 11.7 % w/w WDG
+   r15  idx=[0, 1, 4, 9, 13, 18] :: [0]Rice | [1]Brown plant hopper ↵(Nilaparvata lugens) | [4]146 + 58.5 | [9]500 | [13]500 | [18]22
+   r16  idx=[0] :: [0]Pymetrozine 14.8% + Fipronil 7.5% + Dinotefuran 4.8% w/w SC
+   r17  idx=[0, 1, 4, 8, 15, 19] :: [0]Paddy | [1]Stem Borer, Brown Plant ↵Hopper, White Backed ↵Plant Hopper, Green ↵Leaf Hopper | [4]129.5+65.62 + 42 | [8]875 | [15]500 | [19]25
+   r18  idx=[0] :: [0]Pymetrozine 30.0% + Tebuconazole 37.0% WG
+   r19  idx=[0, 1, 4, 8, 14, 17] :: [0]Paddy | [1]Brown plant hopper ↵(Nilaparvata lugens), ↵and diseases viz., Sheath ↵blight, Brown spot, ↵Blast, and Glume ↵discoloration (Dirty ↵panicle) | [4]150 +185 | [8]500 | [14]500 | [17]33
+   r20  idx=[0] :: [0]Pymetrozine 30% + Dinotefuran 10% + Pyraclostrobin 20% WG
+   r21  idx=[0, 1, 3, 8, 14, 17] :: [0]Paddy | [1]Brown plant hopper ↵(Nilaparvata lugens), ↵white backed plant | [3]112.5 + 37.5 + 75 | [8]375 | [14]500 | [17]22
+====================================================================================================
+### insecticides_20260331.pdf p24 lattice -> 1 table(s)
+-- table[0] shape=(19,10) page=24
+   nonblank-per-col: [np.int64(16), np.int64(11), np.int64(5), np.int64(4), np.int64(11), np.int64(4), np.int64(11), np.int64(15), np.int64(11), np.int64(0)]
+   r0   idx=[0, 1, 4, 6, 7, 8] :: [0]Red Gram ↵(Arhar/Tur) | [1]Pod Borer & Pod Fly | [4]12.50 | [6]500.0 | [7]500 | [8]10
+   r1   idx=[0] :: [0]Deltamethrin 25% WDG
+   r2   idx=[0, 2] :: [0]Name  Of ↵Insect Pest | [2]Dosage
+   r3   idx=[2, 3, 5, 7] :: [2]Infestation | [3]Requirement ↵mg a.i./m2 | [5]Formulation (ml)/ ↵litre water | [7]Spray solution ↵(ml)/ m2
+   r4   idx=[0, 2, 3, 5, 7] :: [0]Mosquitoes ↵(Aedes ↵aegypti, ↵Anopheles ↵stephensi,  Culex ↵quinquefasciatus↵) ↵Housefly ↵(Musca ↵domestica) ↵Cockroaches ↵(Periplanata ↵americana, ↵blatella ↵germinica), ↵Bed ↵Bugs ↵(Cimex ↵hemipterus) | [2]Low | [3]10 | [5]0.8 g/ litre water | [7]50
+   r5   idx=[2, 3, 5, 7] :: [2]Moderate | [3]20 | [5]1.6/ litre water | [7]50
+   r6   idx=[2, 3, 5, 7] :: [2]High | [3]25 | [5]2.0/ litre water | [7]50
+   r7   idx=[0] :: [0]Diafenthiuron 47.80%SC
+   r8   idx=[0, 1, 4, 6, 7, 8] :: [0]Cotton | [1]Whiteflies, Aphids, Thrips, ↵Jassids | [4]250 | [6]500 | [7]500 | [8]41
+   r9   idx=[0, 1, 4, 6, 7, 8] :: [0]Potato | [1]Whiteflies, Leaf hoppers, ↵Mites | [4]250 | [6]500 | [7]500 | [8]44
+   r10  idx=[0, 1, 4, 6, 7, 8] :: [0]Soybean | [1]Whiteflies, mites | [4]250 | [6]500 | [7]500 | [8]44
+   r11  idx=[0] :: [0]Diafenthiuron 50% WP
+   r12  idx=[0, 1, 4, 6, 7, 8] :: [0]Cotton | [1]Whiteflies, Aphids, Thrips, ↵Jassids | [4]300 | [6]600 | [7]500 –1000 | [8]21
+   r13  idx=[0, 1, 4, 6, 7, 8] :: [0]Cabbage | [1]Diamond back moth | [4]300 | [6]600 | [7]500 –750 | [8]07
+   r14  idx=[0, 1, 4, 6, 7, 8] :: [0]Chilli | [1]Mites | [4]300 | [6]600 | [7]500 –750 | [8]03
+   r15  idx=[0, 1, 4, 6, 7, 8] :: [0]Brinjal | [1]Whitefly | [4]300 | [6]600 | [7]500 –750 | [8]03
+   r16  idx=[0, 1, 4, 6, 7, 8] :: [0]Cardamom | [1]Thrips,Capsuleborer | [4]400 | [6]800 | [7]1000 | [8]07
+   r17  idx=[0, 1, 4, 6, 7, 8] :: [0]Citrus | [1]Mites | [4]1.0 g/l | [6]2.0 g/l | [7]2-3 ↵Liter/ ha. | [8]30
+   r18  idx=[0, 1, 4, 6, 7, 8] :: [0]Cotton | [1]Whiteflies, Aphids,Thrips, ↵Jassids | [4]239 | [6]500 | [7]500 | [8]30
+====================================================================================================
+### insecticides_20260331.pdf p58 lattice -> 1 table(s)
+-- table[0] shape=(12,11) page=58
+   nonblank-per-col: [np.int64(12), np.int64(6), np.int64(1), np.int64(6), np.int64(1), np.int64(5), np.int64(2), np.int64(2), np.int64(5), np.int64(2), np.int64(5)]
+   r0   idx=[0, 2, 4, 6, 7, 9] :: [0]Paddy (Rice) | [2]Stem Borer, ↵Brown plant ↵hopper & ↵White backed ↵plant hopper | [4]10 +500 | [6]2.5 | [7]500 -800 | [9]10
+   r1   idx=[0] :: [0]Acetamiprid 01.10% +Cypermethrin 05.50%EC
+   r2   idx=[0, 1, 3, 6, 7, 9] :: [0]Cotton | [1]Aphids, Jassids, ↵Thrips, ↵Bollworms | [3]10 +50 | [6]1000 | [7]400 –1000 | [9]30
+   r3   idx=[0] :: [0]Azoxystrobin 10.0% + Fipronil 5% SC
+   r4   idx=[0, 1, 3, 5, 8, 10] :: [0]Chilli | [1]Thrips and fruit ↵borer | [3]50+100 | [5]1000 | [8]500 | [10]5
+   r5   idx=[0, 1, 3, 5, 8, 10] :: [0]Rice | [1]Yellow stem ↵borer, leaf folder, ↵brown plant ↵hopper | [3]62.5+ ↵125 | [5]1250 | [8]500 | [10]53
+   r6   idx=[0] :: [0]Azoxystrobin 1.3% + Tebuconazole 0.22% + Thiamethoxam 25.9% FS
+   r7   idx=[0, 1, 3, 5, 8, 10] :: [0]Okra (seed ↵treatment) | [1]Aphids and ↵Jassids | [3]0.9+0.15+18.↵0 | [5]60 | [8]NA | [10]NA
+   r8   idx=[0] :: [0]Azoxystrobin 12% + Fenpyroximate 2.5% + Emamectin Benzoate 1% WG
+   r9   idx=[0, 1, 3, 5, 8, 10] :: [0]Chilli | [1]Fruit borer ↵(Helicoverpa ↵armigera), ↵Thrips ↵(Scirtothrips ↵dorsalis), Mites ↵(Polyphagotarso↵nemus latus) ↵Fruit rot ↵/Anthracnose ↵(Colletotrichum ↵capsici) Powdery ↵mildew ↵(Leveillula ↵taurica) " | [3]120+25+10 ↵(155) | [5]1000 | [8]500 | [10]7
+   r10  idx=[0] :: [0]Azoxystrobin 1.5% + Carbendazim 8.0% + Thiamethoxam 30% FS w/w
+   r11  idx=[0, 1, 3, 5, 8, 10] :: [0]soybean | [1]Fusarium root ↵rot, Phytophthora ↵root rot, ↵Rhizoctonia ↵seedling blight, | [3]1.5+8+30 | [5]100 | [8]NA | [10]NA
+====================================================================================================
+### insecticides_20260331.pdf p73 lattice -> 1 table(s)
+-- table[0] shape=(17,13) page=73
+   nonblank-per-col: [np.int64(17), np.int64(2), np.int64(10), np.int64(2), np.int64(4), np.int64(4), np.int64(2), np.int64(2), np.int64(10), np.int64(2), np.int64(10), np.int64(12), np.int64(0)]
+   r0   idx=[0, 2, 6, 8, 10, 11] :: [0]Tomato | [2]Fruit Borer and ↵Thrips | [6]27 (Emamectin ↵benzoate ↵3.0+Lufenuron 24.0) | [8]60 | [10]500 | [11]5
+   r1   idx=[0, 2, 6, 8, 10, 11] :: [0]Brinjal | [2]Shoot & Fruit borer | [6]27 (Emamectin ↵benzoate3.0+Lufenuro↵n24.0) | [8]60 | [10]500 | [11]5
+   r2   idx=[0] :: [0]Emamectin Benzoate 2.2% + Permethrin 15.3 % EC
+   r3   idx=[0, 2, 4, 8, 10, 11] :: [0]Maize | [2]Spodoptera ↵frugiperda (FAW) | [4]16.5 + 114.75 | [8]750 | [10]500 | [11]-
+   r4   idx=[0] :: [0]Emamectin Benzoate 1.5% + Profenofos 35% w/w WDG
+   r5   idx=[0, 2, 4, 8, 10, 11] :: [0]Cotton | [2]Whiteflies, Jassids, ↵Thrips, Aphids and ↵Pink Boll Worm | [4]10.5 + 245 | [8]700 | [10]500 | [11]15
+   r6   idx=[0, 2, 4, 8, 10, 11] :: [0]Chilli | [2]Yellow Mites, ↵Thrips and Fruit ↵Borer | [4]10.5+245 | [8]700 | [10]500 | [11]7
+   r7   idx=[0, 2, 4, 8, 10, 11] :: [0]Maize | [2]Fall armyworm | [4]11.25+262.5 | [8]750 | [10]500 | [11]35
+   r8   idx=[0] :: [0]Emamectin Benzoate 3.8% (w/w) + Thiamethoxam 20% (w/w) WDG
+   r9   idx=[0, 2, 5, 8, 10, 11] :: [0]Okra | [2]Aphid (Aphis ↵gossypii), Jassid ↵(Amrasca devastans), ↵Whitefly (Bemisia ↵tabaci), Shoot and ↵fruit borer (Earias ↵vittela). | [5]3.8 + 20 | [8]100 | [10]500-700 | [11]5
+   r10  idx=[0] :: [0]Emamectin Benzoate 3% + Thiamethoxam 12% WG
+   r11  idx=[0, 2, 5, 8, 10, 11] :: [0]Chilli | [2]Fruit borer ↵(Helicoverpa ↵armigera) and Thrips ↵(Scirtothrips ↵dorsalis) | [5]6 + 24 | [8]200 | [10]500 | [11]3
+   r12  idx=[0, 2, 5, 8, 10, 11] :: [0]Green gram | [2]Pod borer ↵(Helicoverpa ↵armigera) and Leaf ↵hopper (Empoasca ↵kerri) | [5]6 + 24 | [8]200 | [10]500 | [11]15
+   r13  idx=[0, 2, 5, 8, 10, 11] :: [0]Tea | [2]Tea Mosquito bug, ↵Tea Looper | [5](4.5 + 18.0) – (6 + 24) | [8]150 - 200 | [10]400 - 500 | [11]7
+   r14  idx=[0] :: [0]Ethion 40% +Cypermethrin 05%w/w EC
+   r15  idx=[0, 1, 3, 7, 9, 11] :: [0]Cotton | [1]American boll ↵worm | [3]400 +50 | [7]1000 | [9]500 | [11]15
+   r16  idx=[0, 1, 3, 7, 9, 11] :: [0]Chilli | [1]Mites and Thrips | [3]600 + 75 | [7]1500 | [9]500 | [11]10
+====================================================================================================
+### fungicides_20260331.pdf p76 lattice -> 1 table(s)
+-- table[0] shape=(20,9) page=76
+   nonblank-per-col: [np.int64(20), np.int64(1), np.int64(13), np.int64(1), np.int64(13), np.int64(14), np.int64(13), np.int64(1), np.int64(14)]
+   r0   idx=[0, 1, 3, 5, 7, 8] :: [0]Paddy | [1]Sheath Blight, Leaf Blast | [3]100 + 70 + 50 | [5]400 | [7]500 | [8]19
+   r1   idx=[0] :: [0]Pyraclostrobin 133 g/l + Epoxiconazole 50g/l  SE
+   r2   idx=[0, 2, 4, 5, 6, 8] :: [0]Groundnut | [2]Tikka | [4]114.37-137.25 | [5]625-700 | [6]500 | [8]21
+   r3   idx=[0, 2, 4, 5, 6, 8] :: [0]Soybean | [2]Cercospora ↵leaf ↵spot | [4]137.25 | [5]750 | [6]500 | [8]27
+   r4   idx=[0, 2, 4, 5, 6, 8] :: [0]Coffee | [2]Rust | [4]137.25 | [5]750 | [6]750 | [8]37
+   r5   idx=[0, 2, 4, 5, 6, 8] :: [0]Wheat | [2]Yellow rust | [4]137.25 | [5]750 | [6]500 | [8]47
+   r6   idx=[0, 2, 4, 5, 6, 8] :: [0]Cumin | [2]Alternaria blight | [4]137.25 | [5]750 | [6]500 | [8]22
+   r7   idx=[0, 2, 4, 5, 6, 8] :: [0]Maize | [2]Leaf blight | [4]137.25 | [5]750 | [6]500 | [8]48
+   r8   idx=[0, 2, 4, 5, 6, 8] :: [0]Banana | [2]Sigatoka leaf spot | [4]137.25 | [5]750 | [6]500 | [8]24
+   r9   idx=[0] :: [0]Pyraclostrobin 10% + Fipronil 5% SC
+   r10  idx=[0, 2, 4, 5, 6, 8] :: [0]Rice | [2]Sheath Blight and ↵Leaf Blight | [4]50+100 | [5]1000 | [6]500 | [8]53
+   r11  idx=[0, 2, 4, 5, 6, 8] :: [0]Chilli | [2]Powdery  Mildew, ↵Anthracnose/Fruit ↵rot | [4]50+100 | [5]1000 | [6]500 | [8]7
+   r12  idx=[0] :: [0]Pyraclostrobin 75 g/l + Tricyclazole 150 g/l ZC
+   r13  idx=[0, 2, 4, 5, 6, 8] :: [0]Rice | [2]Blast | [4]225-337.5 | [5]1000-1500 | [6]500 | [8]40
+   r14  idx=[0] :: [0]Pyraclostrobin 10% + Thifluzamide 10% w/v SC
+   r15  idx=[0, 2, 4, 5, 6, 8] :: [0]Rice | [2]Sheath Blight,  ↵Leaf blast | [4]80 + 80 to 90 + ↵90 | [5]800-900 | [6]500 | [8]18
+   r16  idx=[0] :: [0]Pyraclostrobin 3.5% + Thiram 15% + Clothianidin 22.5% FS
+   r17  idx=[0, 2, 4, 5, 6, 8] :: [0]Groundnut | [2]Collar  rot,  Stem ↵rot | [4]2.45+10.50+15.7 ↵5 gms | [5]70 ml | [6]- | [8]Seed ↵Treatment
+   r18  idx=[0] :: [0]Pyraclostrobin 10% + Metiram 30% + Difenoconazole 10% WG
+   r19  idx=[0, 2, 4, 5, 6, 8] :: [0]Tomato | [2]Early Blight & ↵Late blight | [4]56.25+168.75+56.2↵5 | [5]562.5 | [6]500 | [8]10
+====================================================================================================
+### fungicides_20260331.pdf p81 lattice -> 1 table(s)
+-- table[0] shape=(20,10) page=81
+   nonblank-per-col: [np.int64(20), np.int64(10), np.int64(1), np.int64(11), np.int64(1), np.int64(10), np.int64(1), np.int64(10), np.int64(1), np.int64(10)]
+   r0   idx=[0, 1, 3, 5, 7, 9] :: [0]Paddy | [1]Blast and Sheath ↵blight | [3]90.0+60.0+30.0 | [5]1000 | [7]500 | [9]17
+   r1   idx=[0] :: [0]Thiophanate methyl 15% (w/w) + Copper Oxychloride 40%(w/w) WP
+   r2   idx=[0, 1, 3, 5, 7, 9] :: [0]Tomato | [1]Early & Late ↵Blight, Leaf Spot, ↵Ring Rot | [3]300 + 800 (1100 gm) | [5]2000 | [7]750 | [9]7
+   r3   idx=[0] :: [0]Thiophanate methyl 38% + Kasugamycin 2.21% SC
+   r4   idx=[0, 1, 3, 5, 7, 9] :: [0]Tomato | [1]Powdery mildew ↵& ↵Bacterial leaf spot | [3]402.1-502.6 | [5]1000- 1250 | [7]375-500 | [9]07
+   r5   idx=[0] :: [0]Thiophanate Methyl 44.8%+ Kasugamycin 26%SC
+   r6   idx=[0, 1, 3, 5, 7, 9] :: [0]Potato | [1]Black scurf | [3]1.568+0.091 | [5]3.5 ml/10 kg of ↵potato tuber ↵seed | [7]200 ml/ 10 kg of ↵potato tuber seed | [9]Used as ↵seed ↵treatment
+   r7   idx=[0] :: [0]Thiophanate methyl 50% + picoxystrobin 10% WG
+   r8   idx=[0, 1, 3, 5, 7, 9] :: [0]Rice (Paddy) | [1]Sheath blight, ↵blast and grain ↵discoloration | [3]50 + 10 g/ha | [5]1000g/ha | [7]500 | [9]35
+   r9   idx=[0] :: [0]Thiophanate methyl 450 g/l + Pyraclostrobin 50 g/l FS
+   r10  idx=[0, 2, 3, 4, 6, 8] :: [0]Garlic | [2]Fusarium spp | [3]10 g | [4]20 ml | [6]Sufficient to coat ↵the seeds ↵uniformly | [8]NA (Seed ↵Dresser)
+   r11  idx=[0] :: [0]Tricyclazole 20.4% w/w + Azoxystrobin 6.8% w/w SC
+   r12  idx=[0, 1, 3, 5, 7, 9] :: [0]Rice (Paddy) | [1]Blast, False smut, ↵Sheath  blight  and ↵Grain ↵discoloration ↵(Dirty Panicle) | [3]300 ↵ ↵(225+75) | [5]1000 | [7]500 | [9]10
+   r13  idx=[0] :: [0]Tricyclazole 45% + Hexaconazole 10% WG
+   r14  idx=[0, 1, 3, 5, 7, 9] :: [0]Paddy (Rice) | [1]Blast  and  Sheath ↵blight | [3]225+50 | [5]500 | [7]500 | [9]23
+   r15  idx=[0, 1, 3, 5, 7, 9] :: [0]Chilli | [1]Leaf spot and ↵Powdery mildew | [3]225+50 | [5]500 | [7]500 | [9]3
+   r16  idx=[0] :: [0]Tricyclazole 18.0% w/w +Tebuconazole 14.4% w/w SC
+   r17  idx=[0, 1, 3, 5, 7, 9] :: [0]Rice ↵(Paddy) | [1]Sheath blight, ↵Blast, false smut ↵and grain ↵Discoloration | [3]360 ↵(200+160) | [5]1000 ml/ha | [7]--- | [9]44
+   r18  idx=[0] :: [0]Trifloxystrobin 10% +Difenoconazole 12.5%+Sulfur 3% SC
+   r19  idx=[0, 1, 3, 5, 7, 9] :: [0]Tomato | [1]Early and Late ↵Blight | [3]45 + 56.25 + 13.5 | [5]450 | [7]500 | [9]14

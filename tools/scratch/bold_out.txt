@@ -1,0 +1,147 @@
+=== bold-fraction histogram (all rows, all files) ===
+  0.0: 2671
+  0.1: 55
+  0.2: 24
+  0.3: 16
+  0.4: 18
+  0.5: 16
+  0.6: 4
+  0.7: 3
+  0.8: 1
+  0.9: 4
+  1.0: 953
+
+rows >=0.9 bold: 955   of which multi-segment: 89, single-segment: 866
+
+=== MULTI-SEGMENT BOLD ROWS (candidate column_header) ===
+  insecticides_20260331. p2    r1   frac=1.00 nseg=4 :: CommonNameofDosage/haWaiting
+  insecticides_20260331. p2    r2   frac=1.00 nseg=3 :: CropthepestPeriod(days)a.i(gm)Formulation(gm/ml)DilutioninWater(Liter)
+  insecticides_20260331. p4    r3   frac=1.00 nseg=5 :: NameofCommodityCommonnameofthepestDoseExposurePeriodAerationWaitingperiod
+  insecticides_20260331. p7    r1   frac=1.00 nseg=4 :: UseMethodofapplicationDosage(a.i.)Dilution
+  insecticides_20260331. p7    r7   frac=1.00 nseg=3 :: PestDoserateMannerofapplication/usepattern
+  insecticides_20260331. p24   r2   frac=1.00 nseg=2 :: NameOfDosage
+  insecticides_20260331. p24   r3   frac=1.00 nseg=4 :: InsectPestInfestationRequirementmga.i./m2Formulation(ml)/litrewaterSpraysolution(ml)/m2
+  insecticides_20260331. p27   r15  frac=1.00 nseg=7 :: CropCommonnameofthepestCond.WeightofvolumeExposureperiodConc.Inair(ppm)Aeration/Waiting
+  insecticides_20260331. p31   r21  frac=1.00 nseg=6 :: UsageCommonpesta.i.(mg)Formulation(g)HowtoapplyWaitingPeriod
+  insecticides_20260331. p50   r7   frac=1.00 nseg=5 :: Dosage/haWaiting
+  insecticides_20260331. p50   r8   frac=1.00 nseg=2 :: CropTargetpestWater(l/ha)perioda.i.(gm/ha)Formulation(ml/ha)
+  insecticides_20260331. p52   r18  frac=1.00 nseg=5 :: NameofcropNameofPesta.iFormulationDilution
+  insecticides_20260331. p55   r17  frac=1.00 nseg=4 :: CropPestorganismDosageTechnical
+  insecticides_20260331. p89   r16  frac=1.00 nseg=5 :: PestHabitata.i.(mg/m2)Formulation(gm)Dilution(Ltr.)
+  insecticides_20260331. p90   r16  frac=1.00 nseg=3 :: InsectMethodofDosage/ha.
+  insecticides_20260331. p90   r17  frac=1.00 nseg=3 :: InsectApplicationa.i.(gm)Formulation(ml)DilutionindieselOil(Litre)
+  insecticides_20260331. p91   r6   frac=1.00 nseg=5 :: NameoftheinsectpestHabitatDosage/ha(Kg.)-Waitingperiod
+  insecticides_20260331. p91   r9   frac=1.00 nseg=5 :: Commonnameofpesta.i.(gm)Formulation-Dilutioninwater(litres)
+  insecticides_20260331. p91   r12  frac=1.00 nseg=4 :: PurposeandSprayDepositRateGrama.idoseDoseper500sq.m.metersurfacearea
+  insecticides_20260331. p91   r13  frac=1.00 nseg=4 :: TargetPest(mga.i./sq.mmeter)SprayDepositRate(g.a.i/sq.meter)g.a.iper500sq.mtrsFormulationD
+  insecticides_20260331. p91   r15  frac=1.00 nseg=2 :: Dosage
+  insecticides_20260331. p91   r16  frac=1.00 nseg=4 :: NameofInsectPestInfestationRequirementmga.i./sq.mFormulation(ml)/literwaterSpraysolution(m
+  insecticides_20260331. p92   r2   frac=1.00 nseg=4 :: PestUseDosage500m3floorareaDilutioninwater(Litre)
+  insecticides_20260331. p92   r3   frac=1.00 nseg=2 :: a.i.(gm)Formulation(gm)
+  insecticides_20260331. p92   r7   frac=1.00 nseg=4 :: CommonnameofDosage/m2Waiting
+  insecticides_20260331. p92   r8   frac=1.00 nseg=3 :: CropthepestPeriod(days)a.i.(gm)Formulation(gm)Dilutioninwater(Liter)
+  insecticides_20260331. p92   r11  frac=1.00 nseg=4 :: PlaceofDosages
+  insecticides_20260331. p92   r12  frac=1.00 nseg=2 :: ApplicationInsectWaitingPerioda.i.(gm)Formulation(ml)
+  insecticides_20260331. p92   r16  frac=1.00 nseg=3 :: Dosage/haIntervalbetween
+  insecticides_20260331. p92   r17  frac=1.00 nseg=2 :: Breedinghabitatsapplicationa.i.(gm)Formulation(Kg.)
+  insecticides_20260331. p92   r21  frac=1.00 nseg=5 :: LocationNameofthepestDosage-Waitingperiod
+  insecticides_20260331. p93   r2   frac=1.00 nseg=5 :: RegimeofapplicationTargetPestsDosagea.i.Formulationapplieding/100L,ml/100Lorml/m2perunitar
+  insecticides_20260331. p93   r7   frac=1.00 nseg=5 :: RegimeofapplicationTargetPestsDosagea.i.Formulationapplieding/100L,ml/100Lorml/m2perunitar
+  insecticides_20260331. p94   r9   frac=1.00 nseg=4 :: RegimeofapplicationCommonnameDosage/haWaitingperiod
+  insecticides_20260331. p94   r10  frac=1.00 nseg=2 :: ofpest(days)a.i.(g)Formulation(ml)
+  insecticides_20260331. p94   r14  frac=1.00 nseg=3 :: CommonnameofpestDose/m2(a.i./mg)Formulation(ml)
+  insecticides_20260331. p95   r20  frac=1.00 nseg=3 :: CommonnameofpestDosageDilutioninwater(L)
+  insecticides_20260331. p95   r21  frac=1.00 nseg=2 :: a.i.ingmFormulation(ml)
+  insecticides_20260331. p95   r24  frac=1.00 nseg=3 :: CommonnameofpestDosageDilutioninwater
+  insecticides_20260331. p96   r0   frac=1.00 nseg=2 :: a.i.in(mg/m2)Formulation(mg/m2)
+  insecticides_20260331. p96   r5   frac=1.00 nseg=3 :: CommonnameofpestDosageUse
+  insecticides_20260331. p96   r6   frac=1.00 nseg=2 :: a.i.inmg/m2Formulation(gm/m2)
+  insecticides_20260331. p96   r16  frac=1.00 nseg=2 :: PestDosage(Persquaremeters)
+  insecticides_20260331. p96   r17  frac=1.00 nseg=3 :: a.i(mg)Formulation(ml)Dilutioninwater
+  insecticides_20260331. p98   r4   frac=1.00 nseg=5 :: NameofinsectpestTypeofuseDosage/m2areaofbednet--
+  insecticides_20260331. p98   r5   frac=1.00 nseg=2 :: a.i.Formulation
+  insecticides_20260331. p98   r8   frac=1.00 nseg=4 :: Dosage/m2areaofbednet-
+  insecticides_20260331. p98   r9   frac=1.00 nseg=3 :: NameofinsectpestHabitata.i.FormulationDilutioninwater(Liter)
+  insecticides_20260331. p98   r14  frac=1.00 nseg=4 :: NameofpestHabitatDosageDilutioninwater
+  insecticides_20260331. p99   r4   frac=1.00 nseg=4 :: NameoftheinsectpestHabitatDosage/ha(kg.)Waitingperiod
+  insecticides_20260331. p99   r7   frac=1.00 nseg=4 :: NameofpestHabitatDosageDilutioninwater
+  insecticides_20260331. p99   r15  frac=1.00 nseg=2 :: CommonnameofhouseholdinsectDosage/ha
+  insecticides_20260331. p99   r16  frac=1.00 nseg=2 :: ga.i.Formulation(ml)
+  insecticides_20260331. p99   r19  frac=1.00 nseg=2 :: InsectsDosage/m2
+  insecticides_20260331. p99   r20  frac=1.00 nseg=2 :: a.i.(mg)Quantityofsolution(ml)
+  insecticides_20260331. p100  r16  frac=1.00 nseg=4 :: NameofInsect/PestDose(ga.i.)FormulationDoseApplicationUsages
+  insecticides_20260331. p101  r2   frac=1.00 nseg=4 :: NameofPestDose(ga.i.)Formulation(ml)Instructionforuse
+  insecticides_20260331. p101  r7   frac=1.00 nseg=3 :: HouseholdCommonnameofthepestDosage/m2
+  insecticides_20260331. p101  r18  frac=1.00 nseg=2 :: SpeciesRecommendedDose
+  insecticides_20260331. p102  r5   frac=1.00 nseg=3 :: NameofInsectpestsPlacesDosage
+  insecticides_20260331. p102  r13  frac=1.00 nseg=2 :: PurposeandtargetpestDosage/m2ofnetting
+  insecticides_20260331. p102  r14  frac=1.00 nseg=3 :: a.i.(mg)ConcentrationofsprayfluidQuantityofsprayfluid(ml)
+  insecticides_20260331. p103  r2   frac=1.00 nseg=2 :: CommonNameofpestDosage
+  insecticides_20260331. p103  r5   frac=1.00 nseg=2 :: TargetinsectDosage
+  insecticides_20260331. p103  r6   frac=1.00 nseg=2 :: Mga.i./m2Methodofapplication
+  insecticides_20260331. p103  r10  frac=1.00 nseg=2 :: NameofpestDosage/m2
+  insecticides_20260331. p103  r11  frac=1.00 nseg=3 :: a.i.(mg)Formulation(ml)Dilutioninwater
+  insecticides_20260331. p103  r18  frac=1.00 nseg=5 :: TargetPestActiveIngredientDose(ga.i.)FormulationDose(ml)Methodofapplication(watervolume)Ap
+  insecticides_20260331. p105  r16  frac=1.00 nseg=4 :: CommonnameofpestDose(ga.i.)Formulation(ml)Dilutioninwater(litres)
+  insecticides_20260331. p106  r2   frac=1.00 nseg=4 :: LocationPestDosageExposureperiod(min.hrs.)
+  insecticides_20260331. p107  r14  frac=1.00 nseg=4 :: CommonNameoftheInsect/PestDose(ga.i.)FormulationDoseApplication/Usage
+  insecticides_20260331. p109  r0   frac=1.00 nseg=3 :: Sr.No.ChemicalDose(gramactiveingredientperha.)
+  insecticides_20260331. p109  r1   frac=1.00 nseg=2 :: HoppersAdults
+  fungicides_20260331.pd p2    r1   frac=1.00 nseg=4 :: CropCommonnameDosageperhaWaiting
+  fungicides_20260331.pd p2    r2   frac=1.00 nseg=3 :: ofthediseaseperiodfromlastapplicationtoharvest(indays)a.i.(g)Formulation(g/ml)/%Dilutionin
+  fungicides_20260331.pd p43   r1   frac=1.00 nseg=6 :: CropCommonnameofthediseaseDosage/ha(a.i.)Dosage/ha(Formulation)DilutionWaitingPeriod
+  bio_insecticides_20260 p2    r1   frac=1.00 nseg=5 :: NameofcropNameofInsectDose/haDilutioninwater(liter/ha)Waitingperiod
+  bio_insecticides_20260 p2    r2   frac=1.00 nseg=2 :: (Days)a.i.(g)Formulation(g/ml)/%
+  bio_insecticides_20260 p9    r10  frac=1.00 nseg=4 :: CropCommonnameofthetargetorganismDosage/ha/applicationWaitingperiod
+  bio_insecticides_20260 p9    r11  frac=1.00 nseg=2 :: FormulationMethodofapplication
+  bio_insecticides_20260 p11   r3   frac=1.00 nseg=4 :: CommonnameofDosage
+  bio_insecticides_20260 p11   r4   frac=1.00 nseg=4 :: CropPHI(Days)pesta.i.(mg/dispenser)PheromonesdispensersRecommendedareaoftreatmentin(Ha)
+  bio_insecticides_20260 p15   r9   frac=1.00 nseg=5 :: DoseWaiting
+  bio_insecticides_20260 p15   r10  frac=1.00 nseg=2 :: NameofInsectHabitatSurfacePeriod(days)a.i.(gm)Formulation(gm)
+  bio_insecticides_20260 p17   r8   frac=1.00 nseg=3 :: AreaandBreeding(Habitat)Dose(g/m2)RecommendedapplicationFrequency
+  bio_insecticides_20260 p17   r20  frac=1.00 nseg=5 :: NameofFormulation(lit/ha.)DilutioninwaterWaiting
+  bio_insecticides_20260 p17   r21  frac=1.00 nseg=2 :: InsectHabitat(Liters)period(Days)Gm/m2Kg/ha
+  bio_fungicides_2026033 p2    r1   frac=1.00 nseg=5 :: NameofCropCommonnameoftheDiseaseDose/haDilutioninwater(liter/ha)Waitingperiod(Days)
+  bio_fungicides_2026033 p2    r2   frac=1.00 nseg=2 :: a.i.(g)Formulation(g/ml)/%
+
+=== MIXED-BOLD ROWS (0.15-0.9), manual review: 84 ===
+  insecticides_20260331. p5    r3   frac=0.20 nseg=5 :: Milledproducts:De-oiledcakes,RicebranRustredflowerbeetle3tablets/ton48hrs.05
+  insecticides_20260331. p18   r4   frac=0.17 nseg=1 :: Fornon-agriculturaluse:-Forprotectingbuildingfromtermiteattackatpreandpostconstructionstag
+  insecticides_20260331. p20   r10  frac=0.36 nseg=5 :: ChilliThrips,,Whitefly,TobaccoDosage/1000seedlings10L80
+  insecticides_20260331. p24   r6   frac=0.18 nseg=4 :: Cockroaches(Periplanataamericana,blatellagerminica),BedBugs(Cimexhemipterus)High252.0/litr
+  insecticides_20260331. p37   r11  frac=0.17 nseg=1 :: Fornon-agriculturaluse:-Forprotectingbuildingfromtermiteattackatpreandpostconstructionstag
+  insecticides_20260331. p67   r1   frac=0.21 nseg=6 :: TomatoLeafMiner,Whitefly,Fruitborer150(50+100)500Applicationmethod-Soildrench(Singleapplic
+  insecticides_20260331. p67   r2   frac=0.19 nseg=6 :: RiceNurseryStemborer,Leaffolder,GreenleafHopper180(60+120)600Applicationmethod-Soildrench(
+  insecticides_20260331. p99   r1   frac=0.48 nseg=1 :: Diflubenzuron0.1%W/WTermiteBaittobeusedbypestcontroloperatorsonly
+  insecticides_20260331. p104  r0   frac=0.21 nseg=5 :: Houseflies(Muscadomestica)Mosquito(Anophelesspp.)ForLowPestInfestation(MaintenanceRate)Mix
+  insecticides_20260331. p107  r8   frac=0.28 nseg=2 :: Renofluthrin0.025%w/wMosquitoCoilUsedtocontroladultmosquitoesofAedesaegypti,Anophelessteph
+  insecticides_20260331. p107  r9   frac=0.22 nseg=2 :: Renofluthrin1.0%W/WIncenseStickForthecontrolofmosquitospeciesAnophelesstephensi,Aedesaegyp
+  insecticides_20260331. p107  r10  frac=0.23 nseg=2 :: Renofluthrin1.5%W/WLiquidvaporizerForthecontrolofmosquitospeciesAnophelesstephensi,Aedesae
+  fungicides_20260331.pd p3    r17  frac=0.24 nseg=6 :: WatermelonPowderymildew500200050007Captan50%WG
+  fungicides_20260331.pd p4    r0   frac=0.20 nseg=6 :: PotatoEarlyBlight&Lateblight750gm1500gm50021Captan50%WP
+  fungicides_20260331.pd p6    r19  frac=0.36 nseg=5 :: Anthracnose112.5225750-Carboxin75%WP
+  fungicides_20260331.pd p7    r2   frac=0.18 nseg=6 :: CottonAngularLeafspot1.5-1.875gm/kgseed2-2.5gm/kgseedN/AOnlyonetimeseedtreatmentCarpropami
+  fungicides_20260331.pd p12   r0   frac=0.36 nseg=1 :: Ediphenphos50%ECBlast250-300500-600750-100021
+  fungicides_20260331.pd p12   r2   frac=0.27 nseg=5 :: Brownleafspot250-300500-600750-100021Ethaboxam40%SC
+  fungicides_20260331.pd p12   r3   frac=0.27 nseg=1 :: Ethaboxam40%SCPotatoLateblight200-225500-663ml50011
+  fungicides_20260331.pd p12   r6   frac=0.47 nseg=1 :: Fludioxonil20.4%w/wSCMangoBotryosphaeria10030
+  fungicides_20260331.pd p15   r5   frac=0.23 nseg=1 :: Kitazin48%ECRice(Paddy)Blast,0.10%0.20%orAsrequired15
+  fungicides_20260331.pd p21   r9   frac=0.31 nseg=6 :: CucumberPowderymildew875-10501250-15005003Metrafenone500g/lSC
+  fungicides_20260331.pd p22   r9   frac=0.15 nseg=6 :: Pulses(Blackgram/Greengram)Powderymildew0.005%or5gm/100Ltr.water50ml/100Ltr.water500Ltr./h
+  fungicides_20260331.pd p30   r0   frac=0.22 nseg=6 :: TeaBlisterBlight-ItisfungalDiseaseandcanbecontrolledbyspraying40gmswith350to420gmscopperox
+  fungicides_20260331.pd p30   r1   frac=0.75 nseg=1 :: (StreptomycinSulphate9%+TetracyclineHydrochloride1%)SPAppleFireblight---
+  fungicides_20260331.pd p34   r0   frac=0.53 nseg=1 :: rowsoneitherside.Pyriofenone18%w/vSC
+  fungicides_20260331.pd p34   r1   frac=0.40 nseg=1 :: Pyriofenone18%w/vSCGrapePowderymildew1086007505
+  fungicides_20260331.pd p38   r15  frac=0.21 nseg=6 :: PotatoBlackScurf0.6ga.i./10kgpotatotuber2.5ml/10kgpotatotuber-UsedasseedtreatmentThiophana
+  fungicides_20260331.pd p41   r4   frac=0.20 nseg=1 :: Zineb75%WPJowarRedleafspot1.125-1.5-2KG750-1000Lt
+  fungicides_20260331.pd p43   r8   frac=0.28 nseg=6 :: GroundnutCollarrot(Aspergillusniger),Stemrot(Sclerotiumrolfsii),Rootrot(Macrophominaphaseo
+  fungicides_20260331.pd p44   r11  frac=0.57 nseg=6 :: SoybeanLeafspot0.28%w/w1%50027Ametoctradin27%+Dimethomorph20.27%w/wSC
+  fungicides_20260331.pd p44   r12  frac=0.50 nseg=1 :: Ametoctradin27%+Dimethomorph20.27%w/wSCGrapeDowneymildew420-525800-1000ml75034
+  fungicides_20260331.pd p44   r16  frac=0.52 nseg=6 :: TomatoLateBlight420-525800-1000ml50003Ametoctradin25%(w/w)+Metalaxyl20%(w/w)WDG
+  fungicides_20260331.pd p44   r17  frac=0.53 nseg=1 :: Ametoctradin25%(w/w)+Metalaxyl20%(w/w)WDGTomato"DampingoffAmetoctradin1000500-
+  fungicides_20260331.pd p44   r18  frac=0.19 nseg=6 :: Tomato"Dampingoff(Pythiumaphanidermatum)Lateblight(Phytophthorainfestans)"Ametoctradin25%(
+  fungicides_20260331.pd p44   r19  frac=0.44 nseg=1 :: Azoxystrobin20%+Boscalid25%SEGrapesDowneyMildew&125+156.2562550019
+  fungicides_20260331.pd p48   r2   frac=0.30 nseg=6 :: ChilliPowderymildew(Leveillulataurica)andAnthracnose(Colletotrichumcapsici)114.37+18.18375
+  fungicides_20260331.pd p48   r3   frac=0.55 nseg=1 :: Azoxystrobin7.1%+Propiconazole11.9%w/wSERiceSheathBlight37.5+62.550050043
+  fungicides_20260331.pd p48   r5   frac=0.36 nseg=6 :: WheatYellowrust(Pucciniastriiformisf.sp.Tritici)56.25+93.7575050045Azoxystrobin11%+Tebucon
+  fungicides_20260331.pd p49   r1   frac=0.63 nseg=1 :: Azoxystrobin120g/L+Tebuconazole240g/LSCRiceBlastandSheath830ml

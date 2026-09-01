@@ -1,0 +1,266 @@
+total pages swept: 231
+rows with marker/superscript hits: 263
+
+{"file": "insecticides_20260331.pdf", "page": 4, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "ppeerr  t1o0n0 mor3  1o5r 01 0g mgm  ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 4, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "omm pmero d1i0ty0  mor3 1. 50 gran", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 4, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "e eF ruit tmon3  or 225 gm", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 4, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": " rciohdec 0k7e dd aPyHs 3t o ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 4, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "blets/1000 m33  72", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 4, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "a5b0lgemts//1 100000 m m33 o r 7", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 4, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "a5c0h g/ m10/1000 0C mFT3  or ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 5, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "obrl 6et0 (01 120g0)  m3 P(P6ao-rl8yti)ta hhl-eo1nu ehr", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 5, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "900 g/100 m3 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 5, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "900 g/100 m3 4", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 5, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "00 g/o1r0 00 m3 2", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 7, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "1w0o ogd/m eter3 of 400 m", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 7, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "ion per meter3 of wood ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 23, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "1 litre/30 m2 -", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 23, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "lit1re.5/5-20. 5m 2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 24, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "Rmeqgu air.ie.m/me2n t Flit", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 24, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "Spr(amyl s)/o mlu2t ion ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 27, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "t  g(32m030/0m ––334 0070  m   l )     ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 27, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "150 gm/m3 07d", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 42, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "g2m4-/3m23  1P2e-r2io4d h ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 42, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "g2m4-/3m23  2P4e rhiorsd  ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 55, "superscript": "s", "size": 7.0, "mode_size": 11.0, "context": "cation (1st spray when", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 55, "superscript": "t", "size": 7.0, "mode_size": 11.0, "context": "ation (1st spray when ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 90, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "125 imn2a r1e0a sli.t ers of w", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 91, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "250 mg/50m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 91, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "25-50 g/50 m2 1.5-", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 91, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "-2.5Ltr./50 m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 92, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "osage 500 m3 floor area ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 92, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "Dosage/m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 92, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "02/m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 92, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "08/m2 100", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 92, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0.03 ml/m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 92, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0.06 ml/m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 92, "superscript": "t", "size": 7.0, "mode_size": 11.0, "context": "Every 6th week ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 92, "superscript": "h", "size": 7.0, "mode_size": 11.0, "context": "Every 6th week ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 93, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "mmll//1m020 p Ler o ur nit ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 93, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "25 mg/m2 0.1", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 93, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0.121 ml / m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 93, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "mmll//1m020 p Ler o ur nit ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 94, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "150 mg /m2, 1.5 mg/L ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 94, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "/L 6 g /m2 or 60 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 96, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "a.i. in (mg/m2) F(morgm/mu2l", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 96, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "2) F(morgm/mu2l)a tion ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 96, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0% WDG imn 72 a5r meal.  of wate", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 96, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "f cluotvherri n5 0100m%2  ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 97, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "d solution/m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 98, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "30 mg/m2 1.", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 98, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "1.2 g/m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 98, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "for3 0 m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 98, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "30 mg/m2 1.", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 98, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "1.2 g/m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 98, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "for30 m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 98, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "30 mg/m2 1.", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 98, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "1.2 g/m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 98, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "for30 m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 99, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": " 1w.a5t0e-r2/1.000 m m2 l/liter water (", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 99, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "5.0 gm/10 m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 99, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "rs water/10m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 100, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0a..0i.0/m1g2  1G.0e lg mB", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 100, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "1G.0e lg mBa oitf/ m2 Pclraecvei c“eR", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 100, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0a..0i.0/m1g2  1G.0e lg mB", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 100, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "1G.0e lg mBa oitf/ m2 cPrleavciec e“", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 101, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "h1i0d min2g i.t 2 c0a0n  malls oof b sep", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 101, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "n), 3-4spot/m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 101, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "toyt =–a1p spprootx / M5 m2 m2 diameter)", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 101, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "  ––1 2 s pspoot t/sM /M2 2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 101, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": " –2 spots /M2 2", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 101, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "  ––2 3 s pspootst s/ M/M2 2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 102, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": " of 200mg/m2of infested ar", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 102, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": " ooff  i3n0fe0s mtegd/ amre2oaf) . ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 102, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "Dosage/m2 of netting ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 103, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "20 -30 mg/m2 10-15 m", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 103, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "o cover 50 m2area ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 103, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "loyd 2@uc t2 i5nm 1l /lmite2 ro onf  nwoant epro&ro su", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 103, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "on unifomrml/lmy 2@ o n2 5pmorlo/mus2  soun", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 103, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "loyd 2@uc t2 i5nm 1l /lmite2 ro onf  nwoant epro&ro su", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 103, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "on unifomrml/lmy 2@ o n2 5pmorlo/mus2  soun", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 105, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "m0l./0m3 2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 105, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "m0l./0m6 2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 106, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "100 ml/1m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 106, "superscript": "3", "size": 7.0, "mode_size": 11.0, "context": "50 ml/100m3 ", "phase2b_classes": ["benign-footer"]}
+{"file": "insecticides_20260331.pdf", "page": 109, "superscript": "r", "size": 7.0, "mode_size": 11.0, "context": " (E) dbaatnende 0d3 rd May, 20in0 7) ", "phase2b_classes": ["benign-footer", "benign-outside-table"]}
+{"file": "insecticides_20260331.pdf", "page": 109, "superscript": "d", "size": 7.0, "mode_size": 11.0, "context": " (E) dbaatnende 0d3 rd May, 20in0 7) ", "phase2b_classes": ["benign-footer", "benign-outside-table"]}
+{"file": "fungicides_20260331.pdf", "page": 4, "hits": [["*", "Apple* Scab, Fly speck & 0.12%** 1667gm 15-20*"], ["**", "* Scab, Fly speck & 0.12%** 1667gm 15-20** 8"], ["**", "ck & 0.12%** 1667gm 15-20** 8"], ["**", "Cherry Brown rot 0.12%** 1667gm 15-20** NA"], ["**", "rot 0.12%** 1667gm 15-20** NA"], ["**", "Citrus Brown rot 0.25** 2500gm 15-20** NA"], ["**", "n rot 0.25** 2500gm 15-20** NA"], ["**", "Scab 0.12** 1667gm 15-20** NA"], ["**", "Scab 0.12** 1667gm 15-20** NA"]], "phase2b_classes": ["benign-footer"]}
+{"file": "fungicides_20260331.pdf", "page": 77, "hits": [["****", "t 0.026+ Fludioxonil- 2.0**** with the required treatment"], ["***", "sowing)***, (Sedaxane-0.05+ 15 ml/kg of"]], "phase2b_classes": ["benign-footer"]}
+{"file": "fungicides_20260331.pdf", "page": 83, "hits": [["*", "* Warning: When used as a foliar spray on"], ["**", "** In case of, fruit trees the values give"], ["***", "***Ensures better seed germination & plant"], ["****", "****Dose of 2.0 ml/kg seed to be used in poc"], ["****", "****"]], "phase2b_classes": ["REAL", "benign-footer"]}
+{"file": "fungicides_20260331.pdf", "page": 31, "superscript": "n", "size": 8.0, "mode_size": 12.0, "context": "220nd  dsapyrasy a fter ", "phase2b_classes": ["benign-footer"]}
+{"file": "fungicides_20260331.pdf", "page": 31, "superscript": "d", "size": 8.0, "mode_size": 12.0, "context": "220nd  dsapyrasy a fter ", "phase2b_classes": ["benign-footer"]}
+{"file": "fungicides_20260331.pdf", "page": 67, "superscript": "2", "size": 8.0, "mode_size": 12.0, "context": "2.0 L/m2 53 ", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 1, "hits": [["*", "*Disclaimer: ‘The document has been compi"]], "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 9, "hits": [["*", "WP @ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"]], "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 10, "hits": [["*", "P (@ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"], ["*", "P (@ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"], ["*", "WP @ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"], ["*", "5 kg/ha enriched FYM* @ 5 tons/ha to the soil before transpla"], ["*", "5 kg/ha enriched FYM* @ 5 tons/ha to the soil before transpla"], ["*", "enriched FYM* @ 5 tons/ha to the soil before sowing."], ["*", "P (@ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"]], "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 11, "hits": [["*", "enriched FYM* @ 5 tons/ha to the soil before"], ["*", "enriched FYM* @ 5 tons/ha to the soil before"], ["*", "enriched FYM* @ 5 tons/ha to the soil before"], ["*", "enriched FYM* @ 5 tons/ha to the soil before"], ["*", "P (@ 5 kg/ha enriched FYM*"]], "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 12, "hits": [["*", "P (@ 5 kg/ha enriched FYM*"], ["*", "(@ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"], ["*", "(@ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"], ["*", "@ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"], ["*", "@ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"], ["*", "WP @ 5 kg/ha enriched FYM* @"], ["*", "P @ 5 kg/ha enriched FYM * @"]], "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 4, "superscript": "7", "size": 7.0, "mode_size": 11.0, "context": "(5x107 spore/mg) ", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 6, "superscript": "9", "size": 8.0, "mode_size": 11.0, "context": " 2(4C5F IUU:/ m2xl1 m09i n/g.m min.) S", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 7, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": " WP. (1x108 /gm min) St", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 7, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "%C- FW-0P3 0(14x51 08 /gm min) St", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 7, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "% WP (1x108 /gm min) Ac", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 7, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": " WP (1x108 /spores/ml) ", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 7, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "– 9947 (1x108 CFU/gm M", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 7, "superscript": "9", "size": 7.6, "mode_size": 11.0, "context": " WP (1x109 CFU/gm mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 7, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": " WP (1x108 CFU/gm mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 8, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": " WP, (1x108 CFU/gm mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 8, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": " WP (1x108 /gm min) A", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 8, "superscript": "8", "size": 7.0, "mode_size": 11.0, "context": "count 10X108) Accession ", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 8, "superscript": "6", "size": 7.0, "mode_size": 11.0, "context": " WP (1X106 CFU /gm m", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 8, "superscript": "8", "size": 7.0, "mode_size": 11.0, "context": "% WP (1x108 CFU/gm min", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 8, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": " WP (1x108 CFU/gm mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 9, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "% WP (1x108 CFU/gm mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 9, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "% WP (1x108 CFU/gm mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 9, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "count 1 X 108 /gm. min.) S", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 9, "superscript": "2", "size": 7.6, "mode_size": 11.0, "context": "adrt o @twhs e 6 argtom otht/m eb ta2i sm(e= e6b 0oy f b ksrogow/haiadn)", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 12, "superscript": "6", "size": 7.0, "mode_size": 11.0, "context": " WP, (2x106 CFU/gm mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 12, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "WP, (1x108 CFU/gm mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 13, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "lation, (1x108 CFU/ml. mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 13, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "% SC, (1x108 CFU/gm Mi", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 13, "superscript": "9", "size": 7.0, "mode_size": 11.0, "context": "V -01 (1x109 ", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 15, "superscript": "8", "size": 7.0, "mode_size": 11.0, "context": "U count 1x108/ml min.)(Acc", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 15, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "10.7 m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 15, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "53.6 m2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 16, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0.20 ml/m2 1 lit", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 16, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0.10 ml/m2 1 lit", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 16, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0 lit (1 ml/m2) 0w1a tleitre r", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 16, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "ters(0.5 ml/m2) 0w.a5t elirt", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 16, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "iters (1 ml/m2) 0w1a tleitre r i", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 17, "superscript": "8", "size": 7.6, "mode_size": 11.0, "context": "cuinlltu- s4 t.h8u xr i1n0g8i)e Snesirso vtyapr.  His-r", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 18, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "st  m0g.7/m5 2 ", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 18, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "0.75 g/m2 7.50 kg", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_insecticides_20260331.pdf", "page": 18, "superscript": "2", "size": 7.0, "mode_size": 11.0, "context": "1.00 g/m2 10.00 k", "phase2b_classes": ["benign-footer"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 8, "hits": [["*", "WP @ 5 kg/ha enriched FYM*"], ["*", "WP @ 5 kg/ha enriched FYM*"], ["*", "@ 5 kg/ha enriched FYM* @ 5tons/ha to the soil before"], ["*", "@ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"]], "phase2b_classes": []}
+{"file": "bio_fungicides_20260331.pdf", "page": 9, "hits": [["*", "FYM*@5tons/ha to the soil before transplanti"], ["*", "FYM*@5tons/ha to the soil before transplanti"], ["*", "@ 5kg/ha enriched FYM*@ 5tons/ha to the soil before sowing."], ["*", "@ 5kg/ha enriched FYM*@ 5tons/ha to the soil before sowing."]], "phase2b_classes": []}
+{"file": "bio_fungicides_20260331.pdf", "page": 15, "hits": [["*", "WP @ 5 kg/ha enriched FYM* @ 5 tons/ha to the soil before"], ["*", "WP @ 5 kg/ha enriched FYM*@5tons/ha to the soil before"], ["*", "enriched FYM* @ 5 tons/ha to the soil before sowing."], ["*", "enriched FYM* @ 5 tons/ha to the soil before sowing."]], "phase2b_classes": []}
+{"file": "bio_fungicides_20260331.pdf", "page": 20, "hits": [["***", "***"]], "phase2b_classes": ["REAL"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "(", "size": 12.0, "mode_size": 14.0, "context": "(Based on ce", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "B", "size": 12.0, "mode_size": 14.0, "context": "(Based on cer", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": "(Based on cert", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "s", "size": 12.0, "mode_size": 14.0, "context": "(Based on certif", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "(Based on certifi", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "d", "size": 12.0, "mode_size": 14.0, "context": "(Based on certific", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "(Based on certificat", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "n", "size": 12.0, "mode_size": 14.0, "context": "(Based on certificate", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "c", "size": 12.0, "mode_size": 14.0, "context": "(Based on certificate is", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "(Based on certificate iss", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "r", "size": 12.0, "mode_size": 14.0, "context": "Based on certificate issu", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "t", "size": 12.0, "mode_size": 14.0, "context": "ased on certificate issue", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "sed on certificate issued", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "f", "size": 12.0, "mode_size": 14.0, "context": "sed on certificate issued", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "ed on certificate issued)", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "c", "size": 12.0, "mode_size": 14.0, "context": "d on certificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": " on certificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "t", "size": 12.0, "mode_size": 14.0, "context": "on certificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "n certificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": " certificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "s", "size": 12.0, "mode_size": 14.0, "context": "certificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "s", "size": 12.0, "mode_size": 14.0, "context": "ertificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "u", "size": 12.0, "mode_size": 14.0, "context": "rtificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "tificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "d", "size": 12.0, "mode_size": 14.0, "context": "ificate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": ")", "size": 12.0, "mode_size": 14.0, "context": "icate issued) ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "D", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: Th", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "s", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: Th", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "c", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: The", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "l", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: The ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: The d", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: The do", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "m", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: The do", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: The docu", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "r", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: The docum", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": ":", "size": 12.0, "mode_size": 14.0, "context": "Disclaimer: The docum", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "T", "size": 12.0, "mode_size": 14.0, "context": "isclaimer: The docume", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "h", "size": 12.0, "mode_size": 14.0, "context": "isclaimer: The documen", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "claimer: The document ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "d", "size": 12.0, "mode_size": 14.0, "context": "aimer: The document ha", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "imer: The document has", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "c", "size": 12.0, "mode_size": 14.0, "context": "er: The document has ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "u", "size": 12.0, "mode_size": 14.0, "context": "er: The document has b", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "m", "size": 12.0, "mode_size": 14.0, "context": "r: The document has bee", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": " The document has been", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "n", "size": 12.0, "mode_size": 14.0, "context": "he document has been ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "t", "size": 12.0, "mode_size": 14.0, "context": "e document has been ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "h", "size": 12.0, "mode_size": 14.0, "context": " document has been ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": "document has been ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "s", "size": 12.0, "mode_size": 14.0, "context": "ocument has been ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "b", "size": 12.0, "mode_size": 14.0, "context": "ument has been ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "ment has been ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "ment has been ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "n", "size": 12.0, "mode_size": 14.0, "context": "ent has been ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "c", "size": 12.0, "mode_size": 14.0, "context": "compiled on", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "compiled on t", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "m", "size": 12.0, "mode_size": 14.0, "context": "compiled on th", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "p", "size": 12.0, "mode_size": 14.0, "context": "compiled on the ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "compiled on the b", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "l", "size": 12.0, "mode_size": 14.0, "context": "compiled on the ba", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "compiled on the ba", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "d", "size": 12.0, "mode_size": 14.0, "context": "compiled on the basi", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "compiled on the basis ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "n", "size": 12.0, "mode_size": 14.0, "context": "compiled on the basis o", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "t", "size": 12.0, "mode_size": 14.0, "context": "ompiled on the basis of a", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "h", "size": 12.0, "mode_size": 14.0, "context": "mpiled on the basis of a", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "piled on the basis of av", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "b", "size": 12.0, "mode_size": 14.0, "context": "iled on the basis of avai", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": "led on the basis of availa", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "s", "size": 12.0, "mode_size": 14.0, "context": "d on the basis of availab", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "d on the basis of availabl", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "s", "size": 12.0, "mode_size": 14.0, "context": " on the basis of available", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "n the basis of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "f", "size": 12.0, "mode_size": 14.0, "context": " the basis of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": "the basis of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "v", "size": 12.0, "mode_size": 14.0, "context": "e basis of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": " basis of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "basis of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "l", "size": 12.0, "mode_size": 14.0, "context": "asis of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": "asis of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "b", "size": 12.0, "mode_size": 14.0, "context": "sis of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "l", "size": 12.0, "mode_size": 14.0, "context": "is of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "s of available ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "information ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "n", "size": 12.0, "mode_size": 14.0, "context": "information f", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "f", "size": 12.0, "mode_size": 14.0, "context": "information fo", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "information for", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "r", "size": 12.0, "mode_size": 14.0, "context": "information for ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "m", "size": 12.0, "mode_size": 14.0, "context": "information for g", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": "information for gui", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "t", "size": 12.0, "mode_size": 14.0, "context": "information for guid", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "information for guida", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "information for guida", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "n", "size": 12.0, "mode_size": 14.0, "context": "information for guidan", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "f", "size": 12.0, "mode_size": 14.0, "context": "nformation for guidance", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "formation for guidance ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "r", "size": 12.0, "mode_size": 14.0, "context": "ormation for guidance a", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "g", "size": 12.0, "mode_size": 14.0, "context": "mation for guidance an", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "u", "size": 12.0, "mode_size": 14.0, "context": "ation for guidance and", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "i", "size": 12.0, "mode_size": 14.0, "context": "ation for guidance and n", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "d", "size": 12.0, "mode_size": 14.0, "context": "tion for guidance and n", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": "ion for guidance and no", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "n", "size": 12.0, "mode_size": 14.0, "context": "n for guidance and not ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "c", "size": 12.0, "mode_size": 14.0, "context": " for guidance and not fo", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "for guidance and not for", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": "r guidance and not for l", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "n", "size": 12.0, "mode_size": 14.0, "context": " guidance and not for le", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "d", "size": 12.0, "mode_size": 14.0, "context": "uidance and not for leg", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "n", "size": 12.0, "mode_size": 14.0, "context": "idance and not for legal", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "ance and not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "t", "size": 12.0, "mode_size": 14.0, "context": "nce and not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "f", "size": 12.0, "mode_size": 14.0, "context": "ce and not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "ce and not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "r", "size": 12.0, "mode_size": 14.0, "context": "e and not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "l", "size": 12.0, "mode_size": 14.0, "context": "and not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "nd not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "g", "size": 12.0, "mode_size": 14.0, "context": "d not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "a", "size": 12.0, "mode_size": 14.0, "context": " not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "l", "size": 12.0, "mode_size": 14.0, "context": "not for legal ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "p", "size": 12.0, "mode_size": 14.0, "context": "purposes. ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "u", "size": 12.0, "mode_size": 14.0, "context": "purposes. ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "r", "size": 12.0, "mode_size": 14.0, "context": "purposes. ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "p", "size": 12.0, "mode_size": 14.0, "context": "purposes. ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "o", "size": 12.0, "mode_size": 14.0, "context": "purposes. ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "s", "size": 12.0, "mode_size": 14.0, "context": "purposes. ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "e", "size": 12.0, "mode_size": 14.0, "context": "purposes. ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": "s", "size": 12.0, "mode_size": 14.0, "context": "purposes. ", "phase2b_classes": ["benign-no-table-page"]}
+{"file": "bio_fungicides_20260331.pdf", "page": 1, "superscript": ".", "size": 12.0, "mode_size": 14.0, "context": "purposes. ", "phase2b_classes": ["benign-no-table-page"]}

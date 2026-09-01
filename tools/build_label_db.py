@@ -70,8 +70,10 @@ REPORTS = ROOT / "reports"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
+from application_method import extract_method  # noqa: E402
 from crop_mapper import SLUGS, map_crop  # noqa: E402
 from dose_parser import parse_dose  # noqa: E402
+from dose_units import add_per_acre_columns  # noqa: E402
 from parse_phi import PHIParseError, parse_phi  # noqa: E402
 
 FILES = ["insecticides", "fungicides", "bio_insecticides", "bio_fungicides"]
@@ -141,6 +143,10 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame]:
                 r.update({
                     "crop_slug": slug or "",
                     "crop_raw": crop_raw,
+                    # A property of the CLAIM, not the crop: CIB&RC registers
+                    # foliar and soil-drench use separately, with different
+                    # doses and intervals. crop_mapper drops it by design.
+                    "application_method": extract_method(crop_raw) or "",
                     "crop_multi_crop_split": multi,
                     "flag_pest_bled": pest_bled,
                     "active_ingredient": ai,
@@ -224,6 +230,10 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame]:
             for c in ("dose_ai_value_min", "dose_ai_value_max",
                      "dose_formulation_value_min", "dose_formulation_value_max"):
                 df[c] = df[c].astype("float64")
+        # Derived per-acre columns. Added last, from the values just settled
+        # above, and NULL for every non-area basis -- see src/dose_units.py.
+        # Any later script that patches a dose value must call this again.
+        add_per_acre_columns(df)
     return kept_df, excl_df
 
 

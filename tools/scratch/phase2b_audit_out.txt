@@ -1,0 +1,85 @@
+== insecticides_20260331.pdf
+  insecticides_20260331.pdf: 109 lattice tables over 108/109 pages, 55.2s
+  insecticides_20260331.pdf: audited 109 pages, 91.3s
+== fungicides_20260331.pdf
+  fungicides_20260331.pdf: 82 lattice tables over 82/83 pages, 43.2s
+  fungicides_20260331.pdf: audited 83 pages, 67.9s
+== bio_insecticides_20260331.pdf
+  bio_insecticides_20260331.pdf: 18 lattice tables over 18/19 pages, 8.9s
+  bio_insecticides_20260331.pdf: audited 19 pages, 15.2s
+== bio_fungicides_20260331.pdf
+  bio_fungicides_20260331.pdf: 19 lattice tables over 19/20 pages, 9.5s
+  bio_fungicides_20260331.pdf: audited 20 pages, 13.2s
+
+wrote C:\Users\J\OneDrive\Desktop\Fine-Tuning project\agri-llm\data\interim\phase2b_audit.json
+
+=== per-file totals (lattice) ===
+insecticides_20260331.pdf          pages= 109 missing_raw_tot=  1176 extra_raw_tot=    0 pages_with_REAL=  1
+fungicides_20260331.pdf            pages=  83 missing_raw_tot=  1238 extra_raw_tot=    0 pages_with_REAL=  2
+bio_insecticides_20260331.pdf      pages=  19 missing_raw_tot=   715 extra_raw_tot=    0 pages_with_REAL=  0
+bio_fungicides_20260331.pdf        pages=  20 missing_raw_tot=   493 extra_raw_tot=    0 pages_with_REAL=  1
+
+=== Phase 2 cross-check (missing, footer-discounted) ===
+  insecticides_20260331.pdf          p2    phase2=36    phase2b=36    OK
+  insecticides_20260331.pdf          p55   phase2=0     phase2b=0     OK
+  insecticides_20260331.pdf          p84   phase2=0     phase2b=0     OK
+  fungicides_20260331.pdf            p2    phase2=0     phase2b=0     OK
+  fungicides_20260331.pdf            p42   phase2=0     phase2b=0     OK
+  fungicides_20260331.pdf            p82   phase2=0     phase2b=0     OK
+  bio_insecticides_20260331.pdf      p2    phase2=0     phase2b=0     OK
+  bio_insecticides_20260331.pdf      p10   phase2=0     phase2b=0     OK
+  bio_insecticides_20260331.pdf      p18   phase2=0     phase2b=0     OK
+  bio_fungicides_20260331.pdf        p2    phase2=0     phase2b=0     OK
+  bio_fungicides_20260331.pdf        p10   phase2=0     phase2b=0     OK
+  bio_fungicides_20260331.pdf        p19   phase2=0     phase2b=0     OK
+
+=== REAL losses ===
+--- insecticides_20260331.pdf p6 (ntables=1, missing_raw=3, by_zone={'beside': 2, 'below': 1}, unattributed=0)
+      zone=beside  corr=   2/2    :: '1.'
+--- fungicides_20260331.pdf p38 (ntables=1, missing_raw=17, by_zone={'inside': 17}, unattributed=0)
+      zone=inside  corr=  15/15   :: 'plant protection'
+--- fungicides_20260331.pdf p83 (ntables=1, missing_raw=519, by_zone={'below': 519}, unattributed=0)
+      zone=below   corr=  75/75   :: '* Warning: When used as a foliar spray on Red Delicious variety of apples. This product may'
+      zone=below   corr=  15/15   :: 'cause resetting.'
+      zone=below   corr=  84/84   :: '** In case of, fruit trees the values given pertain to the concentration of a.i. in spray solution and'
+      zone=below   corr=  37/37   :: 'volume of spray solution required per tree.'
+      zone=below   corr=  80/80   :: '***Ensures better seed germination & plant stand by managing infection of karnal bunt on wheat'
+      zone=below   corr=  22/22   :: 'seeds at the time of sowing'
+      zone=below   corr=  76/76   :: '****Dose of 2.0 ml/kg seed to be used in pockets/fields with history of complex of the above'
+      zone=below   corr=  81/81   :: 'mentioned insect pests and diseases while dose of 1.0 ml/kg seed to be used in the pockets/fields'
+      zone=below   corr=  43/43   :: 'where only the enlisted diseases are predominant.'
+      zone=below   corr=   4/4    :: '****'
+--- bio_fungicides_20260331.pdf p20 (ntables=1, missing_raw=3, by_zone={'below': 3}, unattributed=0)
+      zone=below   corr=   3/3    :: '***'
+
+=== class histogram ===
+  benign-footer            210
+  benign-no-table-page     76
+  REAL                     13
+  benign-outside-table     2
+
+=== unattributed missing chars (should be ~0) ===
+  insecticides_20260331.pdf          total=0      worst=p1:0, p2:0, p3:0
+  fungicides_20260331.pdf            total=0      worst=p1:0, p2:0, p3:0
+  bio_insecticides_20260331.pdf      total=0      worst=p1:0, p2:0, p3:0
+  bio_fungicides_20260331.pdf        total=0      worst=p1:0, p2:0, p3:0
+
+=== section ranges ===
+--- insecticides_20260331.pdf
+      front-matter   front-matter             p1-p1
+      crop-advisory  agricultural-use         p2-p55
+      crop-advisory  combination-product      p56-p88
+      public-health  public-health-use        p89-p93
+      household      household-insecticides   p94-p108
+      locust         locust-control           p109-p109
+--- fungicides_20260331.pdf
+      front-matter   front-matter             p1-p1
+      crop-advisory  fungicides-single        p2-p42
+      crop-advisory  fungicides-combination   p43-p83
+--- bio_insecticides_20260331.pdf
+      front-matter   front-matter             p1-p1
+      crop-advisory  bio-insecticides         p2-p14
+      public-health  public-health-use        p15-p19
+--- bio_fungicides_20260331.pdf
+      front-matter   front-matter             p1-p1
+      crop-advisory  bio-fungicides           p2-p20

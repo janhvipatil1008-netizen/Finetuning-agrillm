@@ -41,6 +41,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from dose_parser import parse_dose  # noqa: E402
+from dose_units import PER_ACRE_COLUMNS, add_per_acre_columns  # noqa: E402
 from formulation_resolver import resolve_formulation_unit  # noqa: E402
 
 PATCHED_COLS = [
@@ -117,6 +118,21 @@ def main() -> None:
         "dose_formulation_raw (the audit trail) changed"
     )
     assert len(df) == len(before), "row count changed"
+
+    # --- refresh the derived per-acre columns --------------------------
+    # This script is the one place that changes a dose value after
+    # build_label_db.py computed them, so leaving them alone here would ship
+    # a per-acre figure that disagrees with the per-hectare value beside it
+    # on exactly the 532 rows this phase exists to fix. Recomputed AFTER the
+    # integrity checks above, so those still compare like against like, then
+    # checked itself: a derived value may move only where its source did.
+    derived_before = df[[c for _p, lo, hi in PER_ACRE_COLUMNS for c in (lo, hi)]].copy()
+    add_per_acre_columns(df)
+    derived_after = df[derived_before.columns]
+    moved = ~derived_after.fillna(-1).eq(derived_before.fillna(-1)).all(axis=1)
+    assert set(df.index[moved]) <= {r["index"] for r in patched_rows}, (
+        "a per-acre column changed on a row whose dose was not patched"
+    )
 
     df.to_csv(FINAL / "label_db.csv", index=False)
     df.to_parquet(FINAL / "label_db.parquet", index=False)

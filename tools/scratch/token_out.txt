@@ -1,0 +1,46 @@
+insecticides_20260331.pdf lattice done
+insecticides_20260331.pdf stream done
+fungicides_20260331.pdf lattice done
+fungicides_20260331.pdf stream done
+bio_insecticides_20260331.pdf lattice done
+bio_insecticides_20260331.pdf stream done
+bio_fungicides_20260331.pdf lattice done
+bio_fungicides_20260331.pdf stream done
+
+============================================================================================
+A) PAGES WHERE LATTICE DROPPED TOKENS THAT STREAM PRESERVED  (counterexamples)
+   pages = 7 of 231   total tokens = 320
+
+--- bio_insecticides_20260331.pdf p1  (123 tokens, 12 numeric)
+      LATTICE DROPPED / STREAM KEPT: ['भारत', 'सरकार', '/', 'Government', 'of', 'India', 'कृषि', 'एव', 'ंककसान', 'कल्याण', 'मंत्रालय', '/', 'Ministry', 'of', 'Agriculture', '&', 'Farmers', 'Welfare', 'कृषि', 'एव', 'ंककसान', 'कल्याण', 'षवभाग', 'Department', 'of', 'Agriculture', '&', 'Farmers', 'Welfare', 'वनस्पति', 'संरक्षण,', 'संगरोध', 'और', 'संग्रह', 'तनदेशालय', 'Directorate', 'of', 'Plant', 'Protection,', 'Quarantine', '&', 'Storage', 'केंद्रीय', 'कीटनाशी', 'बोर्', 'डएव', 'ंपंजीकरण', 'सममति', 'Central', 'Insecticide', 'Board', '&', 'Registration', 'Committee', 'एन.', 'एच.', '-', '4,', '121', '–', '(हररयाणा)', 'N.H.-IV,', 'Faridabad-121', '001', '(Haryana)', 'MAJOR', 'USES', 'OF', 'PESTICIDES', '(Registered', 'under', 'the', 'Insecticides', 'Act,', '1968)', '(As', 'on', '–', '31/03/2026)', '(Based', 'on', 'certificate', 'issued)', '*Disclaimer:', '‘The', 'document', 'has', 'been', 'compiled', 'on', 'the', 'basis', 'of', 'available', 'information', 'for', 'guidance', 'and', 'not', 'for', 'legal', 'purposes’.', 'BIO-INSECTICIDES', '1.', 'Major', 'uses', 'of', 'Bio-insecticides', '-', '(Page', 'No.', '2', 'to', '15).', '2.', 'Public', 'health', 'use', '-', '(Page', 'No.15', 'to', '18).']
+--- insecticides_20260331.pdf p1  (85 tokens, 10 numeric)
+      LATTICE DROPPED / STREAM KEPT: ['of', 'of', 'Agriculture', 'of', 'Agriculture', 'of', 'Insecticide', '–', 'OF', 'the', 'Insecticides', 'on', 'Disclaimer:', 'The', 'document', 'has', 'been', 'compiled', 'on', 'the', 'basis', 'of', 'available', 'information', 'for', 'guidance', 'and', 'not', 'for', 'legal', 'purposes.', 'INSECTICIDES', '1.', 'Insecticides', 'registered', 'for', 'Agriculture', 'use', '(Page', 'No.', '–', '02)', '2.', 'Insecticides', 'combination', 'registered', 'for', 'agriculture', 'use', '(Page', 'No.', '–', '53)', '3.', 'Insecticides', 'registered', 'for', 'Public', 'Health', 'use', '(Page', 'No.', '–', '85)', '4.', 'Insecticides', 'registered', 'for', 'Household', 'use', '(Page', 'No.', '–', '90)', '5.', 'Recommended', 'chemicals', 'by', 'FAO', 'for', 'Locust', 'Control', '(Page', 'No.–', '105)']
+--- bio_fungicides_20260331.pdf p1  (57 tokens, 1 numeric)
+      LATTICE DROPPED / STREAM KEPT: ['Government', 'of', 'India', 'Ministry', 'of', 'Agriculture', '&', 'Farmers', 'Welfare', 'Department', 'of', 'Agriculture&', 'Farmers', 'Welfare', 'Directorate', 'of', 'Plant', 'Protection,', 'Quarantine', '&', 'Storage', 'Central', 'Insecticide', 'Board', '&', 'Registration', 'Committee', 'N.H.-IV,', 'Faridabad-121001', '(Haryana)', 'OF', 'the', '(Based', 'on', 'certificate', 'issued)', 'Disclaimer:', 'The', 'document', 'has', 'been', 'compiled', 'on', 'the', 'basis', 'of', 'available', 'information', 'for', 'guidance', 'and', 'not', 'for', 'legal', 'purposes.', 'of', 'to']
+--- fungicides_20260331.pdf p1  (51 tokens, 4 numeric)
+      LATTICE DROPPED / STREAM KEPT: ['Ametoctradine', 'Government', 'of', 'India', 'Ministry', 'of', 'Agriculture', '&', 'Farmers', 'Welfare', 'Department', 'of', 'Agriculture&', 'Farmers', 'Welfare', 'Directorate', 'of', 'Plant', 'Protection,', 'Quarantine', '&Storage', 'Central', 'Insecticide', 'Board', '&Registration', 'Committee', 'N.H.-IV,', 'Faridabad-121001', '(Haryana)', 'MAJORUSES', 'OF', 'PESTICIDES', '(Registered', 'under', 'the', 'Insecticides', 'Act,', '1968)', '(UPTO', '-', '31/03/2026)', 'on', 'The', 'on', 'the', 'of', 'use', '02', 'to', 'uses', 'to']
+--- fungicides_20260331.pdf p38  (2 tokens, 0 numeric)
+      LATTICE DROPPED / STREAM KEPT: ['plant', 'protection']
+--- insecticides_20260331.pdf p6  (1 tokens, 1 numeric)
+      LATTICE DROPPED / STREAM KEPT: ['1.']
+--- bio_fungicides_20260331.pdf p20  (1 tokens, 0 numeric)
+      LATTICE DROPPED / STREAM KEPT: ['***']
+
+============================================================================================
+B) reverse direction, for scale: pages where STREAM dropped tokens lattice kept
+   pages = 159 of 231   total tokens = 5877
+   bio_fungicides_20260331.pdf p9: 183 tokens (33 numeric) e.g. ['(AMMFA', 'PF-1)', 'the', 'time', 'of', 'transplanting', 'Drenching', '15', 'days', 'after', 'transplanting', '@']
+   insecticides_20260331.pdf p68: 146 tokens (45 numeric) e.g. ['Clothianidin', '3.5%+Pyriproxyfen', '8%', 'SE', 'Whitefly,', 'Jassid,', 'Brinjal', '44+100', '1250', '3', 'Thrips', 'and']
+   bio_insecticides_20260331.pdf p6: 122 tokens (35 numeric) e.g. ['Bacillus', 'thuringiensis', 'var.', 'kurstaki', 'Strain', 'HD-1,', 'serotype', '3a,', '3b,', '3.5%', 'ES', 'for']
+   insecticides_20260331.pdf p78: 119 tokens (43 numeric) e.g. ['Brown', 'Plant', 'Hopper,', 'Green', 'Rice', 'Leaf', 'Hopper&', '44', '+44', '1100', '45', 'White']
+   insecticides_20260331.pdf p100: 111 tokens (12 numeric) e.g. ['recommended', 'giving', '18', 'hours', 'drying', 'between', 'the', 'coats.', 'Mat', 'Adult', 'D-TransAllethrin00.10%w/w', 'Coil']
+   insecticides_20260331.pdf p27: 110 tokens (13 numeric) e.g. ['(Arhar/Tur)', 'stem', '30', 'Ethofenoprox', '10%EC', 'Rice', 'Brown', 'plant', 'hopper,', 'hopper,', 'Stem', 'folder,']
+   insecticides_20260331.pdf p91: 110 tokens (13 numeric) e.g. ['Name', 'of', 'the', 'Habitat', 'Dosage/ha', '(Kg.)', 'Waiting', 'period', 'pest', 'Water', 'bodies', '(Cess']
+   insecticides_20260331.pdf p59: 109 tokens (34 numeric) e.g. ['Sedaxane', '12.61%', 'w/w', 'Azoxystrobin', '3.15%', 'w/w', 'Thiamethoxam', '22.06%w/w', 'Sheath', 'Use', 'Leaf', 'Blast,']
+
+============================================================================================
+C) per-file summary
+insecticides_20260331.pdf          pages= 109  LAT-only-loss: pages=  2 tok=   86 numeric=  11   |   STREAM-only-loss: pages= 71 tok= 2938 numeric= 777
+fungicides_20260331.pdf            pages=  83  LAT-only-loss: pages=  2 tok=   53 numeric=   4   |   STREAM-only-loss: pages= 61 tok= 1736 numeric= 677
+bio_insecticides_20260331.pdf      pages=  19  LAT-only-loss: pages=  1 tok=  123 numeric=  12   |   STREAM-only-loss: pages= 15 tok=  719 numeric= 189
+bio_fungicides_20260331.pdf        pages=  20  LAT-only-loss: pages=  2 tok=   58 numeric=   1   |   STREAM-only-loss: pages= 12 tok=  484 numeric=  73

@@ -1,0 +1,762 @@
+crop_slug,surface_form,canonical_name,pest_type,scientific_name,source,notes
+cotton,Alternaria Leaf blight,Alternaria leaf spot,disease,Alternaria macrospora,label_db,crop-dependent: species differs by crop
+cotton,Alternaria leaf,Alternaria leaf spot,disease,Alternaria macrospora,label_db,crop-dependent: species differs by crop
+cotton,Alternaria leaf spot,Alternaria leaf spot,disease,Alternaria macrospora,label_db,crop-dependent: species differs by crop
+cotton,alternaria spp.,Alternaria leaf spot,disease,Alternaria macrospora,manual,variant form
+cotton,Aphid,Aphid,pest,Aphis gossypii,label_db,
+cotton,Aphids,Aphid,pest,Aphis gossypii,label_db,
+cotton,Aphis,Aphid,pest,Aphis gossypii,label_db,
+cotton,Aphis gossypi,Aphid,pest,Aphis gossypii,label_db,scientific name
+cotton,Aphis gossypii,Aphid,pest,Aphis gossypii,label_db,scientific name
+cotton,Aphis gosypii,Aphid,pest,Aphis gossypii,label_db,scientific name
+cotton,aphis punicae,Aphid,pest,Aphis gossypii,manual,variant form
+cotton,mava,Aphid,pest,Aphis gossypii,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+cotton,Angular Leaf spot,Bacterial blight (cotton),disease,Xanthomonas citri pv. malvacearum,label_db,crop-dependent: canonical differs by crop
+cotton,Bacterial Leaf blight,Bacterial blight (cotton),disease,Xanthomonas citri pv. malvacearum,label_db,
+cotton,Bacterial bight,Bacterial blight (cotton),disease,Xanthomonas citri pv. malvacearum,label_db,crop-dependent: canonical differs by crop
+cotton,Bacterial blight (cotton),Bacterial blight (cotton),disease,Xanthomonas citri pv. malvacearum,manual,canonical name as surface form
+cotton,angular leaf spot or black arm disease,Bacterial blight (cotton),disease,Xanthomonas citri pv. malvacearum,label_db,
+cotton,bacterial blight,Bacterial blight (cotton),disease,Xanthomonas citri pv. malvacearum,manual,scope.TARGETS canonical
+cotton,black arm,Bacterial blight (cotton),disease,Xanthomonas citri pv. malvacearum,manual,variant form
+cotton,xanthomonas citri pv. malvacearum,Bacterial blight (cotton),disease,Xanthomonas citri pv. malvacearum,manual,variant form
+cotton,Boll Rot complex,Boll rot complex,disease,,label_db,
+cotton,Ball worm,Bollworm complex,pest,Helicoverpa armigera / Earias vitella / Pectinophora gossypiella,label_db,
+cotton,Boll Worms,Bollworm complex,pest,Helicoverpa armigera / Earias vitella / Pectinophora gossypiella,label_db,
+cotton,Boll worm,Bollworm complex,pest,Helicoverpa armigera / Earias vitella / Pectinophora gossypiella,label_db,
+cotton,Boll worm complex,Bollworm complex,pest,Helicoverpa armigera / Earias vitella / Pectinophora gossypiella,label_db,
+cotton,Boll worms complex,Bollworm complex,pest,Helicoverpa armigera / Earias vitella / Pectinophora gossypiella,label_db,
+cotton,Bollworm,Bollworm complex,pest,Helicoverpa armigera / Earias vitella / Pectinophora gossypiella,label_db,
+cotton,Bollworm complex,Bollworm complex,pest,Helicoverpa armigera / Earias vitella / Pectinophora gossypiella,label_db,
+cotton,Bollworms,Bollworm complex,pest,Helicoverpa armigera / Earias vitella / Pectinophora gossypiella,label_db,
+cotton,Cut worm,Cutworm,pest,Agrotis spp.,label_db,
+cotton,Cutworm,Cutworm,pest,Agrotis spp.,manual,canonical name as surface form
+cotton,agrotis spp.,Cutworm,pest,Agrotis spp.,manual,variant form
+cotton,Grey mildew,Grey mildew,disease,Ramularia areola,label_db,
+cotton,gray mildew,Grey mildew,disease,Ramularia areola,manual,variant form
+cotton,ramularia areola,Grey mildew,disease,Ramularia areola,manual,variant form
+cotton,Grey weevil,Grey weevil,pest,Myllocerus spp.,label_db,
+cotton,leaf weevil,Grey weevil,pest,Myllocerus spp.,manual,variant form
+cotton,myllocerus spp.,Grey weevil,pest,Myllocerus spp.,manual,variant form
+cotton,American Boll worm,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+cotton,American bollworm,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+cotton,Helicoverpa armigera,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+cotton,american bollworms,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,chick pea pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,fruit borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,fruit borers,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,gram pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,gram pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,h armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,h. armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,helicoverpa,Helicoverpa armigera,pest,Helicoverpa armigera,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+cotton,helicoverpa armiger,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,helicoverpa armigera maruca testulalis,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,heliothis,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,heliothis armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,heliothis sp,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,pod borers,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,tomato fruit borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+cotton,Amarasca bigutella,Jassid,pest,Amrasca biguttula biguttula,label_db,scientific name
+cotton,Amrasca biguttula,Jassid,pest,Amrasca biguttula biguttula,label_db,scientific name
+cotton,Amrasca biguttula biguttula,Jassid,pest,Amrasca biguttula biguttula,label_db,scientific name
+cotton,Amrasca bigutulla bigutulla,Jassid,pest,Amrasca biguttula biguttula,label_db,scientific name
+cotton,Amrasca devastans,Jassid,pest,Amrasca biguttula biguttula,label_db,scientific name
+cotton,Jassid,Jassid,pest,Amrasca biguttula biguttula,label_db,
+cotton,Jassids,Jassid,pest,Amrasca biguttula biguttula,label_db,
+cotton,Leaf Hopper,Jassid,pest,Amrasca biguttula biguttula,label_db,
+cotton,Leaf hoppers,Jassid,pest,Amrasca biguttula biguttula,label_db,
+cotton,Leafhopper,Jassid,pest,Amrasca biguttula biguttula,label_db,
+cotton,empoasca kerri,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+cotton,hopper burn,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+cotton,tudtude,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+cotton,Leaf spot (unspecified),Leaf spot (unspecified),disease,,manual,canonical name as surface form
+cotton,Leaf spots,Leaf spot (unspecified),disease,,label_db,
+cotton,leaf spot,Leaf spot (unspecified),disease,,label_db,
+cotton,Cotton mealy bug,Mealybug,pest,Phenacoccus solenopsis,label_db,
+cotton,Mealy bugs,Mealybug,pest,Phenacoccus solenopsis,label_db,
+cotton,Mealybug,Mealybug,pest,Phenacoccus solenopsis,manual,canonical name as surface form
+cotton,Phenococcus spp.,Mealybug,pest,Phenacoccus solenopsis,label_db,scientific name
+cotton,mealy bug,Mealybug,pest,Phenacoccus solenopsis,label_db,
+cotton,phenacoccus solenopsis,Mealybug,pest,Phenacoccus solenopsis,manual,variant form
+cotton,phenacoccus spp.,Mealybug,pest,Phenacoccus solenopsis,manual,variant form
+cotton,Pectinophora gossipiella,Pink bollworm,pest,Pectinophora gossypiella,label_db,scientific name
+cotton,Pectinophora gossypiella,Pink bollworm,pest,Pectinophora gossypiella,label_db,
+cotton,Pink boll worm,Pink bollworm,pest,Pectinophora gossypiella,label_db,
+cotton,Pink bollworm,Pink bollworm,pest,Pectinophora gossypiella,label_db,
+cotton,gulabi bondhali,Pink bollworm,pest,Pectinophora gossypiella,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+cotton,Red cotton bug,Red cotton bug,pest,Dysdercus koenigii,label_db,
+cotton,Mites,Red spider mite,mite,Tetranychus urticae,label_db,
+cotton,Red spider mite,Red spider mite,mite,Tetranychus urticae,manual,canonical name as surface form
+cotton,Tetranychus urticae,Red spider mite,mite,Tetranychus urticae,label_db,scientific name
+cotton,mite,Red spider mite,mite,Tetranychus urticae,label_db,
+cotton,red spider mites,Red spider mite,mite,Tetranychus urticae,manual,variant form
+cotton,spider mite,Red spider mite,mite,Tetranychus urticae,manual,variant form
+cotton,tetranychus spp.,Red spider mite,mite,Tetranychus urticae,manual,variant form
+cotton,two spotted spider mite,Red spider mite,mite,Tetranychus urticae,manual,variant form
+cotton,two spotted spider mites,Red spider mite,mite,Tetranychus urticae,manual,variant form
+cotton,Rhizoctonia solani,Root rot,disease,Rhizoctonia solani,label_db,scientific name
+cotton,Root rot,Root rot,disease,Rhizoctonia solani,label_db,
+cotton,rhizoctonia root rot,Root rot,disease,Rhizoctonia solani,manual,variant form
+cotton,rhizoctonia spp.,Root rot,disease,Rhizoctonia solani,manual,variant form
+cotton,Seed and seedling rot,Seed and seedling rot,disease,,manual,canonical name as surface form
+cotton,Seed born disease,Seed and seedling rot,disease,,label_db,
+cotton,Seedling Disease,Seed and seedling rot,disease,,label_db,
+cotton,Seedling blight,Seed and seedling rot,disease,,label_db,
+cotton,seed rot,Seed and seedling rot,disease,,manual,variant form
+cotton,seedling rot,Seed and seedling rot,disease,,manual,variant form
+cotton,seedling rot disease,Seed and seedling rot,disease,,manual,variant form
+cotton,stem rot,Seed and seedling rot,disease,,manual,variant form
+cotton,Earias vitella,Spotted bollworm,pest,Earias vitella,label_db,
+cotton,Egyptian bollworm,Spotted bollworm,pest,Earias vitella,label_db,
+cotton,Spiny bollworm,Spotted bollworm,pest,Earias vitella,label_db,
+cotton,Spotted boll worm,Spotted bollworm,pest,Earias vitella,label_db,
+cotton,Spotted bollworm,Spotted bollworm,pest,Earias vitella,label_db,
+cotton,earias insulana,Spotted bollworm,pest,Earias vitella,manual,variant form
+cotton,earias vitelli,Spotted bollworm,pest,Earias vitella,manual,variant form
+cotton,Thips tabaci,Thrips,pest,Thrips tabaci,label_db,scientific name
+cotton,Thrips palmi,Thrips,pest,Thrips tabaci,label_db,scientific name
+cotton,Thrips tabaci,Thrips,pest,Thrips tabaci,label_db,scientific name
+cotton,phulkide,Thrips,pest,Thrips tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+cotton,scirtothrips dorsalis,Thrips,pest,Thrips tabaci,manual,variant form
+cotton,thrips,Thrips,pest,Thrips tabaci,label_db,
+cotton,Leaf worm,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+cotton,Spodoptera,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+cotton,Spodoptera litura,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+cotton,Tobacco caterpillar,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+cotton,Tobacco leaf eating caterpillar,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+cotton,leaf eating caterpillar,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+cotton,spodoptera spp.,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+cotton,tobacco leaf eating caterpillars,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+cotton,Aphids Jassids White fly,UNMATCHABLE,,,label_db,unmatchable: missing delimiter
+cotton,Mealy bugs (Phenococcus solenopsis,UNMATCHABLE,,,label_db,unmatchable: unbalanced parenthesis
+cotton,Pink American,UNMATCHABLE,,,label_db,"unmatchable: missing delimiter (Pink, American bollworm)"
+cotton,Sucking insects,UNMATCHABLE,,,label_db,"unmatchable: generic category, not an organism"
+cotton,Sucking pest,UNMATCHABLE,,,label_db,"unmatchable: generic category, not an organism"
+cotton,Thrips White fly,UNMATCHABLE,,,label_db,unmatchable: missing delimiter
+cotton,Whitefly Aphids,UNMATCHABLE,,,label_db,unmatchable: missing delimiter
+cotton,Bemisia tabaci,Whitefly,pest,Bemisia tabaci,label_db,scientific name
+cotton,Bemmissia tabaci,Whitefly,pest,Bemisia tabaci,label_db,scientific name
+cotton,White flies,Whitefly,pest,Bemisia tabaci,label_db,
+cotton,White fly,Whitefly,pest,Bemisia tabaci,label_db,
+cotton,Whiteflies,Whitefly,pest,Bemisia tabaci,label_db,
+cotton,Whitefly,Whitefly,pest,Bemisia tabaci,label_db,
+cotton,pandhri mashi,Whitefly,pest,Bemisia tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+cotton,safed makkhi,Whitefly,pest,Bemisia tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+cotton,siphoninus phillyreae,Whitefly,pest,Bemisia tabaci,manual,variant form
+cotton,Fungal wilt,Wilt,disease,Fusarium oxysporum,label_db,
+cotton,Wilt,Wilt,disease,Fusarium oxysporum,manual,canonical name as surface form
+cotton,bacterial wilt,Wilt,disease,Fusarium oxysporum,manual,variant form
+cotton,fusarium oxysporum,Wilt,disease,Fusarium oxysporum,manual,variant form
+cotton,fusarium spp.,Wilt,disease,Fusarium oxysporum,manual,variant form
+cotton,fusarium wilt,Wilt,disease,Fusarium oxysporum,manual,variant form
+cotton,mar rog,Wilt,disease,Fusarium oxysporum,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+cotton,ralstonia solanacearum,Wilt,disease,Fusarium oxysporum,manual,variant form
+cotton,seedling wilt,Wilt,disease,Fusarium oxysporum,manual,variant form
+cotton,wilt of tomato,Wilt,disease,Fusarium oxysporum,manual,variant form
+gram,Collar rot,Collar rot,disease,Sclerotium rolfsii,label_db,
+gram,sclerotium rolfsii,Collar rot,disease,Sclerotium rolfsii,manual,variant form
+gram,Cut worm,Cutworm,pest,Agrotis spp.,label_db,
+gram,agrotis spp.,Cutworm,pest,Agrotis spp.,manual,variant form
+gram,cutworm,Cutworm,pest,Agrotis spp.,manual,scope.TARGETS canonical
+gram,Damping off,Damping off,disease,Pythium aphanidermatum,label_db,
+gram,pythium aphanidermatum,Damping off,disease,Pythium aphanidermatum,manual,variant form
+gram,Dry Root rot,Dry root rot,disease,Macrophomina phaseolina,label_db,
+gram,charcoal rot,Dry root rot,disease,Macrophomina phaseolina,manual,variant form
+gram,macrophomina phaseolina,Dry root rot,disease,Macrophomina phaseolina,manual,variant form
+gram,Field Rat,Field rat,rodent,Bandicota bengalensis,label_db,
+gram,bandicota bengalensis,Field rat,rodent,Bandicota bengalensis,manual,variant form
+gram,Chick pea pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+gram,Gram pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+gram,Helicoverpa armiger,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+gram,Helicoverpa armigera,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+gram,Heliothis armigera,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+gram,Heliothis sp,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+gram,Pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+gram,Pod borers,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+gram,american boll worm,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,american bollworm,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,american bollworms,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,fruit borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,fruit borers,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,ghatee ali,Helicoverpa armigera,pest,Helicoverpa armigera,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+gram,gram pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,h armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,h. armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,helicoverpa,Helicoverpa armigera,pest,Helicoverpa armigera,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+gram,helicoverpa armigera maruca testulalis,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,heliothis,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,tomato fruit borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+gram,House rat,House rat,rodent,Rattus rattus,manual,canonical name as surface form
+gram,Indian house rat,House rat,rodent,Rattus rattus,label_db,
+gram,rattus rattus,House rat,rodent,Rattus rattus,manual,variant form
+gram,Rhizoctonia solani,Root rot,disease,Rhizoctonia solani,label_db,scientific name
+gram,Rhizoctonia spp.,Root rot,disease,Rhizoctonia solani,label_db,scientific name
+gram,Root rot,Root rot,disease,Rhizoctonia solani,label_db,
+gram,rhizoctonia root rot,Root rot,disease,Rhizoctonia solani,manual,variant form
+gram,Seed and seedling rot,Seed and seedling rot,disease,,manual,canonical name as surface form
+gram,Seedling rot disease,Seed and seedling rot,disease,,label_db,
+gram,seed born disease,Seed and seedling rot,disease,,manual,variant form
+gram,seed rot,Seed and seedling rot,disease,,manual,variant form
+gram,seedling blight,Seed and seedling rot,disease,,manual,variant form
+gram,seedling disease,Seed and seedling rot,disease,,manual,variant form
+gram,seedling rot,Seed and seedling rot,disease,,manual,variant form
+gram,stem rot,Seed and seedling rot,disease,,manual,variant form
+gram,Semi looper,Semilooper,pest,Chrysodeixis acuta,label_db,
+gram,Semilooper,Semilooper,pest,Chrysodeixis acuta,manual,canonical name as surface form
+gram,chrysodeixis acuta,Semilooper,pest,Chrysodeixis acuta,manual,variant form
+gram,green semi looper,Semilooper,pest,Chrysodeixis acuta,manual,variant form
+gram,green semilooper,Semilooper,pest,Chrysodeixis acuta,manual,variant form
+gram,Termite,Termite,pest,Odontotermes spp.,label_db,
+gram,odontotermes spp.,Termite,pest,Odontotermes spp.,manual,variant form
+gram,termites,Termite,pest,Odontotermes spp.,manual,variant form
+gram,Spodoptera spp.,Tobacco caterpillar,pest,Spodoptera litura,label_db,scientific name
+gram,Tobacco caterpillar,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+gram,leaf eating caterpillar,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+gram,leaf worm,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+gram,spodoptera,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+gram,spodoptera litura,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+gram,tobacco leaf eating caterpillar,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+gram,tobacco leaf eating caterpillars,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+gram,Seed,UNMATCHABLE,,,label_db,unmatchable: truncated cell
+gram,Fusarium oxysporum,Wilt,disease,Fusarium oxysporum,label_db,scientific name
+gram,Fusarium spp.,Wilt,disease,Fusarium oxysporum,label_db,scientific name
+gram,Seedling wilt,Wilt,disease,Fusarium oxysporum,label_db,
+gram,Wilt,Wilt,disease,Fusarium oxysporum,label_db,
+gram,bacterial wilt,Wilt,disease,Fusarium oxysporum,manual,variant form
+gram,fungal wilt,Wilt,disease,Fusarium oxysporum,manual,variant form
+gram,fusarium wilt,Wilt,disease,Fusarium oxysporum,manual,variant form
+gram,mar rog,Wilt,disease,Fusarium oxysporum,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+gram,ralstonia solanacearum,Wilt,disease,Fusarium oxysporum,manual,variant form
+gram,wilt of tomato,Wilt,disease,Fusarium oxysporum,manual,variant form
+grape,Anthracnose,Anthracnose,disease,Elsinoe ampelina,label_db,crop-dependent: species differs by crop
+grape,Anthracnose Disease,Anthracnose,disease,Elsinoe ampelina,label_db,crop-dependent: species differs by crop
+grape,Anthraconase,Anthracnose,disease,Elsinoe ampelina,label_db,crop-dependent: species differs by crop
+grape,Elsinoe ampelina,Anthracnose,disease,Elsinoe ampelina,label_db,scientific name
+grape,colletotrichum spp.,Anthracnose,disease,Elsinoe ampelina,manual,variant form
+grape,karpa,Anthracnose,disease,Elsinoe ampelina,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+grape,pod blight,Anthracnose,disease,Elsinoe ampelina,manual,variant form
+grape,Bacterial leaf spot,Bacterial leaf spot,disease,Xanthomonas spp.,label_db,
+grape,bacterial leafspot,Bacterial leaf spot,disease,Xanthomonas spp.,manual,variant form
+grape,Downey mildew,Downy mildew,disease,Plasmopara viticola,label_db,
+grape,Downy mildew,Downy mildew,disease,Plasmopara viticola,label_db,
+grape,Plasmopara viticola,Downy mildew,disease,Plasmopara viticola,label_db,scientific name
+grape,davnya,Downy mildew,disease,Plasmopara viticola,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+grape,peronospora destructor,Downy mildew,disease,Plasmopara viticola,manual,variant form
+grape,Flea beetle,Flea beetle,pest,Scelodonta strigicollis,label_db,
+grape,Scelodonta strigicollis,Flea beetle,pest,Scelodonta strigicollis,label_db,scientific name
+grape,Jassid,Jassid,pest,Amrasca biguttula biguttula,manual,canonical name as surface form
+grape,Jassids,Jassid,pest,Amrasca biguttula biguttula,label_db,
+grape,amrasca biguttula,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+grape,amrasca biguttula biguttula,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+grape,amrasca devastans,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+grape,empoasca kerri,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+grape,hopper burn,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+grape,leaf hopper,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+grape,leaf hoppers,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+grape,leafhopper,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+grape,tudtude,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+grape,Mealy bug,Mealybug,pest,Phenacoccus solenopsis,label_db,
+grape,Mealy bugs,Mealybug,pest,Phenacoccus solenopsis,label_db,
+grape,cotton mealy bug,Mealybug,pest,Phenacoccus solenopsis,manual,variant form
+grape,mealybug,Mealybug,pest,Phenacoccus solenopsis,manual,scope.TARGETS canonical
+grape,phenacoccus solenopsis,Mealybug,pest,Phenacoccus solenopsis,manual,variant form
+grape,phenacoccus spp.,Mealybug,pest,Phenacoccus solenopsis,manual,variant form
+grape,Erysiphe necator,Powdery mildew,disease,Erysiphe necator,label_db,scientific name
+grape,Powdery mildew,Powdery mildew,disease,Erysiphe necator,label_db,
+grape,Uncinula necator,Powdery mildew,disease,Erysiphe necator,label_db,scientific name
+grape,bhuri,Powdery mildew,disease,Erysiphe necator,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+grape,Mites,Red spider mite,mite,Tetranychus urticae,label_db,
+grape,Red spider mite,Red spider mite,mite,Tetranychus urticae,label_db,
+grape,mite,Red spider mite,mite,Tetranychus urticae,manual,variant form
+grape,red spider mites,Red spider mite,mite,Tetranychus urticae,manual,variant form
+grape,spider mite,Red spider mite,mite,Tetranychus urticae,manual,variant form
+grape,tetranychus spp.,Red spider mite,mite,Tetranychus urticae,manual,variant form
+grape,tetranychus urticae,Red spider mite,mite,Tetranychus urticae,manual,variant form
+grape,two spotted spider mite,Red spider mite,mite,Tetranychus urticae,manual,variant form
+grape,two spotted spider mites,Red spider mite,mite,Tetranychus urticae,manual,variant form
+grape,Rust,Rust,disease,Phakopsora pachyrhizi,label_db,
+grape,phakopsora pachyrhizi,Rust,disease,Phakopsora pachyrhizi,manual,variant form
+grape,Scirtothrips dorsalis,Thrips,pest,Scirtothrips dorsalis,label_db,scientific name
+grape,Thrips,Thrips,pest,Scirtothrips dorsalis,label_db,crop-dependent: species differs by crop
+grape,phulkide,Thrips,pest,Scirtothrips dorsalis,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+grape,thrips palmi,Thrips,pest,Scirtothrips dorsalis,manual,variant form
+grape,thrips tabaci,Thrips,pest,Scirtothrips dorsalis,manual,variant form
+grape,Angular leaf spot,UNMATCHABLE,,,label_db,"SUSPECT: angular leaf spot is not a grape disease; likely bled cell, check source_page before treating as grape ground truth"
+grape,Downy mildew Anthracnose,UNMATCHABLE,,,label_db,unmatchable: missing delimiter
+onion,anthracnose,Anthracnose,disease,Colletotrichum spp.,manual,HARD GAP: scope.TARGETS target with no label_db row; verifier returns UNLISTED
+onion,anthracnose disease,Anthracnose,disease,Colletotrichum spp.,manual,variant form
+onion,colletotrichum spp.,Anthracnose,disease,Colletotrichum spp.,manual,variant form
+onion,elsinoe ampelina,Anthracnose,disease,Colletotrichum spp.,manual,variant form
+onion,karpa,Anthracnose,disease,Colletotrichum spp.,manual,variant form
+onion,pod blight,Anthracnose,disease,Colletotrichum spp.,manual,variant form
+onion,basal rot,Basal rot,disease,Fusarium oxysporum f.sp. cepae,manual,HARD GAP: scope.TARGETS target with no label_db row; verifier returns UNLISTED
+onion,Damping off,Damping off,disease,Pythium aphanidermatum,manual,canonical name as surface form
+onion,Damping-off,Damping off,disease,Pythium aphanidermatum,label_db,
+onion,pythium aphanidermatum,Damping off,disease,Pythium aphanidermatum,manual,variant form
+onion,Downey Mildew,Downy mildew,disease,Peronospora destructor,label_db,crop-dependent: species differs by crop
+onion,Downy mildew,Downy mildew,disease,Peronospora destructor,label_db,crop-dependent: species differs by crop
+onion,davnya,Downy mildew,disease,Peronospora destructor,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+onion,peronospora destructor,Downy mildew,disease,Peronospora destructor,manual,variant form
+onion,plasmopara viticola,Downy mildew,disease,Peronospora destructor,manual,variant form
+onion,Post-harvest Diseases,Post-harvest rot,disease,Aspergillus niger / Botrytis allii,label_db,
+onion,Post-harvest rot,Post-harvest rot,disease,Aspergillus niger / Botrytis allii,manual,canonical name as surface form
+onion,post harvest diseases,Post-harvest rot,disease,Aspergillus niger / Botrytis allii,manual,variant form
+onion,post harvest rot,Post-harvest rot,disease,Aspergillus niger / Botrytis allii,manual,variant form
+onion,Alternaria porii,Purple blotch,disease,Alternaria porri,label_db,scientific name
+onion,Purple blotch,Purple blotch,disease,Alternaria porri,label_db,
+onion,alternaria porri,Purple blotch,disease,Alternaria porri,manual,variant form
+onion,Stemphylium Leaf Blight,Stemphylium blight,disease,Stemphylium vesicarium,label_db,
+onion,Stemphylium blight,Stemphylium blight,disease,Stemphylium vesicarium,label_db,
+onion,stemphylium vesicarium,Stemphylium blight,disease,Stemphylium vesicarium,manual,variant form
+onion,Thrips,Thrips,pest,Thrips tabaci,label_db,
+onion,Thrips tabaci,Thrips,pest,Thrips tabaci,label_db,scientific name
+onion,phulkide,Thrips,pest,Thrips tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+onion,scirtothrips dorsalis,Thrips,pest,Thrips tabaci,manual,variant form
+onion,thrips palmi,Thrips,pest,Thrips tabaci,manual,variant form
+onion,Blight,UNMATCHABLE,,,label_db,"unmatchable: bare head noun, no pathogen named"
+onion,stemphylium,UNMATCHABLE,,,label_db,"unmatchable: bare genus, no disease named"
+onion,Root grub,White grub,pest,Holotrichia spp.,label_db,
+onion,White grub,White grub,pest,Holotrichia spp.,manual,canonical name as surface form
+onion,holotrichia spp.,White grub,pest,Holotrichia spp.,manual,variant form
+pomegranate,Alternaria leaf spot,Alternaria leaf spot,disease,Alternaria spp.,label_db,
+pomegranate,alternaria leaf,Alternaria leaf spot,disease,Alternaria spp.,manual,variant form
+pomegranate,alternaria leaf blight,Alternaria leaf spot,disease,Alternaria spp.,manual,variant form
+pomegranate,alternaria spp.,Alternaria leaf spot,disease,Alternaria spp.,manual,variant form
+pomegranate,Anthracnose,Anthracnose,disease,Colletotrichum gloeosporioides,label_db,crop-dependent: species differs by crop
+pomegranate,Anthracnose disease,Anthracnose,disease,Colletotrichum gloeosporioides,label_db,crop-dependent: species differs by crop
+pomegranate,colletotrichum spp.,Anthracnose,disease,Colletotrichum gloeosporioides,manual,variant form
+pomegranate,elsinoe ampelina,Anthracnose,disease,Colletotrichum gloeosporioides,manual,variant form
+pomegranate,karpa,Anthracnose,disease,Colletotrichum gloeosporioides,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+pomegranate,pod blight,Anthracnose,disease,Colletotrichum gloeosporioides,manual,variant form
+pomegranate,Aphid,Aphid,pest,Aphis punicae,manual,canonical name as surface form
+pomegranate,Aphids,Aphid,pest,Aphis punicae,label_db,crop-dependent: species differs by crop
+pomegranate,Aphis punicae,Aphid,pest,Aphis punicae,label_db,scientific name
+pomegranate,aphis,Aphid,pest,Aphis punicae,manual,variant form
+pomegranate,aphis gossypii,Aphid,pest,Aphis punicae,manual,variant form
+pomegranate,mava,Aphid,pest,Aphis punicae,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+pomegranate,Bacterial blight,Bacterial blight (pomegranate),disease,Xanthomonas axonopodis pv. punicae,label_db,crop-dependent: canonical differs by crop
+pomegranate,Bacterial blight (pomegranate),Bacterial blight (pomegranate),disease,Xanthomonas axonopodis pv. punicae,manual,canonical name as surface form
+pomegranate,oily spot,Bacterial blight (pomegranate),disease,Xanthomonas axonopodis pv. punicae,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+pomegranate,telya,Bacterial blight (pomegranate),disease,Xanthomonas axonopodis pv. punicae,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+pomegranate,xanthomonas axonopodis pv. punicae,Bacterial blight (pomegranate),disease,Xanthomonas axonopodis pv. punicae,manual,variant form
+pomegranate,Cercospora leaf spot,Cercospora leaf spot,disease,Cercospora kikuchii,label_db,
+pomegranate,cercospora,Cercospora leaf spot,disease,Cercospora kikuchii,manual,variant form
+pomegranate,cercospora fruit spot,Cercospora leaf spot,disease,Cercospora kikuchii,manual,"ASSUMPTION - NEEDS REVIEW: scope.TARGETS name absent from label_db; mapped to Cercospora leaf spot, which label_db does print"
+pomegranate,cercospora kikuchii,Cercospora leaf spot,disease,Cercospora kikuchii,manual,variant form
+pomegranate,Fruit rot,Fruit rot,disease,,label_db,
+pomegranate,Phytophthora fruit rot,Fruit rot,disease,,label_db,
+pomegranate,Alternaria Fruit Spot,Fruit spot,disease,Alternaria alternata,label_db,
+pomegranate,Fruit spot,Fruit spot,disease,Alternaria alternata,label_db,
+pomegranate,Fruit spots,Fruit spot,disease,Alternaria alternata,label_db,
+pomegranate,alternaria alternata,Fruit spot,disease,Alternaria alternata,manual,variant form
+pomegranate,Leaf spot,Leaf spot (unspecified),disease,,label_db,
+pomegranate,Leaf spot (unspecified),Leaf spot (unspecified),disease,,manual,canonical name as surface form
+pomegranate,leaf spots,Leaf spot (unspecified),disease,,manual,variant form
+pomegranate,Deudorix gossypi,Pomegranate fruit borer,pest,Deudorix isocrates,label_db,scientific name
+pomegranate,Fruit borer,Pomegranate fruit borer,pest,Deudorix isocrates,label_db,crop-dependent: canonical differs by crop
+pomegranate,Pomegranate butterfly,Pomegranate fruit borer,pest,Deudorix isocrates,label_db,
+pomegranate,Pomegranate fruit borer,Pomegranate fruit borer,pest,Deudorix isocrates,manual,canonical name as surface form
+pomegranate,anar butterfly,Pomegranate fruit borer,pest,Deudorix isocrates,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+pomegranate,deudorix isocrates,Pomegranate fruit borer,pest,Deudorix isocrates,manual,variant form
+pomegranate,Scale insect,Scale insect,pest,,manual,canonical name as surface form
+pomegranate,Scales,Scale insect,pest,,label_db,
+pomegranate,Scirtothrips dorsalis,Thrips,pest,Scirtothrips dorsalis,label_db,scientific name
+pomegranate,Thrips,Thrips,pest,Scirtothrips dorsalis,label_db,crop-dependent: species differs by crop
+pomegranate,phulkide,Thrips,pest,Scirtothrips dorsalis,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+pomegranate,thrips palmi,Thrips,pest,Scirtothrips dorsalis,manual,variant form
+pomegranate,thrips tabaci,Thrips,pest,Scirtothrips dorsalis,manual,variant form
+pomegranate,Bacterial Blight Alternaria,UNMATCHABLE,,,label_db,unmatchable: missing delimiter
+pomegranate,Leaf,UNMATCHABLE,,,label_db,unmatchable: truncated cell
+pomegranate,spot,UNMATCHABLE,,,label_db,unmatchable: truncated cell
+pomegranate,Siphoninus phillyreae,Whitefly,pest,Siphoninus phillyreae,label_db,scientific name
+pomegranate,Whitefly,Whitefly,pest,Siphoninus phillyreae,label_db,crop-dependent: species differs by crop
+pomegranate,bemisia tabaci,Whitefly,pest,Siphoninus phillyreae,manual,variant form
+pomegranate,pandhri mashi,Whitefly,pest,Siphoninus phillyreae,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+pomegranate,safed makkhi,Whitefly,pest,Siphoninus phillyreae,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+pomegranate,white flies,Whitefly,pest,Siphoninus phillyreae,manual,variant form
+pomegranate,white fly,Whitefly,pest,Siphoninus phillyreae,manual,variant form
+pomegranate,whiteflies,Whitefly,pest,Siphoninus phillyreae,manual,variant form
+soybean,Alternaria leaf spot,Alternaria leaf spot,disease,Alternaria spp.,label_db,
+soybean,Alternaria spp.,Alternaria leaf spot,disease,Alternaria spp.,label_db,scientific name
+soybean,alternaria leaf,Alternaria leaf spot,disease,Alternaria spp.,manual,variant form
+soybean,alternaria leaf blight,Alternaria leaf spot,disease,Alternaria spp.,manual,variant form
+soybean,Anthracnose,Anthracnose,disease,Colletotrichum truncatum,label_db,crop-dependent: species differs by crop
+soybean,Pod blight,Anthracnose,disease,Colletotrichum truncatum,label_db,crop-dependent: species differs by crop
+soybean,anthracnose disease,Anthracnose,disease,Colletotrichum truncatum,manual,variant form
+soybean,colletotrichum spp.,Anthracnose,disease,Colletotrichum truncatum,manual,variant form
+soybean,elsinoe ampelina,Anthracnose,disease,Colletotrichum truncatum,manual,variant form
+soybean,karpa,Anthracnose,disease,Colletotrichum truncatum,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+soybean,Aphid,Aphid,pest,Aphis gossypii,manual,canonical name as surface form
+soybean,Aphids,Aphid,pest,Aphis gossypii,label_db,
+soybean,Aphis gossipy,Aphid,pest,Aphis gossypii,label_db,scientific name
+soybean,aphis,Aphid,pest,Aphis gossypii,manual,variant form
+soybean,aphis gossypii,Aphid,pest,Aphis gossypii,manual,variant form
+soybean,aphis punicae,Aphid,pest,Aphis gossypii,manual,variant form
+soybean,mava,Aphid,pest,Aphis gossypii,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+soybean,Bihar hairy caterpillar,Bihar hairy caterpillar,pest,Spilosoma obliqua,manual,canonical name as surface form
+soybean,Spilosoma,Bihar hairy caterpillar,pest,Spilosoma obliqua,label_db,
+soybean,Spilosoma 6rustak,Bihar hairy caterpillar,pest,Spilosoma obliqua,label_db,
+soybean,spilosoma obliqua,Bihar hairy caterpillar,pest,Spilosoma obliqua,manual,variant form
+soybean,Cercospora leaf spot,Cercospora leaf spot,disease,Cercospora kikuchii,label_db,crop-dependent: species differs by crop
+soybean,cercospora,Cercospora leaf spot,disease,Cercospora kikuchii,manual,variant form
+soybean,cercospora kikuchii,Cercospora leaf spot,disease,Cercospora kikuchii,manual,variant form
+soybean,Collar rot,Collar rot,disease,Sclerotium rolfsii,label_db,
+soybean,sclerotium rolfsii,Collar rot,disease,Sclerotium rolfsii,manual,variant form
+soybean,Cotyledonary spot,Cotyledonary spot,disease,,label_db,
+soybean,Charcoal rot,Dry root rot,disease,Macrophomina phaseolina,label_db,
+soybean,Dry root rot,Dry root rot,disease,Macrophomina phaseolina,manual,canonical name as surface form
+soybean,macrophomina phaseolina,Dry root rot,disease,Macrophomina phaseolina,manual,variant form
+soybean,Cercospora sojina,Frog eye leaf spot,disease,Cercospora sojina,label_db,scientific name
+soybean,Frog eye leaf spot,Frog eye leaf spot,disease,Cercospora sojina,label_db,
+soybean,Fusarium root rot,Fusarium root rot,disease,Fusarium spp.,label_db,
+soybean,Gridle Beetle,Girdle beetle,pest,Oberea brevis,label_db,
+soybean,Oberea brevis,Girdle beetle,pest,Oberea brevis,label_db,scientific name
+soybean,Obereopsis brevis,Girdle beetle,pest,Oberea brevis,label_db,scientific name
+soybean,girdle beetle,Girdle beetle,pest,Oberea brevis,label_db,
+soybean,Grey weevil,Grey weevil,pest,Myllocerus spp.,manual,canonical name as surface form
+soybean,Leaf weevil,Grey weevil,pest,Myllocerus spp.,label_db,
+soybean,myllocerus spp.,Grey weevil,pest,Myllocerus spp.,manual,variant form
+soybean,Fruit Borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+soybean,Helicoverpa amigera,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,scientific name
+soybean,Helicoverpa armigera,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+soybean,Heliothis,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+soybean,Heliothis armigera,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,scientific name
+soybean,Pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+soybean,american boll worm,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,american bollworm,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,american bollworms,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,chick pea pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,fruit borers,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,gram pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,gram pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,h armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,h. armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,helicoverpa,Helicoverpa armigera,pest,Helicoverpa armigera,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+soybean,helicoverpa armiger,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,helicoverpa armigera maruca testulalis,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,heliothis sp,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,pod borers,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,tomato fruit borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+soybean,Amrasca bigutulla bigutulla,Jassid,pest,Amrasca biguttula biguttula,label_db,scientific name
+soybean,Jassid,Jassid,pest,Amrasca biguttula biguttula,manual,canonical name as surface form
+soybean,Jassids,Jassid,pest,Amrasca biguttula biguttula,label_db,
+soybean,amrasca biguttula,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+soybean,amrasca biguttula biguttula,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+soybean,amrasca devastans,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+soybean,empoasca kerri,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+soybean,hopper burn,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+soybean,leaf hopper,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+soybean,leaf hoppers,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+soybean,leafhopper,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+soybean,tudtude,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+soybean,Leaf miner,Leaf miner,pest,Liriomyza trifolii,label_db,
+soybean,leaf miner (liriomyza trifolii),Leaf miner,pest,Liriomyza trifolii,manual,variant form
+soybean,leafminer,Leaf miner,pest,Liriomyza trifolii,manual,variant form
+soybean,liriomyza trifolii,Leaf miner,pest,Liriomyza trifolii,manual,variant form
+soybean,Leaf spot,Leaf spot (unspecified),disease,,label_db,
+soybean,Leaf spot (unspecified),Leaf spot (unspecified),disease,,manual,canonical name as surface form
+soybean,Leaf spots,Leaf spot (unspecified),disease,,label_db,
+soybean,myrothecium leaf spot,Myrothecium leaf spot,disease,Myrothecium roridum,label_db,
+soybean,myrothecium roridum,Myrothecium leaf spot,disease,Myrothecium roridum,manual,variant form
+soybean,Phytophthora root rot,Phytophthora root rot,disease,Phytophthora sojae,label_db,
+soybean,phytophthora sojae,Phytophthora root rot,disease,Phytophthora sojae,manual,variant form
+soybean,Melanagromyza spp.,Pod fly,pest,Melanagromyza obtusa,label_db,scientific name
+soybean,Melanogromyza spp.,Pod fly,pest,Melanagromyza obtusa,label_db,scientific name
+soybean,Pod fly,Pod fly,pest,Melanagromyza obtusa,manual,canonical name as surface form
+soybean,melanagromyza obtusa,Pod fly,pest,Melanagromyza obtusa,manual,variant form
+soybean,melanagromyza sp.,Pod fly,pest,Melanagromyza obtusa,manual,variant form
+soybean,melanogromyza obtusa,Pod fly,pest,Melanagromyza obtusa,manual,variant form
+soybean,Pythium seedling blight,Pythium seedling blight,disease,Pythium spp.,label_db,
+soybean,pythium spp.,Pythium seedling blight,disease,Pythium spp.,manual,variant form
+soybean,Red spider mite,Red spider mite,mite,Tetranychus urticae,manual,canonical name as surface form
+soybean,mite,Red spider mite,mite,Tetranychus urticae,manual,variant form
+soybean,mites,Red spider mite,mite,Tetranychus urticae,label_db,
+soybean,red spider mites,Red spider mite,mite,Tetranychus urticae,manual,variant form
+soybean,spider mite,Red spider mite,mite,Tetranychus urticae,manual,variant form
+soybean,tetranychus spp.,Red spider mite,mite,Tetranychus urticae,manual,variant form
+soybean,tetranychus urticae,Red spider mite,mite,Tetranychus urticae,manual,variant form
+soybean,two spotted spider mite,Red spider mite,mite,Tetranychus urticae,manual,variant form
+soybean,two spotted spider mites,Red spider mite,mite,Tetranychus urticae,manual,variant form
+soybean,Rhizoctonia seedling blight,Rhizoctonia seedling blight,disease,Rhizoctonia solani,label_db,
+soybean,Rhizoctonia root rot,Root rot,disease,Rhizoctonia solani,label_db,
+soybean,Root rot,Root rot,disease,Rhizoctonia solani,label_db,
+soybean,rhizoctonia solani,Root rot,disease,Rhizoctonia solani,manual,variant form
+soybean,rhizoctonia spp.,Root rot,disease,Rhizoctonia solani,manual,variant form
+soybean,Root knot nematode,Root-knot nematode,nematode,Meloidogyne incognita,label_db,
+soybean,Root-knot nematode,Root-knot nematode,nematode,Meloidogyne incognita,manual,canonical name as surface form
+soybean,meloidogyne incognita,Root-knot nematode,nematode,Meloidogyne incognita,manual,variant form
+soybean,meloidogyne spp.,Root-knot nematode,nematode,Meloidogyne incognita,manual,variant form
+soybean,root knot nematodes,Root-knot nematode,nematode,Meloidogyne incognita,manual,variant form
+soybean,Phakopsora pachyrhizi,Rust,disease,Phakopsora pachyrhizi,label_db,scientific name
+soybean,Rust,Rust,disease,Phakopsora pachyrhizi,label_db,
+soybean,Seed and seedling rot,Seed and seedling rot,disease,,manual,canonical name as surface form
+soybean,Seed rot,Seed and seedling rot,disease,,label_db,
+soybean,Seedling rot,Seed and seedling rot,disease,,label_db,
+soybean,Seedling rot disease,Seed and seedling rot,disease,,label_db,
+soybean,seed born disease,Seed and seedling rot,disease,,manual,variant form
+soybean,seedling blight,Seed and seedling rot,disease,,manual,variant form
+soybean,seedling disease,Seed and seedling rot,disease,,manual,variant form
+soybean,stem rot,Seed and seedling rot,disease,,manual,variant form
+soybean,Chrysodeixis acuta,Semilooper,pest,Chrysodeixis acuta,label_db,scientific name
+soybean,Chrysodexis acuta,Semilooper,pest,Chrysodeixis acuta,label_db,scientific name
+soybean,Green Semi looper,Semilooper,pest,Chrysodeixis acuta,label_db,
+soybean,Green semilooper,Semilooper,pest,Chrysodeixis acuta,label_db,
+soybean,Semi-looper,Semilooper,pest,Chrysodeixis acuta,label_db,
+soybean,Semilooper,Semilooper,pest,Chrysodeixis acuta,label_db,
+soybean,semi looper,Semilooper,pest,Chrysodeixis acuta,label_db,
+soybean,stem blight,Stem blight,disease,,label_db,
+soybean,Melanagromyza sojae,Stem fly,pest,Melanagromyza sojae,label_db,scientific name
+soybean,Shoot fly,Stem fly,pest,Melanagromyza sojae,label_db,
+soybean,Stem fly,Stem fly,pest,Melanagromyza sojae,label_db,
+soybean,stemfly,Stem fly,pest,Melanagromyza sojae,manual,variant form
+soybean,Target Leaf Spot,Target leaf spot,disease,Corynespora cassiicola,label_db,
+soybean,corynespora cassiicola,Target leaf spot,disease,Corynespora cassiicola,manual,variant form
+soybean,Odontotermes spp.,Termite,pest,Odontotermes spp.,label_db,scientific name
+soybean,Termite,Termite,pest,Odontotermes spp.,label_db,
+soybean,termites,Termite,pest,Odontotermes spp.,manual,variant form
+soybean,Leaf worm,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+soybean,Spodoptera,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+soybean,Spodoptera litura,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+soybean,Spodoptera spp,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+soybean,leaf eating caterpillar,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+soybean,spodoptera spp.,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+soybean,tobacco caterpillar,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+soybean,tobacco leaf eating caterpillar,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+soybean,tobacco leaf eating caterpillars,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+soybean,Defoliators,UNMATCHABLE,,,label_db,"unmatchable: generic category, not an organism"
+soybean,Seed,UNMATCHABLE,,,label_db,unmatchable: truncated cell
+soybean,Seedling,UNMATCHABLE,,,label_db,unmatchable: truncated cell
+soybean,Spodoptera spp. Semilooper,UNMATCHABLE,,,label_db,unmatchable: missing delimiter
+soybean,Stem fly Girdle beetle,UNMATCHABLE,,,label_db,unmatchable: missing delimiter
+soybean,Stem fly Girdle beetle Whitefly,UNMATCHABLE,,,label_db,unmatchable: missing delimiter
+soybean,diseases,UNMATCHABLE,,,label_db,unmatchable: truncated cell
+soybean,other seedling,UNMATCHABLE,,,label_db,unmatchable: truncated cell
+soybean,rot,UNMATCHABLE,,,label_db,unmatchable: truncated cell
+soybean,Holotrichia spp.,White grub,pest,Holotrichia spp.,label_db,scientific name
+soybean,White grub,White grub,pest,Holotrichia spp.,label_db,
+soybean,root grub,White grub,pest,Holotrichia spp.,manual,variant form
+soybean,Bemisia tabaci,Whitefly,pest,Bemisia tabaci,label_db,scientific name
+soybean,White fly,Whitefly,pest,Bemisia tabaci,label_db,
+soybean,Whiteflies,Whitefly,pest,Bemisia tabaci,label_db,
+soybean,Whitefly,Whitefly,pest,Bemisia tabaci,label_db,
+soybean,pandhri mashi,Whitefly,pest,Bemisia tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+soybean,safed makkhi,Whitefly,pest,Bemisia tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+soybean,siphoninus phillyreae,Whitefly,pest,Bemisia tabaci,manual,variant form
+soybean,white flies,Whitefly,pest,Bemisia tabaci,manual,variant form
+tomato,Anthracnose,Anthracnose,disease,Colletotrichum coccodes,label_db,crop-dependent: species differs by crop
+tomato,anthracnose disease,Anthracnose,disease,Colletotrichum coccodes,manual,variant form
+tomato,colletotrichum spp.,Anthracnose,disease,Colletotrichum coccodes,manual,variant form
+tomato,elsinoe ampelina,Anthracnose,disease,Colletotrichum coccodes,manual,variant form
+tomato,karpa,Anthracnose,disease,Colletotrichum coccodes,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tomato,pod blight,Anthracnose,disease,Colletotrichum coccodes,manual,variant form
+tomato,Aphid,Aphid,pest,Aphis gossypii,label_db,
+tomato,Aphids,Aphid,pest,Aphis gossypii,label_db,
+tomato,Aphis gossipy,Aphid,pest,Aphis gossypii,label_db,scientific name
+tomato,Aphis gossypi,Aphid,pest,Aphis gossypii,label_db,scientific name
+tomato,Aphis gossypii,Aphid,pest,Aphis gossypii,label_db,scientific name
+tomato,aphis,Aphid,pest,Aphis gossypii,manual,variant form
+tomato,aphis punicae,Aphid,pest,Aphis gossypii,manual,variant form
+tomato,mava,Aphid,pest,Aphis gossypii,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tomato,Bacterial leaf spot,Bacterial leaf spot,disease,Xanthomonas spp.,label_db,
+tomato,bacterial leafspot,Bacterial leaf spot,disease,Xanthomonas spp.,manual,variant form
+tomato,Buck eye rot,Buckeye rot,disease,Phytophthora nicotianae,label_db,
+tomato,Buckeye rot,Buckeye rot,disease,Phytophthora nicotianae,label_db,
+tomato,phytophthora nicotianae,Buckeye rot,disease,Phytophthora nicotianae,manual,variant form
+tomato,Damping off,Damping off,disease,Pythium aphanidermatum,label_db,
+tomato,Damping-off,Damping off,disease,Pythium aphanidermatum,label_db,
+tomato,Pythium aphanidermatum,Damping off,disease,Pythium aphanidermatum,label_db,scientific name
+tomato,Alternaria blight,Early blight,disease,Alternaria solani,label_db,
+tomato,Alternaria leaf spot,Early blight,disease,Alternaria solani,label_db,crop-dependent: canonical differs by crop
+tomato,Alternaria solani,Early blight,disease,Alternaria solani,label_db,scientific name
+tomato,Early blight,Early blight,disease,Alternaria solani,label_db,
+tomato,fruit rot,Fruit rot,disease,,label_db,
+tomato,phytophthora fruit rot,Fruit rot,disease,,manual,variant form
+tomato,Fruit spot,Fruit spot,disease,Alternaria alternata,label_db,
+tomato,alternaria alternata,Fruit spot,disease,Alternaria alternata,manual,variant form
+tomato,alternaria fruit spot,Fruit spot,disease,Alternaria alternata,manual,variant form
+tomato,fruit spots,Fruit spot,disease,Alternaria alternata,manual,variant form
+tomato,Grey leaf mould,Grey leaf mould,disease,Fulvia fulva,label_db,
+tomato,fulvia fulva,Grey leaf mould,disease,Fulvia fulva,manual,variant form
+tomato,Fruit borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tomato,Fruit borers,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tomato,Helicoverpa,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tomato,Helicoverpa amigera,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,scientific name
+tomato,Helicoverpa armigera,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tomato,Pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tomato,Tomato fruit borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tomato,american boll worm,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,american bollworm,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,american bollworms,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,chick pea pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,ghatee ali,Helicoverpa armigera,pest,Helicoverpa armigera,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tomato,gram pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,gram pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,h armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,h. armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,helicoverpa armiger,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,helicoverpa armigera maruca testulalis,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,heliothis,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,heliothis armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,heliothis sp,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,pod borers,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tomato,Amrasca bigutulla bigutulla,Jassid,pest,Amrasca biguttula biguttula,label_db,scientific name
+tomato,Jassid,Jassid,pest,Amrasca biguttula biguttula,manual,canonical name as surface form
+tomato,Jassids,Jassid,pest,Amrasca biguttula biguttula,label_db,
+tomato,Leafhopper,Jassid,pest,Amrasca biguttula biguttula,label_db,
+tomato,amrasca biguttula,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+tomato,amrasca biguttula biguttula,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+tomato,amrasca devastans,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+tomato,empoasca kerri,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+tomato,hopper burn,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tomato,leaf hopper,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+tomato,leaf hoppers,Jassid,pest,Amrasca biguttula biguttula,manual,variant form
+tomato,tudtude,Jassid,pest,Amrasca biguttula biguttula,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tomato,Late blight,Late blight,disease,Phytophthora infestans,label_db,
+tomato,Phytophthora infestans,Late blight,disease,Phytophthora infestans,label_db,scientific name
+tomato,Tomato Late Blight,Late blight,disease,Phytophthora infestans,label_db,
+tomato,light blight,Late blight,disease,Phytophthora infestans,label_db,
+tomato,Leaf Miner,Leaf miner,pest,Liriomyza trifolii,label_db,
+tomato,Liriomyza trifolii,Leaf miner,pest,Liriomyza trifolii,label_db,scientific name
+tomato,leaf miner (liriomyza trifolii),Leaf miner,pest,Liriomyza trifolii,manual,scope.TARGETS canonical
+tomato,leaf minor,Leaf miner,pest,Liriomyza trifolii,label_db,
+tomato,leafminer,Leaf miner,pest,Liriomyza trifolii,manual,variant form
+tomato,Leaf spot,Leaf spot (unspecified),disease,,label_db,
+tomato,Leaf spot (unspecified),Leaf spot (unspecified),disease,,manual,canonical name as surface form
+tomato,leaf spots,Leaf spot (unspecified),disease,,manual,variant form
+tomato,Powdery Mildew,Powdery mildew,disease,Erysiphe necator,label_db,
+tomato,bhuri,Powdery mildew,disease,Erysiphe necator,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tomato,erysiphe necator,Powdery mildew,disease,Erysiphe necator,manual,variant form
+tomato,uncinula necator,Powdery mildew,disease,Erysiphe necator,manual,variant form
+tomato,Mite,Red spider mite,mite,Tetranychus urticae,label_db,
+tomato,Mites,Red spider mite,mite,Tetranychus urticae,label_db,
+tomato,Red Spider mite,Red spider mite,mite,Tetranychus urticae,label_db,
+tomato,Red spider mites,Red spider mite,mite,Tetranychus urticae,label_db,
+tomato,Tetranychus spp,Red spider mite,mite,Tetranychus urticae,label_db,scientific name
+tomato,Tetranychus urticae,Red spider mite,mite,Tetranychus urticae,label_db,scientific name
+tomato,Two spotted spider mite,Red spider mite,mite,Tetranychus urticae,label_db,
+tomato,spider mite,Red spider mite,mite,Tetranychus urticae,manual,variant form
+tomato,tetranychus spp.,Red spider mite,mite,Tetranychus urticae,manual,variant form
+tomato,two spotted spider mites,Red spider mite,mite,Tetranychus urticae,manual,variant form
+tomato,Ring rot,Ring rot,disease,,label_db,
+tomato,Rhizoctonia spp.,Root rot,disease,Rhizoctonia solani,label_db,scientific name
+tomato,Root rot,Root rot,disease,Rhizoctonia solani,label_db,
+tomato,rhizoctonia root rot,Root rot,disease,Rhizoctonia solani,manual,variant form
+tomato,rhizoctonia solani,Root rot,disease,Rhizoctonia solani,manual,variant form
+tomato,Meloidogyne incognita,Root-knot nematode,nematode,Meloidogyne incognita,label_db,scientific name
+tomato,Meloidogyne spp.,Root-knot nematode,nematode,Meloidogyne incognita,label_db,scientific name
+tomato,Root Knot Nematode,Root-knot nematode,nematode,Meloidogyne incognita,label_db,
+tomato,Root-knot nematode,Root-knot nematode,nematode,Meloidogyne incognita,manual,canonical name as surface form
+tomato,Root-knot nematodes,Root-knot nematode,nematode,Meloidogyne incognita,label_db,
+tomato,root knot nematodes,Root-knot nematode,nematode,Meloidogyne incognita,manual,variant form
+tomato,Septoria Leaf blight,Septoria leaf spot,disease,Septoria lycopersici,label_db,
+tomato,Septoria leaf spot,Septoria leaf spot,disease,Septoria lycopersici,label_db,
+tomato,septoria lycopersici,Septoria leaf spot,disease,Septoria lycopersici,manual,variant form
+tomato,Thrips,Thrips,pest,Thrips tabaci,label_db,
+tomato,Thrips tabaci,Thrips,pest,Thrips tabaci,label_db,scientific name
+tomato,phulkide,Thrips,pest,Thrips tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tomato,scirtothrips dorsalis,Thrips,pest,Thrips tabaci,manual,variant form
+tomato,thrips palmi,Thrips,pest,Thrips tabaci,manual,variant form
+tomato,Leaf eating caterpillar,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+tomato,Spodoptera litura,Tobacco caterpillar,pest,Spodoptera litura,label_db,scientific name
+tomato,Tobacco caterpillar,Tobacco caterpillar,pest,Spodoptera litura,label_db,
+tomato,leaf worm,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+tomato,spodoptera,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+tomato,spodoptera spp.,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+tomato,tobacco leaf eating caterpillar,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+tomato,tobacco leaf eating caterpillars,Tobacco caterpillar,pest,Spodoptera litura,manual,variant form
+tomato,Tuta absoluta,Tomato pinworm,pest,Tuta absoluta,label_db,scientific name
+tomato,tomato pinworm,Tomato pinworm,pest,Tuta absoluta,label_db,
+tomato,tomato pinworm (tuta absoluta),Tomato pinworm,pest,Tuta absoluta,manual,scope.TARGETS canonical
+tomato,Spodoptera litura Helicoverpa armigera Early blight Leaf spot,UNMATCHABLE,,,label_db,unmatchable: missing delimiter
+tomato,Bemesia tabaci,Whitefly,pest,Bemisia tabaci,label_db,scientific name
+tomato,Bemisia tabaci,Whitefly,pest,Bemisia tabaci,label_db,scientific name
+tomato,White flies,Whitefly,pest,Bemisia tabaci,label_db,
+tomato,White fly,Whitefly,pest,Bemisia tabaci,label_db,
+tomato,Whitefly,Whitefly,pest,Bemisia tabaci,label_db,
+tomato,pandhri mashi,Whitefly,pest,Bemisia tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tomato,safed makkhi,Whitefly,pest,Bemisia tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tomato,siphoninus phillyreae,Whitefly,pest,Bemisia tabaci,manual,variant form
+tomato,whiteflies,Whitefly,pest,Bemisia tabaci,label_db,
+tomato,Fusarium oxysporum,Wilt,disease,Fusarium oxysporum f.sp. lycopersici,label_db,scientific name
+tomato,Ralstonia solanacearum,Wilt,disease,Ralstonia solanacearum,label_db,scientific name
+tomato,Seedling wilt,Wilt,disease,Fusarium oxysporum f.sp. lycopersici,label_db,crop-dependent: species differs by crop
+tomato,Wilt,Wilt,disease,Fusarium oxysporum f.sp. lycopersici,label_db,crop-dependent: species differs by crop
+tomato,Wilt of tomato,Wilt,disease,Fusarium oxysporum f.sp. lycopersici,label_db,crop-dependent: species differs by crop
+tomato,bacterial Wilt,Wilt,disease,Ralstonia solanacearum,label_db,crop-dependent: species differs by crop
+tomato,fungal wilt,Wilt,disease,Fusarium oxysporum f.sp. lycopersici,manual,variant form
+tomato,fusarium spp.,Wilt,disease,Fusarium oxysporum f.sp. lycopersici,manual,variant form
+tomato,fusarium wilt,Wilt,disease,Fusarium oxysporum f.sp. lycopersici,manual,variant form
+tomato,mar rog,Wilt,disease,Fusarium oxysporum f.sp. lycopersici,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tur,Dry root rot,Dry root rot,disease,Macrophomina phaseolina,manual,canonical name as surface form
+tur,Macrophomina phaseolina,Dry root rot,disease,Macrophomina phaseolina,label_db,scientific name
+tur,charcoal rot,Dry root rot,disease,Macrophomina phaseolina,manual,variant form
+tur,Gram Pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tur,Helicoverpa armigera,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tur,Helicoverpa armigera Maruca testulalis,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tur,Pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tur,Pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,label_db,
+tur,american boll worm,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,american bollworm,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,american bollworms,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,chick pea pod borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,fruit borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,fruit borers,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,ghatee ali,Helicoverpa armigera,pest,Helicoverpa armigera,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tur,gram pod borer complex,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,h armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,h. armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,helicoverpa,Helicoverpa armigera,pest,Helicoverpa armigera,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tur,helicoverpa armiger,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,heliothis,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,heliothis armigera,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,heliothis sp,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,pod borers,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,tomato fruit borer,Helicoverpa armigera,pest,Helicoverpa armigera,manual,variant form
+tur,Empoasca kerri,Jassid,pest,Empoasca kerri,label_db,scientific name
+tur,Jassid,Jassid,pest,Empoasca kerri,manual,canonical name as surface form
+tur,Leaf hopper,Jassid,pest,Empoasca kerri,label_db,crop-dependent: species differs by crop
+tur,amrasca biguttula,Jassid,pest,Empoasca kerri,manual,variant form
+tur,amrasca biguttula biguttula,Jassid,pest,Empoasca kerri,manual,variant form
+tur,amrasca devastans,Jassid,pest,Empoasca kerri,manual,variant form
+tur,hopper burn,Jassid,pest,Empoasca kerri,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tur,jassids,Jassid,pest,Empoasca kerri,manual,variant form
+tur,leaf hoppers,Jassid,pest,Empoasca kerri,manual,variant form
+tur,leafhopper,Jassid,pest,Empoasca kerri,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tur,tudtude,Jassid,pest,Empoasca kerri,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tur,Melanagromyza obtusa,Pod fly,pest,Melanagromyza obtusa,label_db,scientific name
+tur,Melanagromyza sp.,Pod fly,pest,Melanagromyza obtusa,label_db,scientific name
+tur,Melanogromyza obtusa,Pod fly,pest,Melanagromyza obtusa,label_db,scientific name
+tur,Pod Fly,Pod fly,pest,Melanagromyza obtusa,label_db,
+tur,melanagromyza spp.,Pod fly,pest,Melanagromyza obtusa,manual,variant form
+tur,melanogromyza spp.,Pod fly,pest,Melanagromyza obtusa,manual,variant form
+tur,Root rot,Root rot,disease,Rhizoctonia solani,label_db,
+tur,rhizoctonia root rot,Root rot,disease,Rhizoctonia solani,manual,variant form
+tur,rhizoctonia solani,Root rot,disease,Rhizoctonia solani,manual,variant form
+tur,rhizoctonia spp.,Root rot,disease,Rhizoctonia solani,manual,variant form
+tur,Seed and seedling rot,Seed and seedling rot,disease,,manual,canonical name as surface form
+tur,Seed rot,Seed and seedling rot,disease,,label_db,
+tur,Stem rot,Seed and seedling rot,disease,,label_db,
+tur,seed born disease,Seed and seedling rot,disease,,manual,variant form
+tur,seedling blight,Seed and seedling rot,disease,,manual,variant form
+tur,seedling disease,Seed and seedling rot,disease,,manual,variant form
+tur,seedling rot,Seed and seedling rot,disease,,manual,variant form
+tur,seedling rot disease,Seed and seedling rot,disease,,manual,variant form
+tur,Maruca spp.,Spotted pod borer,pest,Maruca vitrata,label_db,scientific name
+tur,Maruca vitrata,Spotted pod borer,pest,Maruca vitrata,label_db,
+tur,Spotted pod borer,Spotted pod borer,pest,Maruca vitrata,label_db,
+tur,armigera),UNMATCHABLE,,,label_db,unmatchable: truncated cell
+tur,Fusarium wilt,Wilt,disease,Fusarium oxysporum,label_db,
+tur,Wilt,Wilt,disease,Fusarium oxysporum,label_db,
+tur,bacterial wilt,Wilt,disease,Fusarium oxysporum,manual,variant form
+tur,fungal wilt,Wilt,disease,Fusarium oxysporum,manual,variant form
+tur,fusarium oxysporum,Wilt,disease,Fusarium oxysporum,manual,variant form
+tur,fusarium spp.,Wilt,disease,Fusarium oxysporum,manual,variant form
+tur,mar rog,Wilt,disease,Fusarium oxysporum,scope_synonyms,farmer-facing alias from scope.SYNONYMS
+tur,ralstonia solanacearum,Wilt,disease,Fusarium oxysporum,manual,variant form
+tur,seedling wilt,Wilt,disease,Fusarium oxysporum,manual,variant form
+tur,wilt of tomato,Wilt,disease,Fusarium oxysporum,manual,variant form

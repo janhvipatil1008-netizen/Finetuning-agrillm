@@ -23,9 +23,40 @@ SYSTEM_PROMPT_PATH = _SRC / "system_prompt.txt"
 # draft; see archive/superseded_draft/README.md), with `src/schema.py -text`
 # and `src/system_prompt.txt -text` in .gitattributes. See SOURCES.md ->
 # "Frozen artifacts".
+#
+# schema.py RE-FROZEN 2026-08-31 (Phase 6). Comment-only: the `per_acre`
+# member of `Basis` claimed label_db had "already converted from per_ha",
+# which was false — label_db stored per_ha exclusively. Rather than weaken the
+# comment, the conversion was implemented (src/dose_units.py adds four derived
+# per-acre columns) and the comment now describes what the data holds. One
+# line, inside a comment; Basis members, field names and validators are
+# byte-for-byte what they were.
+#
+# schema.py RE-FROZEN AGAIN 2026-09-01 (Phase 6). Two SEMANTIC additions,
+# batched deliberately as the LAST break before training-data generation:
+#   * ChemicalOption.phi_not_applicable — phi_days=None meant both "unknown"
+#     and "does not apply", so the old invariant forced an affirmatively wrong
+#     escalation on the 16 seed-dresser rows.
+#   * Basis gains "unstated" — refuse-to-guess had no expression, leaving 42
+#     dose-less rows colliding with 10 genuine prose doses.
+# See SOURCES.md -> "Re-freeze 2026-09-01" for the full rationale and the
+# deliberate omissions. After training-data generation starts, schema.py's own
+# invalidation clause fires and a further change costs the dataset.
 FROZEN_SHA256 = {
-    "schema.py": "53f68176d62820e4eb589bfaebc83ea2ee060ed84e0860716e014a9bf29af42f",
+    "schema.py": "8521721c7abe216984e627f0ed54d47f897ffdaf775fc03677828afb9244f810",
     "system_prompt.txt": "8b0a4b78c02a8c0286d3ee82acc7d47b73c4cb903a0c62b5f6fc1c1ca352b4a1",
+}
+
+# Superseded hashes, kept so an older checkout can be identified rather than
+# merely reported as "not matching". Never used for validation.
+SUPERSEDED_SHA256 = {
+    "schema.py": {
+        "53f68176d62820e4eb589bfaebc83ea2ee060ed84e0860716e014a9bf29af42f":
+            "Act 2 freeze, 2026-08-27 — pre per-acre comment correction",
+        "13c6d7b0f2d051620614e010f638dd34497751d24a8f6d3187d9145fee180dec":
+            "Phase 6 freeze, 2026-08-31 — before phi_not_applicable and "
+            "Basis 'unstated'",
+    },
 }
 
 
@@ -53,8 +84,19 @@ def assert_frozen() -> None:
         data = path.read_bytes()
         actual = hashlib.sha256(data).hexdigest()
         if actual != expected:
+            known = SUPERSEDED_SHA256.get(name, {}).get(actual)
+            if known:
+                raise FrozenArtifactError(
+                    f"{name} matches a SUPERSEDED freeze, not the current one.\n"
+                    f"  on disk : {actual}\n"
+                    f"            ({known})\n"
+                    f"  expected: {expected}\n"
+                    f"This is an out-of-date checkout of a known version, not a "
+                    f"corrupted or edited file. Update the working tree rather "
+                    f"than re-freezing."
+                )
             raise FrozenArtifactError(
-                f"{name} is no longer byte-identical to the Act 2 freeze.\n"
+                f"{name} is no longer byte-identical to the recorded freeze.\n"
                 f"  expected sha256: {expected}\n"
                 f"  actual   sha256: {actual}\n"
                 f"  actual size    : {len(data)} bytes\n"
@@ -67,6 +109,7 @@ def assert_frozen() -> None:
 
 __all__ = [
     "FROZEN_SHA256",
+    "SUPERSEDED_SHA256",
     "FrozenArtifactError",
     "SCHEMA_PATH",
     "SYSTEM_PROMPT_PATH",

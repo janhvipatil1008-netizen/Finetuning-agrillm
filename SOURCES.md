@@ -212,8 +212,10 @@ Append one row per acquisition. Never overwrite a row — add a new one.
 
 ## Frozen artifacts
 
-Frozen 2026-08-27 (Act 2, reviewed). `src/system_prompt.txt` and `src/schema.py`
-are byte-frozen. The prompt must be identical between Windows authoring and any
+Frozen 2026-08-27 (Act 2, reviewed); `src/schema.py` re-frozen 2026-08-31
+(comment correction) and again 2026-09-01 (two semantic additions — intended
+as the LAST break before training-data generation). `src/system_prompt.txt`
+and `src/schema.py` are byte-frozen. The prompt must be identical between Windows authoring and any
 Linux training run; the schema decides which samples are allowed into
 `data/final/`. A silent edit to either would invalidate every dataset built
 after it.
@@ -234,15 +236,171 @@ bytes, taken with `.gitattributes` already in place.
 | Date frozen | File | Bytes | SHA-256 |
 | --- | --- | --- | --- |
 | 2026-08-27 | `src/system_prompt.txt` | 3096 | `8b0a4b78c02a8c0286d3ee82acc7d47b73c4cb903a0c62b5f6fc1c1ca352b4a1` |
-| 2026-08-27 | `src/schema.py` | 4830 | `53f68176d62820e4eb589bfaebc83ea2ee060ed84e0860716e014a9bf29af42f` |
+| **2026-09-01** | `src/schema.py` | 8656 | `8521721c7abe216984e627f0ed54d47f897ffdaf775fc03677828afb9244f810` |
+
+### Re-freeze 2026-09-01 — `src/schema.py` (semantic; intended to be the LAST)
+
+**This is the last freeze break before training-data generation.** Both prior
+breaks were cheap only because no dataset, reward function or benchmark
+existed. Once generation starts, `schema.py`'s own invalidation clause fires
+and a further change costs all three. Everything known to be needed was
+therefore batched here, and the survey behind it
+(reports/phase6_stepA_verifier_design.md and the expressiveness sweep) went
+looking for gaps rather than confirming the two already known.
+
+Two additions. Both fix a case where the schema made a **correct answer
+impossible**, not merely lossy — that was the bar, and it is why several other
+real gaps below were left out.
+
+#### 1. `ChemicalOption.phi_not_applicable: bool = False`
+
+`phi_days=None` was carrying two distinct ground-truth states. label_db keeps
+them apart across four columns: **16 rows** where the label positively states
+no interval applies (seed dressers — `NR`, `Seed dresser`, `waiting not
+required`) and **184** where it prints `-` / blank / `Nil` and the interval is
+genuinely unknown. The old invariant forced `escalate_to_expert=True` on all
+200. On the 16 that is an affirmatively **wrong** answer: the label says no
+waiting period applies and the model was compelled to send the farmer to an
+expert anyway.
+
+It sits on `ChemicalOption`, not `Advisory`, because PHI is a property of the
+product. **Six (crop, pest) pairs register both a seed dresser and a foliar
+spray** — cotton/Jassid has `Imidacloprid 48% FS` (`NR`) beside
+`Acephate 75% SP` (15 days) — so one advisory legitimately needs both states
+at once. An advisory-level flag would have been a category error on those six.
+
+New invariant: `phi_not_applicable=True` with a non-null `phi_days` is
+**rejected**. Permitting both would recreate the overload the field removes.
+
+#### 2. `Basis` gains `"unstated"`
+
+Refuse-to-guess is enforced everywhere else in this codebase — `dose_parser`
+returns `NEEDS_UNIT` rather than inventing a unit, `pest_matcher` returns
+`unmatched` rather than picking a plausible pest — and the schema could not
+express it. `dose` is required and a numeric basis demands `value_min`, so
+"registered for your crop and pest, but I cannot state the dose" had exactly
+one shape: `basis='free_text'` with no value, **structurally identical to the
+10 rows whose dose genuinely is prose** (`1.0 g/plant & 22.2 to 25.6 Kg/ha`,
+`Foliar spray`). **42 rows** have no parseable product dose (25 empty, 17
+unparseable, of which 13 are the unit-unresolvable `NEEDS_UNIT` survivors).
+The model's only alternatives were to invent a number or to drop a registered
+chemical entirely.
+
+New invariant: any option with `basis='unstated'` requires
+`escalate_to_expert=True`. A chemical nobody can dose is exactly the case a
+human should see.
+
+#### Verifier changes made in the same commit
+
+`verify.G6`'s `phi_not_applicable` carve-out was previously unreachable dead
+code; it is now live and **verifies the model's claim in both directions** —
+asserting no interval applies where CIB&RC does not say so fails the gate, and
+so does leaving it unknown where CIB&RC does say so. New gate
+`G9_unstated_dose_earned`: `unstated` is legitimate only where label_db has no
+parseable dose; claiming it on a row that *has* one is a refusal to answer an
+answerable question and fails.
+
+A latent bug surfaced while wiring G6 and was fixed: `(crop, pest, a.i.)` is
+not a unique key. **142 of 1104 triples match more than one label_db row, and
+90 of those disagree on PHI** — `cotton / Aphid / {imidacloprid}` alone spans
+six products with intervals of 7, 26, 40 and 50 days plus two where none
+applies. The verifier took `rows[0]`, so a seed-dresser claim was being checked
+against a foliar row. It now narrows by the model's `formulation` string
+(design section 5, stage 3). Where the formulation does not disambiguate it
+still falls back to the first row — the `AMBIGUOUS` verdict the design calls
+for is **not yet implemented** and remains open.
+
+#### Deliberate omissions
+
+These are decisions, not oversights. Each was found by the sweep, each loses
+precision, none makes a correct answer impossible — and every field is
+something the model can get wrong and that then has to be verified.
+
+| not added | rows affected | why not |
+| --- | --- | --- |
+| `spray_volume_not_applicable` | **70** (granular/dust/bait formulations, seed treatments, soil drenches) | The identical `None`-means-two-things overload as PHI. But label_db has **no spray-volume column at all**, so neither state is verifiable — the field would be an unverifiable claim. Unlike PHI it also forces no wrong answer; leaving both bounds `None` reads as "unknown" and nothing downstream acts on it. **Revisit if spray volume is ever extracted from the source PDFs.** |
+| `nematode` / `mite` / `rodent` on `Cause.type` | **34** (Red spider mite 20, Root-knot nematode 12, rats 2) | Those 34 rows will train a nematode as `"pest"`. Imprecise, never false — and `Cause.type` is rated "weak consistency, never a WRONG" in the verifier design, so there is nothing to check it against. `nutrient` and `abiotic` remain unused by label_db. |
+| `ChemicalOption` → `Cause` link | 335 of 740 cells name >1 pest | "Chemical A treats pests 1–2, B treats 3" has no structural home. In practice one chemical covers all pests named in a cell, and the linkage fits in `caution` prose. A `targets` field is large new verification surface for a rare case. |
+| escalation reason | — | `escalate_to_expert` is a bare bool; `system_prompt.txt` lists four distinct triggers. The bool is expressible, the reason is not — but no correct answer becomes impossible. |
+| a.i. dose on `ChemicalOption` | 475 numeric a.i. doses; **169 rows state a.i. and product dose on different bases** | `ChemicalOption` carries one `Dose` and it is the product dose, because a farmer measures product into a tank. Correctly out of scope. |
+
+Also confirmed **not** gaps by the same sweep, and needing no change: range
+doses are fully expressible (185 product ranges; `value_max=None` is
+unambiguous — zero rows parse a range-looking cell without a max); multiple
+options with different bases already work (21 pairs span >1 basis); and every
+non-empty label_db basis already had a `schema.Basis` member.
+
+#### Scope and verification of the edit
+
+| | superseded | current |
+| --- | --- | --- |
+| SHA-256 | `13c6d7b0f2d051620614e010f638dd34497751d24a8f6d3187d9145fee180dec` | `8521721c7abe216984e627f0ed54d47f897ffdaf775fc03677828afb9244f810` |
+| Bytes | 4837 | 8656 |
+| Date | 2026-08-31 | 2026-09-01 |
+
+The hash was recomputed **from the file on disk** before pinning, not copied
+from a report. Doing so caught a real defect: the first write produced **187
+CRLF line endings**, which would have hashed differently on a Linux training
+run and defeated the `-text` attribute entirely. The file was normalised back
+to LF (8843 → 8656 bytes) and re-hashed; `git ls-files --eol` now reports
+`i/lf w/lf attr/-text` for both frozen files. `src/system_prompt.txt` was not
+touched and still verifies against its original 2026-08-27 hash.
+
+---
+
+### Re-freeze 2026-08-31 — `src/schema.py`
+
+**Reason: the per-acre comment was factually wrong.** The `per_acre` member of
+`Basis` was annotated `# already converted from per_ha by label_db`. That
+conversion had never happened: label_db stored `per_ha` exclusively, zero
+`per_acre` rows, while the system prompt offers the model both bases. The
+comment asserted a property of the data that did not hold, and a verifier
+written against it would have compared a per-acre answer to a per-hectare
+figure — a 2.47x error in the direction of overdose.
+
+Rather than weaken the comment to match the data, the data was made to match
+the comment: `src/dose_units.py` now derives four per-acre columns at build
+time (`dose_ai_per_acre_{min,max}`, `dose_formulation_per_acre_{min,max}`),
+populated only where basis is `per_ha` and NULL for every non-area basis. The
+comment now reads `# derived from per_ha by label_db, area bases only`.
+
+**Scope of the edit: one line, entirely inside a comment.** Verified before
+re-freezing — `git diff` shows `1 file changed, 1 insertion(+), 1 deletion(-)`,
+and the `Basis` members, all field names on `Advisory` / `ChemicalOption` /
+`Dose` / `Cause`, and every validator are byte-for-byte unchanged. Size 4830 →
+4837 bytes (+7, the length difference of the comment text).
+
+**Why this was safe to do:** `schema.py`'s own docstring warns that a change
+"once training-data generation starts... invalidates the dataset, the reward
+function and the benchmark together." At the time of the edit none of those
+existed — `data/` held only `raw/`, `interim/` and `final/`, with no generated
+training data, no reward function and no benchmark. Nothing downstream needed
+regenerating.
+
+| | superseded | current |
+| --- | --- | --- |
+| SHA-256 | `53f68176d62820e4eb589bfaebc83ea2ee060ed84e0860716e014a9bf29af42f` | `13c6d7b0f2d051620614e010f638dd34497751d24a8f6d3187d9145fee180dec` |
+| Bytes | 4830 | 4837 |
+| Date | 2026-08-27 | 2026-08-31 |
+
+`src/system_prompt.txt` was **not** touched and still verifies against its
+original 2026-08-27 hash.
 
 Pinned by `tests/test_schema.py` (14 tests over `Dose`, `ChemicalOption` and
 `Advisory` invariants — basis-aware dose validation, PHI None-vs-zero,
-out-of-scope/ununderstood-query guards, spray-volume ranges).
+out-of-scope/ununderstood-query guards, spray-volume ranges) and by
+`tests/test_verify.py`, which covers the 2026-09-01 additions end to end:
+the seed-dresser answer that used to be inexpressible, both directions of the
+verified `phi_not_applicable` claim, `unstated` requiring escalation, and
+`unstated` claimed on a row that does have a dose.
 
 `src/freeze_check.py` hardcodes both hashes. `assert_frozen()` recomputes them
 and raises `FrozenArtifactError` on any drift; every script that loads the
 prompt calls it first.
 
 Re-freezing is a deliberate act: replace the row above, update `FROZEN_SHA256`
-in `src/freeze_check.py`, and record why — as was done here.
+in `src/freeze_check.py`, and record why — as was done here, three times. The
+superseded hash is kept in `freeze_check.SUPERSEDED_SHA256` so an old checkout
+is reported by name rather than as an anonymous mismatch. Recompute the hash
+from the file on disk and confirm it before pinning it; pinning a value copied
+from a report cannot detect a file that changed again in between.
