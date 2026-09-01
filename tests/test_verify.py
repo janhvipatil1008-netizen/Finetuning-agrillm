@@ -1348,15 +1348,16 @@ def test_multi_row_sets_that_agree_today_still_agree(resources):
     agree, disagree = _multi_row_sets(resources)
     agree_groups = {tuple(sorted(g)) for g in agree.values()}
     disagree_groups = {tuple(sorted(g)) for g in disagree.values()}
-    assert (len(agree), len(agree_groups)) == (5, 2), (
+    assert (len(agree), len(agree_groups)) == (7, 3), (
         f"agreeing multi-row sets changed: {len(agree)} triple-keys over "
-        f"{len(agree_groups)} row groups (was 5 over 2 after b1+b2; 8 over 5 "
-        f"before). A set that starts disagreeing becomes silently ambiguous."
+        f"{len(agree_groups)} row groups (was 7 over 3 after b1+b2+(a); "
+        f"8 over 5 before). A set that starts disagreeing becomes silently "
+        f"ambiguous."
     )
-    assert (len(disagree), len(disagree_groups)) == (17, 9), (
+    assert (len(disagree), len(disagree_groups)) == (15, 8), (
         f"ambiguous sets changed: {len(disagree)} triple-keys over "
-        f"{len(disagree_groups)} row groups (was 17 keys over 9 groups "
-        f"after b1+b2; 17 groups before). See "
+        f"{len(disagree_groups)} row groups (was 15 keys over 8 groups "
+        f"after b1+b2+(a); 17 groups before). See "
         f"reports/phase6_stepC_ambiguity_investigation.md."
     )
 

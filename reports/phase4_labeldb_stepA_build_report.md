@@ -45,7 +45,7 @@ Wrote data/final/label_db.csv, label_db.parquet (740 rows) and exclusion_log.csv
 | gram | 44.2% | 19.2% | 36.5% | 0.0% | 52 |
 | onion | 67.7% | 29.0% | 3.2% | 0.0% | 31 |
 | tomato | 52.0% | 26.3% | 19.4% | 2.3% | 175 |
-| grape | 72.3% | 22.7% | 3.4% | 1.7% | 119 |
+| grape | 73.1% | 21.8% | 4.2% | 0.8% | 119 |
 | pomegranate | 84.0% | 16.0% | 0.0% | 0.0% | 25 |
 
 ### dose_formulation

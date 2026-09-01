@@ -1663,7 +1663,7 @@ fungicides_20260331.pdf,3,1,,,,False,False,Aureofungin 46.15% w/v SP,,empty,EMPT
 fungicides_20260331.pdf,3,2,,Paddy(Rice),,False,False,Aureofungin 46.15% w/v SP,"Blast, Brown leaf",empty,NULL_MARKER,,,,,,,-,numeric,PCT_SINGLE,concentration_pct,0.005,,,,%,0.005%,30,False,resolved,30,crop_out_of_scope
 fungicides_20260331.pdf,3,3,,Paddy(Rice),,False,False,Aureofungin 46.15% w/v SP,spot,empty,EMPTY,,,,,,,,empty,EMPTY,,,,,,,,,False,not_applicable,,crop_out_of_scope
 fungicides_20260331.pdf,3,5,,Citrus,,False,False,Aureofungin 46.15% w/v SP,Gummosis,empty,NULL_MARKER,,,,,,,-,numeric,PCT_SINGLE,concentration_pct,1.0,,,,%,1.0%,30,False,resolved,30,crop_out_of_scope
-fungicides_20260331.pdf,3,6,,Apple,,False,False,Aureofungin 46.15% w/v SP,Powdery mildew  White root rot,free_text,PROSE_NO_NUMBER,free_text,,,,,,-  -,unparseable,PCT_RANGE_BOTH,,,,,,,0.005%  0.2%,30,False,resolved,30,crop_out_of_scope
+fungicides_20260331.pdf,3,6,,Apple,,False,False,Aureofungin 46.15% w/v SP,Powdery mildew  White root rot,empty,NULL_MARKER,,,,,,,-  -,unparseable,PCT_RANGE_BOTH,,,,,,,0.005%  0.2%,30,False,resolved,30,crop_out_of_scope
 fungicides_20260331.pdf,3,7,,Potato,,False,False,Aureofungin 46.15% w/v SP,Early blight,empty,NULL_MARKER,,,,,,,-,numeric,PCT_SINGLE,concentration_pct,0.005,,,,%,0.005%,30,False,resolved,30,crop_out_of_scope
 fungicides_20260331.pdf,3,8,,,,False,False,Bitertanol25%WP,,empty,EMPTY,,,,,,,,empty,EMPTY,,,,,,,,,False,not_applicable,,crop_blank
 fungicides_20260331.pdf,3,9,,Groundnut,,False,False,Bitertanol25%WP,Rust,numeric,NUM_UNIT,per_ha,250.0,101.1695,,,g,250gm,numeric,NUM_UNIT,per_ha,1000.0,404.6781,,,g,1000gm,30,False,resolved,30,crop_out_of_scope

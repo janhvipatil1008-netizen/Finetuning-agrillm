@@ -1,7 +1,7 @@
 # Phase 5, Step B — formulation unit resolution report
 
-NEEDS_UNIT rows going in: **545**
-Resolved via resolve_formulation_unit: **532**
+NEEDS_UNIT rows going in: **546**
+Resolved via resolve_formulation_unit: **533**
 Still NEEDS_UNIT (no confident code found): **13**
 
 ## Per-slug dose_formulation coverage (after resolution)
@@ -14,14 +14,14 @@ Still NEEDS_UNIT (no confident code found): **13**
 | gram | 88.5% | 0.0% | 9.6% | 1.9% | 52 |
 | onion | 96.8% | 0.0% | 0.0% | 3.2% | 31 |
 | tomato | 86.3% | 4.6% | 6.9% | 2.3% | 175 |
-| grape | 96.6% | 0.0% | 1.7% | 1.7% | 119 |
+| grape | 97.5% | 0.0% | 1.7% | 0.8% | 119 |
 | pomegranate | 96.0% | 4.0% | 0.0% | 0.0% | 25 |
 
 ## Trainable rows
 
 Rows where BOTH dose_ai and dose_formulation parsed to numeric or free_text (not empty, not unparseable) -- the real size of the answer space.
 
-- Trainable rows: **627** / 740 (84.7%)
+- Trainable rows: **628** / 740 (84.9%)
 
 | slug | trainable | n |
 |---|---|---|
@@ -31,7 +31,7 @@ Rows where BOTH dose_ai and dose_formulation parsed to numeric or free_text (not
 | gram | 30 (57.7%) | 52 |
 | onion | 29 (93.5%) | 31 |
 | tomato | 135 (77.1%) | 175 |
-| grape | 111 (93.3%) | 119 |
+| grape | 112 (94.1%) | 119 |
 | pomegranate | 25 (100.0%) | 25 |
 
 ## Remaining NEEDS_UNIT rows
@@ -66,5 +66,5 @@ Rows where BOTH dose_ai and dose_formulation parsed to numeric or free_text (not
 | tomato | `Chlorantraniliprole 4.3% +Abamectin 1.7% SC` | `500` | ml | 500.0 | None |
 | soybean | `Lufenuron 4% + Emamectin Benzoate 1.5% EC` | `625` | ml | 625.0 | None |
 | tomato | `Picarbutrazox 9.53% w/w SC` | `1000-1250` | ml | 1000.0 | 1250.0 |
-| grape | `Copper Sulphate 47.15% + Mancozeb 30% WDG` | `5000` | g | 5000.0 | None |
-| cotton | `Sedaxane 2.5% w/v + Fludioxonil 2.5% w/v + Thiamethoxam 26.25% w/v FS` | `4.0` | ml | 4.0 | None |
+| tomato | `Chlorothalonil 35 % + Cymoxanil 15% + Metalaxyl 2 % SC` | `832.50` | ml | 832.5 | None |
+| tomato | `Pyraclostrobin 10% + Metiram 30% + Difenoconazole 10% WG` | `562.5` | g | 562.5 | None |

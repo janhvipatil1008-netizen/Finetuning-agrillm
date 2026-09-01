@@ -195,6 +195,28 @@ def _norm(s: str) -> str:
     return re.sub(r"\s+", " ", s.strip())
 
 
+
+
+def _collapse_repeated(t: str) -> str:
+    """'715  715  715' -> '715'.
+
+    A row covering several pests prints its dose once per pest, in stacked
+    sub-cells of one table cell. The extractor merges them into one string,
+    which then reads as a COLUMN_COLLAPSE defect and is refused -- correctly,
+    because it cannot tell repetition from three different values.
+
+    But when every token is IDENTICAL there is only one value and no
+    ambiguity to protect against. Exactly one cell in the corpus is of this
+    shape (fungicides p39 r0, Thiophanate Methyl 70% WP on grape, dose_ai
+    '500  500  500' and dose_formulation '715  715  715'), and the neighbouring
+    row states the same 715 g/ha with the same 7-day interval. Every other
+    COLUMN_COLLAPSE cell holds genuinely different numbers and still fails.
+    See reports/phase6_stepC_ambiguity_investigation.md, class (a).
+    """
+    parts = t.split()
+    return parts[0] if len(parts) > 1 and len(set(parts)) == 1 else t
+
+
 def _repair(t: str) -> str:
     """Undo OCR damage that is unambiguous. Decimal points only."""
     t = re.sub(r"(\d)\s+\.\s*(\d)", r"\1.\2", t)
@@ -535,7 +557,7 @@ def parse_dose(raw: str, *, default_unit: Optional[Unit] = None) -> ParseResult:
     if raw is None:
         return _bad("UNRECOGNISED", "NONE", "input was None")
 
-    text = _repair(_norm(raw))
+    text = _collapse_repeated(_repair(_norm(raw)))
 
     if not text:
         return ParseResult("empty", "EMPTY")
