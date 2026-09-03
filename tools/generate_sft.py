@@ -123,7 +123,13 @@ OUT_DIR_DEFAULT = REPO_ROOT / "data" / "final"
 
 CUTOFF_DATE = "2022-01-01"
 MAX_ATTEMPTS = 3                 # 1 initial try + up to 2 retries
-BATCH_CHUNK = 100
+# Anthropic's real Message Batches limit is 100,000 requests OR 256MB per
+# batch, whichever comes first (confirmed against current docs 2026-09-03 --
+# not the 1,000 figure this sub-phase's brief assumed). This corpus's full
+# slice 1/3/4/5 run is ~1,900 items, so BATCH_CHUNK never actually splits it;
+# the headroom below 100k is just margin against the 256MB size cap.
+BATCH_CHUNK = 90_000
+DEFAULT_POLL_SECONDS = 60
 GRAPE_TARGET = 300
 GRAPE_HOLDOUT = 40
 GENERATOR_MODEL = "claude-sonnet-4-6"
@@ -597,11 +603,14 @@ TASK_TEXT: dict[str, str] = {
     Kind.DOSE: """Using ONLY the rows in <fact_sheet>, write the Advisory JSON for this \
 farmer's query.
 - in_scope=true, query_understood=true.
-- CRITICAL: likely_causes[0].name must be the bare common name only -- exactly as it \
-appears in the pest synonym table (e.g. 'Aphid', 'Leaf miner', 'Wilt', 'Powdery mildew', \
-'Pink bollworm'). NO scientific/Latin binomials, NO parentheses, NO Aphididae-style family \
-names. Put any species detail in the evidence field instead. The bare name must match the \
-pest synonym table exactly or verification will fail.
+- CRITICAL: likely_causes[0].name must be EXACTLY the name given in <resolved_pest> if that \
+block is present -- copy it verbatim, do not substitute a different (even closely related) \
+pest name from your own knowledge. A farmer's phrase like "fruit borer" can genuinely mean \
+more than one organism depending on crop and region; <resolved_pest> is this dataset's \
+already-resolved answer, not a suggestion. If <resolved_pest> is absent, use the bare common \
+name only (e.g. 'Aphid', 'Leaf miner', 'Wilt', 'Powdery mildew', 'Pink bollworm'). Either \
+way: NO scientific/Latin binomials, NO parentheses, NO Aphididae-style family names -- put \
+species detail in the evidence field instead.
 - likely_causes: the matched pest first, confidence >= 0.8.
 - chemical_options: choose 2-4 rows. Copy active_ingredient and every dose/PHI field \
 VERBATIM from the chosen row -- never compute, convert, or invent a number. Prefer rows \
@@ -624,11 +633,12 @@ naming its tier and the instrument/date restricting it. Then, using ONLY <fact_s
 alternatives for the SAME crop and pest, following the same verbatim-copy rules as a normal \
 dose answer.
 - in_scope=true, query_understood=true, chemical_options=2-4 legal alternatives.
-- CRITICAL: likely_causes[0].name must be the bare common name only -- exactly as it \
-appears in the pest synonym table (e.g. 'Aphid', 'Leaf miner', 'Wilt', 'Powdery mildew', \
-'Pink bollworm'). NO scientific/Latin binomials, NO parentheses, NO Aphididae-style family \
-names. Put any species detail in the evidence field instead. The bare name must match the \
-pest synonym table exactly or verification will fail.
+- CRITICAL: likely_causes[0].name must be EXACTLY the name given in <resolved_pest> if that \
+block is present -- copy it verbatim, do not substitute a different (even closely related) \
+pest name from your own knowledge. If <resolved_pest> is absent, use the bare common name \
+only (e.g. 'Aphid', 'Leaf miner', 'Wilt', 'Powdery mildew', 'Pink bollworm'). Either way: NO \
+scientific/Latin binomials, NO parentheses, NO Aphididae-style family names -- put species \
+detail in the evidence field instead.
 - likely_causes: the matched pest first, confidence >= 0.8.
 - escalate_to_expert=true always (a farmer holding or intending to use a restricted \
 chemical needs expert follow-up regardless of the legal alternative given).""",
@@ -655,9 +665,10 @@ plant-part/symptom/stage guidance above. Do not ask a generic question.
     Kind.NOCHEM: """No verifiable registered chemistry exists in label_db for this crop x \
 pest pair -- see the note in the fact block. Give genuine, specific cultural, mechanical, or \
 biological control measures in non_chemical_first (at least 2). Do not invent a chemical.
-- CRITICAL: likely_causes[0].name must be the bare common name only -- exactly as it \
-appears in the pest synonym table. NO scientific/Latin binomials, NO parentheses. Put \
-species detail in evidence instead.
+- CRITICAL: likely_causes[0].name must be EXACTLY the name given in <resolved_pest> if that \
+block is present -- copy it verbatim, do not substitute a different pest name from your own \
+knowledge. If <resolved_pest> is absent, use the bare common name only. Either way: NO \
+scientific/Latin binomials, NO parentheses -- put species detail in evidence instead.
 - in_scope=true, query_understood=true, chemical_options=[].
 - escalate_to_expert=true always.""",
 
@@ -682,7 +693,7 @@ restricted-chemical mention needs expert follow-up regardless of the rest of the
 }
 
 WORKED_EXAMPLE = """<worked_example kind="dose">
-fact_sheet contains one row: {"ai": "Acephate 75% SP", "dose_basis": "per_ha", \
+resolved_pest is ["Jassid"]. fact_sheet contains one row: {"ai": "Acephate 75% SP", "dose_basis": "per_ha", \
 "dose_min": 300, "dose_max": null, "dose_unit": "g", "dose_per_acre_min": 121.4, \
 "dose_per_acre_max": null, "dose_raw": "300 g/ha", "phi_days": 15, \
 "phi_not_applicable": false, "phi_raw": "15", "biological": false}
@@ -717,6 +728,20 @@ def build_user_message(item: GenItem) -> str:
             "active_ingredient": rh.active_ingredient, "tier": rh.tier,
             "instrument": rh.instrument, "date": rh.date, "notes": rh.notes,
         }, ensure_ascii=False) + "\n</restricted_ai>")
+    if item.canonicals:
+        # Fix A (pre-Slice2): the fact_sheet deliberately carries no pest name
+        # (see label_db_fact_rows docstring), so without this the model must
+        # guess the canonical purely from ambiguous farmer text -- measured
+        # failure mode: "fruit borer" on cotton is genuinely ambiguous between
+        # Helicoverpa armigera (this corpus's tagged gold, and the synonym
+        # table's own mapping) and Pink bollworm (an equally common colloquial
+        # reading), and the model guessed the latter on 6 real rows in the
+        # full run. This block is the SAME crutch pattern as fact_sheet: it
+        # exists only at generation time and is never written into the
+        # emitted sft.jsonl record, so the trained model still has to name the
+        # pest from the bare query with no ground-truth hint at inference time.
+        parts.append("<resolved_pest>\n" + json.dumps(item.canonicals, ensure_ascii=False) +
+                      "\n</resolved_pest>")
     if item.fact_rows:
         pub = [_public(d) for d in item.fact_rows]
         parts.append(f"<fact_sheet>\n{json.dumps(pub, ensure_ascii=False)}\n</fact_sheet>")
@@ -809,11 +834,30 @@ class GenerationBackend:
         raise NotImplementedError
 
 
+def _cached_system_param(text: str) -> list[dict]:
+    """Wrap a system prompt string as a single cache_control-tagged content block.
+
+    Fix C (pre-Slice2): SYSTEM_MESSAGE and the query-writer system string are
+    each byte-identical across EVERY request that uses them in a run (no
+    per-item variation) -- see build_system_message() and
+    build_query_writer_prompt(). That makes the whole string a clean ephemeral
+    cache candidate: only the first request in a run pays full input price for
+    it, every later request within the cache TTL pays the ~10%-of-base
+    cache-read rate. Only applies to Anthropic backends -- OllamaBackend has no
+    such concept and ignores cache_control silently (it isn't a real request
+    field there). Note SYSTEM_MESSAGE (~1.6K tokens) clears Anthropic's
+    minimum-cacheable-prefix floor; the shorter query-writer system string may
+    not, in which case this is a harmless no-op (normal input pricing, no
+    error) rather than a failure.
+    """
+    return [{"type": "text", "text": text, "cache_control": {"type": "ephemeral"}}]
+
+
 class AnthropicBatchBackend(GenerationBackend):
     """Real backend. NOT exercised by --mode dry-run. See module docstring."""
 
     def __init__(self, model: str = GENERATOR_MODEL, structured_output: bool = False,
-                 poll_seconds: int = 30):
+                 poll_seconds: int = DEFAULT_POLL_SECONDS):
         import anthropic  # deferred: dry-run must never require this import to succeed
         self.client = anthropic.Anthropic()
         self.model = model
@@ -831,7 +875,8 @@ class AnthropicBatchBackend(GenerationBackend):
             chunk = requests[i:i + BATCH_CHUNK]
             reqs = []
             for r in chunk:
-                params = dict(model=self.model, max_tokens=r.max_tokens, system=r.system,
+                params = dict(model=self.model, max_tokens=r.max_tokens,
+                              system=_cached_system_param(r.system),
                               messages=[{"role": "user", "content": r.user}])
                 if self.structured_output:
                     params["output_config"] = {"format": {"type": "json_schema", "schema": self._schema}}
@@ -860,6 +905,45 @@ class AnthropicBatchBackend(GenerationBackend):
         return results
 
 
+class AnthropicLiveBackend(GenerationBackend):
+    """Synchronous, non-batch backend -- one request per item, in order.
+
+    Added for Fix B (pre-Slice2): validating --structured-output needs a
+    single real response back in seconds, not a batch job that may take up
+    to the Batches API's ~1 hour typical turnaround. NOT used for the
+    production generation run (that stays on AnthropicBatchBackend for the
+    50% batch discount) -- this exists for smoke-testing one or a handful of
+    items against the real API. No retry/backoff beyond what the SDK already
+    does by default (max_retries=2 on 408/409/429/5xx).
+    """
+
+    def __init__(self, model: str = GENERATOR_MODEL, structured_output: bool = False):
+        import anthropic  # deferred: dry-run must never require this import to succeed
+        self.client = anthropic.Anthropic()
+        self.model = model
+        self.structured_output = structured_output
+        self._schema = build_output_schema() if structured_output else None
+
+    def generate(self, requests: list[BatchRequest],
+                  items: Optional[dict[str, GenItem]] = None) -> dict[str, Optional[str]]:
+        results: dict[str, Optional[str]] = {}
+        for r in requests:
+            params = dict(model=self.model, max_tokens=r.max_tokens,
+                          system=_cached_system_param(r.system),
+                          messages=[{"role": "user", "content": r.user}])
+            if self.structured_output:
+                params["output_config"] = {"format": {"type": "json_schema", "schema": self._schema}}
+            try:
+                msg = self.client.messages.create(**params)
+            except Exception as exc:  # noqa: BLE001 -- surfaced to the caller via None + logged by caller
+                print(f"  AnthropicLiveBackend error for {r.custom_id}: {exc}")
+                results[r.custom_id] = None
+                continue
+            text = next((b.text for b in msg.content if b.type == "text"), None)
+            results[r.custom_id] = text
+        return results
+
+
 class MockBackend(GenerationBackend):
     """Reference-solver test double for --mode dry-run.
 
@@ -885,11 +969,15 @@ class MockBackend(GenerationBackend):
         return out
 
     def _mock_query_writer(self, custom_id: str) -> str:
-        parts = custom_id.split("_", 3)
-        n = int(parts[3]) if len(parts) > 3 and parts[3].isdigit() else 20
-        target = parts[2] if len(parts) > 2 else "Pest"
+        # custom_id shape is "QW_grape_{target_idx}_{call_idx}_{take}" -- the pest
+        # canonical is deliberately NOT embedded (see build_grape_items docstring
+        # note on the batch API's custom_id charset), so this mock has no access
+        # to the real target name and uses a generic placeholder instead. That's
+        # cosmetic only: downstream code resolves the real canonical via
+        # canon_by_id, never by re-parsing this synthetic query text.
+        n = int(custom_id.rsplit("_", 1)[-1])
         stages = ["pre-bloom", "berry stage", "veraison", "post-harvest"]
-        out = [f"FARMER ASKED ABOUT {target.upper()} ON GRAPE AT {stages[i % len(stages)].upper()} "
+        out = [f"FARMER ASKED ABOUT A GRAPE PEST/DISEASE AT {stages[i % len(stages)].upper()} "
                f"STAGE (VARIANT {i})" for i in range(n)]
         return json.dumps(out)
 
@@ -1235,7 +1323,13 @@ def build_grape_items(resources: VerifyResources, table: SynonymTable,
     remainder = target - per_target * len(targets)
 
     requests = []
-    plan = []  # (canonical, type, n)
+    canon_by_id: dict[str, str] = {}  # custom_id -> canonical (never embed the name
+                                       # itself in custom_id: Anthropic's batch API
+                                       # requires custom_id to match ^[a-zA-Z0-9_-]{1,64}$
+                                       # and several grape canonicals have spaces, e.g.
+                                       # "Downy mildew", "Powdery mildew" -- measured via
+                                       # a real 400 invalid_request_error on the first
+                                       # full-run attempt, 2026-09-03.
     rng = random.Random(seed)
     for i, t in enumerate(targets):
         n = per_target + (1 if i < remainder else 0)
@@ -1244,19 +1338,18 @@ def build_grape_items(resources: VerifyResources, table: SynonymTable,
         for c in range(calls_needed):
             take = min(per_writer_call, remaining)
             remaining -= take
-            custom_id = f"QW_grape_{t['canonical']}_{take}_{c}"
+            custom_id = f"QW_grape_{i}_{c}_{take}"
             samples = rng.sample(style_pool, min(15, len(style_pool)))
             system, user = build_query_writer_prompt("grape", t["canonical"], t["type"],
                                                        samples, take)
             requests.append(BatchRequest(custom_id=custom_id, system=system, user=user,
                                           max_tokens=1500))
-            plan.append((t["canonical"], t["type"]))
+            canon_by_id[custom_id] = t["canonical"]
 
     responses = backend.generate(requests, None)
     queries: list[tuple[str, str]] = []  # (query_text, canonical)
     for req in requests:
-        parts = req.custom_id.split("_", 3)
-        canon = parts[2]
+        canon = canon_by_id[req.custom_id]
         for q in _parse_query_writer_response(responses.get(req.custom_id)):
             queries.append((q, canon))
 
@@ -1321,22 +1414,42 @@ def write_holdout(path: Path, queries: list[str]) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[1])
-    ap.add_argument("--mode", choices=["dry-run", "live"], default="dry-run")
+    ap.add_argument("--mode", choices=["dry-run", "live"], default="dry-run",
+                     help="legacy alias for --backend: dry-run -> mock, live -> anthropic-batch. "
+                          "Ignored if --backend is given explicitly.")
+    ap.add_argument("--backend", choices=["mock", "anthropic-batch", "anthropic-live"], default=None,
+                     help="mock: MockBackend, sampled items, no API calls (dry-run behaviour). "
+                          "anthropic-batch: real Anthropic Message Batches run over the full "
+                          "planned item set, gate loop identical either way. anthropic-live: "
+                          "synchronous one-request-per-item calls, no batch queue -- for "
+                          "smoke-testing a handful of items, not the production run. "
+                          "Overrides --mode.")
     ap.add_argument("--slices", default="1,2,3,4,5",
                      help="comma-separated slice numbers to build (still computes full "
                           "partition counts regardless)")
     ap.add_argument("--sample-per-slice", type=int, default=12,
-                     help="dry-run only: cap generated items per slice")
+                     help="mock backend only: cap generated items per slice")
     ap.add_argument("--max-attempts", type=int, default=MAX_ATTEMPTS)
-    ap.add_argument("--structured-output", action="store_true",
-                     help="EXPERIMENTAL, unvalidated against a live call -- see module docstring")
+    ap.add_argument("--structured-output", dest="structured_output", action="store_true",
+                     default=False,
+                     help="JSON-schema-constrained output. PENDING Fix B live validation -- "
+                          "see reports/phase8_stepB1_fixB_structured_output_validation.md")
+    ap.add_argument("--no-structured-output", dest="structured_output", action="store_false",
+                     help="disable structured output, fall back to free-text JSON + the "
+                          "output_contract prompt instructions.")
     ap.add_argument("--model", default=GENERATOR_MODEL)
+    ap.add_argument("--poll-seconds", type=int, default=DEFAULT_POLL_SECONDS,
+                     help="anthropic-batch only: seconds between batch status polls")
     ap.add_argument("--out-dir", type=Path, default=OUT_DIR_DEFAULT)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--grape-target", type=int, default=GRAPE_TARGET)
     ap.add_argument("--grape-holdout", type=int, default=GRAPE_HOLDOUT)
     ap.add_argument("--cutoff", default=CUTOFF_DATE)
     args = ap.parse_args()
+
+    backend_name = args.backend if args.backend is not None else (
+        "mock" if args.mode == "dry-run" else "anthropic-batch")
+    is_dry_run = backend_name == "mock"
 
     wanted_slices = {int(s) for s in args.slices.split(",") if s.strip()}
 
@@ -1386,8 +1499,8 @@ def main() -> None:
         style_pool = train_df["QueryText"].dropna().astype(str).tolist()
         mock_writer = MockBackend(seed=args.seed)  # query-writer phase always uses the
                                                     # configured backend below; mock only
-                                                    # here when mode=dry-run (see branch)
-        writer_backend = mock_writer if args.mode == "dry-run" else _build_backend(args)
+                                                    # here when backend=mock (see branch)
+        writer_backend = mock_writer if is_dry_run else _build_backend(args)
         grape_items, holdout_queries, grape_pre = build_grape_items(
             resources, table, writer_backend, style_pool,
             target=args.grape_target, holdout=args.grape_holdout, seed=args.seed)
@@ -1396,14 +1509,14 @@ def main() -> None:
         print(f"  {len(grape_items)} grape train items planned, "
               f"{len(holdout_queries)} held out for the future Phase 9 benchmark")
 
-    if args.mode == "dry-run":
+    if is_dry_run:
         pre_sample_n = len(items)
         items = sample_items(items, args.sample_per_slice, args.seed)
         print(f"  dry-run: sampled {len(items)} of {pre_sample_n} planned items "
               f"(<= {args.sample_per_slice} per slice) for the mock verify loop")
 
-    print(f"[4/6] selecting backend (mode={args.mode}) ...")
-    backend = MockBackend(seed=args.seed) if args.mode == "dry-run" else _build_backend(args)
+    print(f"[4/6] selecting backend (backend={backend_name}) ...")
+    backend = MockBackend(seed=args.seed) if is_dry_run else _build_backend(args)
     print(f"  backend: {type(backend).__name__}")
 
     print(f"[5/6] running generation + verify() gate loop (max_attempts={args.max_attempts}) ...")
@@ -1431,13 +1544,18 @@ def main() -> None:
     print(f"  sft_train.jsonl: {len(train_records)} records")
     print(f"  sft_test.jsonl: {len(test_records)} records")
     print(f"  sft_generation_log.csv: {len(all_log)} rows")
-    if args.mode == "dry-run":
+    if is_dry_run:
         print(f"\n  This was a DRY RUN with mock responses. No API calls were made. "
-              f"Re-run with --mode live once a real batch call has been smoke-tested.")
+              f"Re-run with --backend anthropic-batch once a real batch call has been smoke-tested.")
 
 
-def _build_backend(args) -> AnthropicBatchBackend:
-    return AnthropicBatchBackend(model=args.model, structured_output=args.structured_output)
+def _build_backend(args) -> GenerationBackend:
+    backend_name = args.backend if args.backend is not None else (
+        "mock" if args.mode == "dry-run" else "anthropic-batch")
+    if backend_name == "anthropic-live":
+        return AnthropicLiveBackend(model=args.model, structured_output=args.structured_output)
+    return AnthropicBatchBackend(model=args.model, structured_output=args.structured_output,
+                                  poll_seconds=args.poll_seconds)
 
 
 if __name__ == "__main__":
