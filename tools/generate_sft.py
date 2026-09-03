@@ -87,6 +87,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import random
 import re
 import sys
@@ -133,6 +134,8 @@ DEFAULT_POLL_SECONDS = 60
 GRAPE_TARGET = 300
 GRAPE_HOLDOUT = 40
 GENERATOR_MODEL = "claude-sonnet-4-6"
+GROQ_DEFAULT_MODEL = "llama-3.1-70b-versatile"
+GROQ_MIN_INTERVAL_S = 2.0         # 30 req/min free-tier ceiling -> 1 req / 2s
 
 __all__ = ["main"]
 
@@ -944,6 +947,68 @@ class AnthropicLiveBackend(GenerationBackend):
         return results
 
 
+class GroqBackend(GenerationBackend):
+    """Slice 2 backend: Groq's OpenAI-compatible API (no Anthropic spend).
+
+    Sequential, one request per item -- Groq's free tier is rate-limited
+    (30 req/min, 6,000 tokens/min), so there's nothing to parallelize
+    against; the pacing IS the throughput ceiling. _pace() enforces a
+    minimum GROQ_MIN_INTERVAL_S gap between consecutive REQUEST STARTS
+    (not a blind post-call sleep, so a slow completion doesn't stack an
+    extra wait on top of its own latency). Only the 30 req/min bound is
+    actively enforced; the 6,000 tok/min bound is not separately tracked --
+    at 30 req/min that would require averaging >200 tokens/request, which
+    the fact_sheet-bearing dose prompts can exceed, so a 429 is still
+    possible in principle. A 429 or any other API error returns None for
+    that custom_id (same "no response" contract every backend uses) and
+    the caller's normal retry-round logic handles it -- no special-cased
+    backoff here.
+
+    Response text is returned as-is, valid JSON or not: this backend does
+    no JSON parsing/validation itself. A malformed response reaches
+    verify_item() exactly like a malformed response from any other
+    backend and fails there as G1 ("output is not JSON").
+    """
+
+    def __init__(self, model: str = GROQ_DEFAULT_MODEL, api_key: Optional[str] = None,
+                 min_interval_s: float = GROQ_MIN_INTERVAL_S):
+        from openai import OpenAI  # deferred: dry-run must never require this import to succeed
+        key = api_key or os.environ.get("GROQ_API_KEY")
+        if not key:
+            raise RuntimeError(
+                "GroqBackend needs a Groq API key: pass --groq-api-key or set GROQ_API_KEY")
+        self.client = OpenAI(api_key=key, base_url="https://api.groq.com/openai/v1")
+        self.model = model
+        self.min_interval_s = min_interval_s
+        self._last_call_ts: Optional[float] = None
+
+    def _pace(self) -> None:
+        if self._last_call_ts is not None:
+            wait = self.min_interval_s - (time.monotonic() - self._last_call_ts)
+            if wait > 0:
+                time.sleep(wait)
+        self._last_call_ts = time.monotonic()
+
+    def generate(self, requests: list[BatchRequest],
+                  items: Optional[dict[str, GenItem]] = None) -> dict[str, Optional[str]]:
+        results: dict[str, Optional[str]] = {}
+        for r in requests:
+            self._pace()
+            try:
+                resp = self.client.chat.completions.create(
+                    model=self.model,
+                    max_tokens=r.max_tokens,
+                    messages=[{"role": "system", "content": r.system},
+                              {"role": "user", "content": r.user}],
+                )
+                text = resp.choices[0].message.content
+            except Exception as exc:  # noqa: BLE001 -- surfaced via None + logged, same as other backends
+                print(f"  GroqBackend error for {r.custom_id}: {exc}")
+                text = None
+            results[r.custom_id] = text
+        return results
+
+
 class MockBackend(GenerationBackend):
     """Reference-solver test double for --mode dry-run.
 
@@ -1379,27 +1444,86 @@ def build_grape_items(resources: VerifyResources, table: SynonymTable,
 # 10. output writers
 # ==========================================================================
 
-def write_jsonl(path: Path, records: list[tuple[GenItem, str]]) -> None:
+def _advisory_record(it: GenItem, json_text: str) -> dict:
+    return {"id": it.key(),
+            "messages": [
+                {"role": "system", "content": DEPLOYMENT_SYSTEM_PROMPT},
+                {"role": "user", "content": it.query_text},
+                {"role": "assistant", "content": json_text},
+            ]}
+
+
+def _write_jsonl_records(path: Path, records: list[dict]) -> None:
     with open(path, "w", encoding="utf-8") as fh:
-        for it, json_text in records:
-            obj = {"id": it.key(),
-                   "messages": [
-                       {"role": "system", "content": DEPLOYMENT_SYSTEM_PROMPT},
-                       {"role": "user", "content": it.query_text},
-                       {"role": "assistant", "content": json_text},
-                   ]}
+        for obj in records:
             fh.write(json.dumps(obj, ensure_ascii=False) + "\n")
+
+
+def write_jsonl(path: Path, records: list[tuple[GenItem, str]]) -> None:
+    _write_jsonl_records(path, [_advisory_record(it, json_text) for it, json_text in records])
+
+
+LOG_CSV_FIELDNAMES = ["row_id", "slice", "crop_slug", "canonical_pest", "attempts",
+                       "final_verify_score", "outcome_reason"]
 
 
 def write_log_csv(path: Path, rows: list[dict]) -> None:
     import csv
-    fieldnames = ["row_id", "slice", "crop_slug", "canonical_pest", "attempts",
-                  "final_verify_score", "outcome_reason"]
     with open(path, "w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=fieldnames)
+        w = csv.DictWriter(fh, fieldnames=LOG_CSV_FIELDNAMES)
         w.writeheader()
         for r in sorted(rows, key=lambda r: (int(r["slice"]), str(r["row_id"]))):
             w.writerow(r)
+
+
+# ==========================================================================
+# 10b. checkpoint / resume (Slice 2 / GroqBackend: a ~4hr rate-limited run
+# must survive interruption without re-spending quota on finished rows)
+# ==========================================================================
+
+def load_checkpoint(log_path: Path) -> tuple[set[tuple[str, str]], list[dict]]:
+    """Read a prior sft_generation_log.csv, if any.
+
+    Returns (skip_keys, prior_rows). skip_keys is every (slice, row_id) whose
+    outcome_reason is "accepted" or "rejected_after_retries: ..." -- both are
+    final verdicts a retry cannot change (rejected already exhausted
+    max_attempts). "excluded: ..." is deliberately NOT included here, even
+    though run_pipeline() also never retries an excluded item within a
+    single run: exclusion is evaluated against the SPECIFIC chemical option
+    the model chose (verify.py's C1_dose/C2_phi ambiguity check runs per
+    ChemicalOption), so a different backend or a different sampled response
+    could plausibly pick a non-ambiguous option on a later attempt. Skipping
+    only accepted/rejected matches this feature's brief exactly; prior_rows
+    (every row from the old log, including excluded ones) is carried forward
+    into the merged output regardless, so nothing already recorded is lost
+    even for the rows that DO get re-attempted.
+    """
+    if not log_path.exists():
+        return set(), []
+    import csv
+    skip_keys: set[tuple[str, str]] = set()
+    prior_rows: list[dict] = []
+    with open(log_path, encoding="utf-8") as fh:
+        for r in csv.DictReader(fh):
+            prior_rows.append(r)
+            reason = r.get("outcome_reason", "")
+            if reason == "accepted" or reason.startswith("rejected_after_retries"):
+                skip_keys.add((str(r["slice"]), str(r["row_id"])))
+    return skip_keys, prior_rows
+
+
+def load_prior_records(out_dir: Path) -> tuple[list[dict], list[dict]]:
+    """Read existing sft_train.jsonl / sft_test.jsonl (if any) as raw dicts,
+    to be merged with newly-accepted records on a resumed run. Each line is
+    already a complete {"id", "messages"} record -- no GenItem reconstruction
+    needed, just pass-through.
+    """
+    def _read(path: Path) -> list[dict]:
+        if not path.exists():
+            return []
+        with open(path, encoding="utf-8") as fh:
+            return [json.loads(line) for line in fh if line.strip()]
+    return _read(out_dir / "sft_train.jsonl"), _read(out_dir / "sft_test.jsonl")
 
 
 def write_holdout(path: Path, queries: list[str]) -> None:
@@ -1417,13 +1541,15 @@ def main() -> None:
     ap.add_argument("--mode", choices=["dry-run", "live"], default="dry-run",
                      help="legacy alias for --backend: dry-run -> mock, live -> anthropic-batch. "
                           "Ignored if --backend is given explicitly.")
-    ap.add_argument("--backend", choices=["mock", "anthropic-batch", "anthropic-live"], default=None,
+    ap.add_argument("--backend", choices=["mock", "anthropic-batch", "anthropic-live", "groq"],
+                     default=None,
                      help="mock: MockBackend, sampled items, no API calls (dry-run behaviour). "
                           "anthropic-batch: real Anthropic Message Batches run over the full "
                           "planned item set, gate loop identical either way. anthropic-live: "
                           "synchronous one-request-per-item calls, no batch queue -- for "
                           "smoke-testing a handful of items, not the production run. "
-                          "Overrides --mode.")
+                          "groq: sequential, rate-limited calls to Groq's OpenAI-compatible "
+                          "API -- for Slice 2. Overrides --mode.")
     ap.add_argument("--slices", default="1,2,3,4,5",
                      help="comma-separated slice numbers to build (still computes full "
                           "partition counts regardless)")
@@ -1437,9 +1563,22 @@ def main() -> None:
     ap.add_argument("--no-structured-output", dest="structured_output", action="store_false",
                      help="disable structured output, fall back to free-text JSON + the "
                           "output_contract prompt instructions.")
-    ap.add_argument("--model", default=GENERATOR_MODEL)
+    ap.add_argument("--model", default=None,
+                     help="generator model id. Backend-specific default when omitted: "
+                          f"{GENERATOR_MODEL!r} for anthropic-batch/anthropic-live, "
+                          f"{GROQ_DEFAULT_MODEL!r} for groq. Ignored by mock.")
     ap.add_argument("--poll-seconds", type=int, default=DEFAULT_POLL_SECONDS,
                      help="anthropic-batch only: seconds between batch status polls")
+    ap.add_argument("--groq-api-key", default=None,
+                     help="groq backend only: alternative to the GROQ_API_KEY env var "
+                          "(some Kaggle setups make env vars awkward)")
+    ap.add_argument("--resume", action="store_true",
+                     help="skip items whose (slice, row_id) is already 'accepted' or "
+                          "'rejected_after_retries' in --out-dir/sft_generation_log.csv, "
+                          "and merge outputs with the prior run instead of overwriting. "
+                          "For long rate-limited runs (groq/Slice 2) that may be "
+                          "interrupted. Off by default -- a bare re-run still fully "
+                          "regenerates, e.g. after a prompt change.")
     ap.add_argument("--out-dir", type=Path, default=OUT_DIR_DEFAULT)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--grape-target", type=int, default=GRAPE_TARGET)
@@ -1452,6 +1591,20 @@ def main() -> None:
     is_dry_run = backend_name == "mock"
 
     wanted_slices = {int(s) for s in args.slices.split(",") if s.strip()}
+
+    resume_skip_keys: set[tuple[str, str]] = set()
+    resume_prior_log_rows: list[dict] = []
+    resume_prior_train: list[dict] = []
+    resume_prior_test: list[dict] = []
+    if args.resume:
+        resume_skip_keys, resume_prior_log_rows = load_checkpoint(
+            args.out_dir / "sft_generation_log.csv")
+        resume_prior_train, resume_prior_test = load_prior_records(args.out_dir)
+        print(f"[resume] {args.out_dir / 'sft_generation_log.csv'}: "
+              f"{len(resume_skip_keys)} accepted/rejected rows to skip, "
+              f"{len(resume_prior_log_rows)} prior log rows, "
+              f"{len(resume_prior_train) + len(resume_prior_test)} prior accepted records "
+              f"will be carried forward")
 
     print(f"[1/6] loading kcc_tagged.parquet and label_db resources ...")
     kcc = load_kcc()
@@ -1509,6 +1662,12 @@ def main() -> None:
         print(f"  {len(grape_items)} grape train items planned, "
               f"{len(holdout_queries)} held out for the future Phase 9 benchmark")
 
+    if resume_skip_keys:
+        pre_resume_n = len(items)
+        items = [it for it in items if (str(it.slice), str(it.row_id)) not in resume_skip_keys]
+        print(f"  resume: skipping {pre_resume_n - len(items)} already-accepted/rejected "
+              f"items, {len(items)} remain to attempt")
+
     if is_dry_run:
         pre_sample_n = len(items)
         items = sample_items(items, args.sample_per_slice, args.seed)
@@ -1533,17 +1692,38 @@ def main() -> None:
 
     print(f"[6/6] writing outputs to {args.out_dir} ...")
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    train_records = [(it, txt) for it, txt in accepted.values() if it.split == "train"]
-    test_records = [(it, txt) for it, txt in accepted.values() if it.split == "test"]
-    write_jsonl(args.out_dir / "sft_train.jsonl", train_records)
-    write_jsonl(args.out_dir / "sft_test.jsonl", test_records)
-    write_log_csv(args.out_dir / "sft_generation_log.csv", all_log)
+    new_train = [_advisory_record(it, txt) for it, txt in accepted.values() if it.split == "train"]
+    new_test = [_advisory_record(it, txt) for it, txt in accepted.values() if it.split == "test"]
+
+    if args.resume:
+        # Key-merge, not concatenation: a row re-attempted this run (e.g. a
+        # previously-excluded row that a retry now accepts) must REPLACE its
+        # stale prior log entry, not sit duplicated alongside it. Accepted
+        # JSONL records need no such merge -- resume_skip_keys already kept
+        # every previously-accepted id out of `items`, so new_train/new_test
+        # and resume_prior_train/test can never share an id.
+        merged_log = {(str(r["slice"]), str(r["row_id"])): r for r in resume_prior_log_rows}
+        for r in all_log:
+            merged_log[(str(r["slice"]), str(r["row_id"]))] = r
+        final_log = list(merged_log.values())
+        final_train = resume_prior_train + new_train
+        final_test = resume_prior_test + new_test
+    else:
+        final_log = all_log
+        final_train = new_train
+        final_test = new_test
+
+    _write_jsonl_records(args.out_dir / "sft_train.jsonl", final_train)
+    _write_jsonl_records(args.out_dir / "sft_test.jsonl", final_test)
+    write_log_csv(args.out_dir / "sft_generation_log.csv", final_log)
     if holdout_queries:
         write_holdout(REPO_ROOT / "data" / "interim" / "grape_benchmark_holdout.jsonl",
                        holdout_queries)
-    print(f"  sft_train.jsonl: {len(train_records)} records")
-    print(f"  sft_test.jsonl: {len(test_records)} records")
-    print(f"  sft_generation_log.csv: {len(all_log)} rows")
+    print(f"  sft_train.jsonl: {len(final_train)} records"
+          f"{f' ({len(new_train)} new)' if args.resume else ''}")
+    print(f"  sft_test.jsonl: {len(final_test)} records"
+          f"{f' ({len(new_test)} new)' if args.resume else ''}")
+    print(f"  sft_generation_log.csv: {len(final_log)} rows")
     if is_dry_run:
         print(f"\n  This was a DRY RUN with mock responses. No API calls were made. "
               f"Re-run with --backend anthropic-batch once a real batch call has been smoke-tested.")
@@ -1552,9 +1732,16 @@ def main() -> None:
 def _build_backend(args) -> GenerationBackend:
     backend_name = args.backend if args.backend is not None else (
         "mock" if args.mode == "dry-run" else "anthropic-batch")
+    if backend_name == "groq":
+        model = args.model or GROQ_DEFAULT_MODEL
+        return GroqBackend(model=model, api_key=args.groq_api_key)
+    # --model default is backend-specific (None until resolved here) so a
+    # groq run's default never leaks into an Anthropic run and vice versa --
+    # see the --model help text.
+    model = args.model or GENERATOR_MODEL
     if backend_name == "anthropic-live":
-        return AnthropicLiveBackend(model=args.model, structured_output=args.structured_output)
-    return AnthropicBatchBackend(model=args.model, structured_output=args.structured_output,
+        return AnthropicLiveBackend(model=model, structured_output=args.structured_output)
+    return AnthropicBatchBackend(model=model, structured_output=args.structured_output,
                                   poll_seconds=args.poll_seconds)
 
 
