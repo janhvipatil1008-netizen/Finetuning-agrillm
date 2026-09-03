@@ -1,0 +1,27 @@
+[resume] data\final\sft_generation_log.csv: 1795 accepted/rejected rows to skip, 1879 prior log rows, 1754 prior accepted records will be carried forward
+[1/6] loading kcc_tagged.parquet and label_db resources ...
+  slice partition (full corpus, mutually exclusive, E-first):
+    slice 1 (dose): 1374
+    slice 2 (clarify): 4069
+    slice 3 (refusal): 99
+    slice 5 (no-chemistry): 150
+    slice 0 (unhandled, should be 0): 0
+    sum(1,2,3,5) == len(kcc_tagged): 5692 == 5692 OK
+  NOTE: slice 5 prints 150 here, not the 152 named in the sub-phase brief -- 2 rows are both banned and NO_REGISTERED_CHEMISTRY and are kept in slice 3 only (E-first), matching the design doc's own dataset-shape table. See module docstring point 1.
+  slice 4 (grape synthetic) is planned separately, target=300, holdout=40 -> 260 train
+[2/6] date split at 2022-01-01 ...
+  train rows: 4491, test rows: 1183 (dropped 18 cross-boundary exact-text repeats)
+[3/6] building generation items ...
+  built 4055 items across slices [2], 0 rows pre-filtered before generation
+  resume: skipping 0 already-accepted/rejected items, 4055 remain to attempt
+[4/6] selecting backend (backend=anthropic-batch) ...
+  backend: AnthropicBatchBackend
+[5/6] running generation + verify() gate loop (max_attempts=3) ...
+  accepted: 3875 / attempted: 4055
+    accepted: 3875
+    excluded: 156
+    rejected_after_retries: 24
+[6/6] writing outputs to data\final ...
+  sft_train.jsonl: 4493 records (3033 new)
+  sft_test.jsonl: 1136 records (842 new)
+  sft_generation_log.csv: 5934 rows
