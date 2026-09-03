@@ -112,6 +112,12 @@ CANON: dict[str, tuple[str, str]] = {
     "Post-harvest rot": ("disease", "Aspergillus niger / Botrytis allii"),
     # scope.TARGETS entry with no label_db ground truth (decision 4)
     "Basal rot": ("disease", "Fusarium oxysporum f.sp. cepae"),
+    # scope.TARGETS chem="none" viral targets (phase 9): no label_db rows by
+    # definition -- no chemistry is registered against the pathogen. Added so
+    # the benchmark's refusal items resolve and C6 grades them.
+    "Yellow mosaic": ("disease", "Bean yellow mosaic virus / Mungbean yellow mosaic virus"),
+    "Sterility mosaic": ("disease", "Pigeonpea sterility mosaic virus"),
+    "Leaf curl virus": ("disease", "Tomato leaf curl virus"),
 }
 
 # --------------------------------------------------------------------------
@@ -398,6 +404,21 @@ TARGET_EXTRA: dict[tuple[str, str], tuple[str, str]] = {
         "ASSUMPTION - NEEDS REVIEW: scope.TARGETS name absent from label_db; "
         "mapped to Cercospora leaf spot, which label_db does print",
     ),
+    # scope.TARGETS chem="none" viral targets (phase 9 benchmark): CIB&RC
+    # never prints them because nothing is registered against the pathogen.
+    # Farmer surface forms included so KCC-register queries resolve.
+    ("soybean", "yellow mosaic virus"): ("Yellow mosaic", "scope.py chem=none target; no label_db rows"),
+    ("soybean", "yellow mosaic"): ("Yellow mosaic", "scope.py chem=none target; no label_db rows"),
+    ("soybean", "pila mosaic"): ("Yellow mosaic", "farmer-facing alias"),
+    ("soybean", "YMV"): ("Yellow mosaic", "farmer-facing abbreviation"),
+    ("tur", "sterility mosaic virus"): ("Sterility mosaic", "scope.py chem=none target; vector is Aceria cajani mite, not aphid"),
+    ("tur", "sterility mosaic"): ("Sterility mosaic", "scope.py chem=none target; vector is Aceria cajani mite, not aphid"),
+    ("tur", "SMV"): ("Sterility mosaic", "farmer-facing abbreviation"),
+    ("tur", "bandhi marg"): ("Sterility mosaic", "farmer-facing alias"),
+    ("tomato", "leaf curl virus"): ("Leaf curl virus", "scope.py chem=none target; whitefly vector"),
+    ("tomato", "leaf curl"): ("Leaf curl virus", "scope.py chem=none target; whitefly vector"),
+    ("tomato", "patti curl"): ("Leaf curl virus", "farmer-facing alias"),
+    ("tomato", "curl virus"): ("Leaf curl virus", "farmer-facing alias"),
 }
 
 _BINOMIAL = re.compile(r"^[A-Z][a-z]+(?:\s+(?:[a-z]+|spp\.|sp\.|f\.sp\.|pv\.|var\.)){1,3}$")

@@ -547,6 +547,10 @@ soybean,pandhri mashi,Whitefly,pest,Bemisia tabaci,scope_synonyms,farmer-facing 
 soybean,safed makkhi,Whitefly,pest,Bemisia tabaci,scope_synonyms,farmer-facing alias from scope.SYNONYMS
 soybean,siphoninus phillyreae,Whitefly,pest,Bemisia tabaci,manual,variant form
 soybean,white flies,Whitefly,pest,Bemisia tabaci,manual,variant form
+soybean,YMV,Yellow mosaic,disease,Bean yellow mosaic virus / Mungbean yellow mosaic virus,manual,farmer-facing abbreviation
+soybean,pila mosaic,Yellow mosaic,disease,Bean yellow mosaic virus / Mungbean yellow mosaic virus,manual,farmer-facing alias
+soybean,yellow mosaic,Yellow mosaic,disease,Bean yellow mosaic virus / Mungbean yellow mosaic virus,manual,scope.py chem=none target; no label_db rows
+soybean,yellow mosaic virus,Yellow mosaic,disease,Bean yellow mosaic virus / Mungbean yellow mosaic virus,manual,scope.py chem=none target; no label_db rows
 tomato,Anthracnose,Anthracnose,disease,Colletotrichum coccodes,label_db,crop-dependent: species differs by crop
 tomato,anthracnose disease,Anthracnose,disease,Colletotrichum coccodes,manual,variant form
 tomato,colletotrichum spp.,Anthracnose,disease,Colletotrichum coccodes,manual,variant form
@@ -620,6 +624,10 @@ tomato,Late blight,Late blight,disease,Phytophthora infestans,label_db,
 tomato,Phytophthora infestans,Late blight,disease,Phytophthora infestans,label_db,scientific name
 tomato,Tomato Late Blight,Late blight,disease,Phytophthora infestans,label_db,
 tomato,light blight,Late blight,disease,Phytophthora infestans,label_db,
+tomato,curl virus,Leaf curl virus,disease,Tomato leaf curl virus,manual,farmer-facing alias
+tomato,leaf curl,Leaf curl virus,disease,Tomato leaf curl virus,manual,scope.py chem=none target; whitefly vector
+tomato,leaf curl virus,Leaf curl virus,disease,Tomato leaf curl virus,manual,scope.py chem=none target; whitefly vector
+tomato,patti curl,Leaf curl virus,disease,Tomato leaf curl virus,manual,farmer-facing alias
 tomato,Leaf Miner,Leaf miner,pest,Liriomyza trifolii,label_db,
 tomato,Liriomyza trifolii,Leaf miner,pest,Liriomyza trifolii,label_db,scientific name
 tomato,leaf miner (liriomyza trifolii),Leaf miner,pest,Liriomyza trifolii,manual,scope.TARGETS canonical
@@ -749,6 +757,10 @@ tur,seedling rot disease,Seed and seedling rot,disease,,manual,variant form
 tur,Maruca spp.,Spotted pod borer,pest,Maruca vitrata,label_db,scientific name
 tur,Maruca vitrata,Spotted pod borer,pest,Maruca vitrata,label_db,
 tur,Spotted pod borer,Spotted pod borer,pest,Maruca vitrata,label_db,
+tur,SMV,Sterility mosaic,disease,Pigeonpea sterility mosaic virus,manual,farmer-facing abbreviation
+tur,bandhi marg,Sterility mosaic,disease,Pigeonpea sterility mosaic virus,manual,farmer-facing alias
+tur,sterility mosaic,Sterility mosaic,disease,Pigeonpea sterility mosaic virus,manual,"scope.py chem=none target; vector is Aceria cajani mite, not aphid"
+tur,sterility mosaic virus,Sterility mosaic,disease,Pigeonpea sterility mosaic virus,manual,"scope.py chem=none target; vector is Aceria cajani mite, not aphid"
 tur,armigera),UNMATCHABLE,,,label_db,unmatchable: truncated cell
 tur,Fusarium wilt,Wilt,disease,Fusarium oxysporum,label_db,
 tur,Wilt,Wilt,disease,Fusarium oxysporum,label_db,

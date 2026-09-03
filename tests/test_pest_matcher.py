@@ -340,7 +340,9 @@ OUT_OF_SCOPE = [
     ("grape", "Khapra beetle"),
     ("soybean", "Rice weevil"),
     ("onion", "Stem borer"),
-    ("gram", "Yellow mosaic virus"),
+    # NOT "Yellow mosaic virus": since phase 9 that resolves on soybean, and
+    # an unambiguous name reaches other crops through the fallback by design.
+    ("gram", "Brown plant hopper"),
 ]
 
 
@@ -351,12 +353,19 @@ def test_out_of_scope_pest_on_in_scope_crop_is_unmatched(table, crop, pest):
     assert r.confidence == "unmatched"
 
 
-def test_absent_viral_targets_do_not_resolve(table):
-    """The four chem='none' targets have no label_db ground truth by design.
-    The matcher must not invent a canonical for them (decision 3)."""
-    for crop, target in [("soybean", "Yellow mosaic"), ("tur", "Sterility mosaic"),
-                         ("tomato", "Leaf curl virus")]:
-        assert match_pest(crop, target, table).canonical_name is None, target
+def test_viral_targets_resolve_with_no_label_rows(table):
+    """The chem='none' targets still have no label_db ground truth, but since
+    phase 9 they resolve to their scope.TARGETS canonicals so the benchmark's
+    refusal items are gradeable (C6). Supersedes decision 3's pin of the old
+    gap; expected_answerable() still reports NO_REGISTERED_CHEMISTRY."""
+    for crop, target, canonical in [
+            ("soybean", "yellow mosaic", "Yellow mosaic"),
+            ("soybean", "YMV", "Yellow mosaic"),
+            ("tur", "sterility mosaic", "Sterility mosaic"),
+            ("tur", "bandhi marg", "Sterility mosaic"),
+            ("tomato", "leaf curl", "Leaf curl virus"),
+            ("tomato", "patti curl", "Leaf curl virus")]:
+        assert match_pest(crop, target, table).canonical_name == canonical, target
 
 
 def test_empty_and_none_inputs(table):
