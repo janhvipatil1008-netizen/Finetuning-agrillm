@@ -24,6 +24,6 @@ set -euo pipefail
 python tools/generate_sft.py \
   --backend groq \
   --slices 2 \
-  --model llama-3.1-70b-versatile \
+  --model qwen/qwen3.6-27b \
   --out-dir data/final \
   --resume

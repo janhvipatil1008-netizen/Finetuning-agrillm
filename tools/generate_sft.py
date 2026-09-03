@@ -134,7 +134,12 @@ DEFAULT_POLL_SECONDS = 60
 GRAPE_TARGET = 300
 GRAPE_HOLDOUT = 40
 GENERATOR_MODEL = "claude-sonnet-4-6"
-GROQ_DEFAULT_MODEL = "llama-3.1-70b-versatile"
+GROQ_DEFAULT_MODEL = "qwen/qwen3.6-27b"  # llama-3.1-70b-versatile was decommissioned by
+                                          # Groq (confirmed via a live 400 model_decommissioned
+                                          # error and client.models.list(), 2026-09-03 --
+                                          # no Llama model remains on Groq's catalog at all).
+                                          # qwen/qwen3.6-27b chosen 2026-09-03 after a smoke
+                                          # test comparison against openai/gpt-oss-120b.
 GROQ_MIN_INTERVAL_S = 2.0         # 30 req/min free-tier ceiling -> 1 req / 2s
 
 __all__ = ["main"]
@@ -968,10 +973,30 @@ class GroqBackend(GenerationBackend):
     no JSON parsing/validation itself. A malformed response reaches
     verify_item() exactly like a malformed response from any other
     backend and fails there as G1 ("output is not JSON").
+
+    reasoning_format="hidden" and reasoning_effort="none" (both Groq/Qwen-
+    specific, sent via extra_body -- the openai SDK's typed .create()
+    rejects unknown kwargs otherwise) are not cosmetic, and reasoning_effort
+    is the load-bearing one. Measured live against qwen/qwen3.6-27b (the
+    current GROQ_DEFAULT_MODEL -- llama-3.1-70b-versatile is decommissioned,
+    see that constant's comment):
+      - neither set: <think>...</think> wraps the JSON in the visible
+        content, failing json.loads() 100% of the time (G1, 20/20 rows).
+      - reasoning_format="hidden" alone: the trace is hidden from the
+        response text, but the model still SPENDS max_tokens on it
+        internally -- completion_tokens_details.reasoning_tokens hit 2000/
+        2000, finish_reason="length", content=="" (18/20 rows empty).
+      - reasoning_format="hidden" + reasoning_effort="none": ~2s/call,
+        finish_reason="stop", clean JSON. This is the combination that
+        actually works.
+    Pass reasoning_format=None / reasoning_effort=None for a non-reasoning
+    model that doesn't recognise these parameters.
     """
 
     def __init__(self, model: str = GROQ_DEFAULT_MODEL, api_key: Optional[str] = None,
-                 min_interval_s: float = GROQ_MIN_INTERVAL_S):
+                 min_interval_s: float = GROQ_MIN_INTERVAL_S,
+                 reasoning_format: Optional[str] = "hidden",
+                 reasoning_effort: Optional[str] = "none"):
         from openai import OpenAI  # deferred: dry-run must never require this import to succeed
         key = api_key or os.environ.get("GROQ_API_KEY")
         if not key:
@@ -980,6 +1005,8 @@ class GroqBackend(GenerationBackend):
         self.client = OpenAI(api_key=key, base_url="https://api.groq.com/openai/v1")
         self.model = model
         self.min_interval_s = min_interval_s
+        self.reasoning_format = reasoning_format
+        self.reasoning_effort = reasoning_effort
         self._last_call_ts: Optional[float] = None
 
     def _pace(self) -> None:
@@ -992,12 +1019,18 @@ class GroqBackend(GenerationBackend):
     def generate(self, requests: list[BatchRequest],
                   items: Optional[dict[str, GenItem]] = None) -> dict[str, Optional[str]]:
         results: dict[str, Optional[str]] = {}
+        extra_body = {}
+        if self.reasoning_format:
+            extra_body["reasoning_format"] = self.reasoning_format
+        if self.reasoning_effort:
+            extra_body["reasoning_effort"] = self.reasoning_effort
         for r in requests:
             self._pace()
             try:
                 resp = self.client.chat.completions.create(
                     model=self.model,
                     max_tokens=r.max_tokens,
+                    extra_body=extra_body or None,
                     messages=[{"role": "system", "content": r.system},
                               {"role": "user", "content": r.user}],
                 )
