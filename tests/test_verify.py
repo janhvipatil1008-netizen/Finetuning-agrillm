@@ -1563,3 +1563,156 @@ def test_one_contradicted_product_does_not_sink_the_whole_pair(
                    non_chemical=["remove residue"])
     r = verify_mod.verify(out, ctx_for(verify_mod, resources, "cotton", "Whitefly"))
     assert r.excluded is False, r.exclusion_reason
+
+
+# ==========================================================================
+# Phase 10: in SCORE mode an empty answer to an ANSWERABLE question is a
+# C1/C2/C3 miss. Gate and filter mode are pinned byte-for-byte unchanged.
+# ==========================================================================
+# The untrained baseline reached 1.0 on 148/500 benchmark items by emitting
+# chemical_options=[] on answerable items: C1/C2/C3 were never entered and
+# the item was graded on C4 alone. See reports/phase10_stepA_baseline.md,
+# section 3, mechanism 3, and the verify.py docstring section
+# "SCORE MODE: AN EMPTY ANSWER TO AN ANSWERABLE QUESTION IS A MISS".
+
+BENCH = ROOT / "data" / "final" / "bench.jsonl"
+PHASE10_SNAPSHOT = ROOT / "tests" / "fixtures" / "phase10_gate_filter_snapshot.json"
+
+
+def _refusal(escalate=False):
+    """Schema-valid, otherwise-perfect, and recommends nothing."""
+    return advisory([], escalate=escalate,
+                    non_chemical=["remove and destroy crop residue"])
+
+
+def test_score_mode_empty_options_on_answerable_is_a_c1_c2_c3_miss(
+        verify_mod, resources, point_row):
+    """The rule itself, and the proof that it is the ONLY thing that moved:
+    every check outside SCORE_REFUSAL_MISS_CHECKS still scores 1.0, so the
+    pre-Phase-10 verifier would have given this refusal a perfect total."""
+    row, d, _canon, query = point_row
+    c = ctx_for(verify_mod, resources, row.crop_slug, query)
+    r = verify_mod.verify(_refusal(), c, "score")
+
+    assert r.answerability is verify_mod.Answerability.ANSWERABLE
+    assert all(r.gates.values()), r.gates
+    miss = set(verify_mod.SCORE_REFUSAL_MISS_CHECKS)
+    assert miss == {"C1_dose", "C2_phi", "C3_formulation"}
+    for k in miss:
+        assert r.checks.get(k) == 0.0, f"{k} should be a 0.0 miss: {r.checks}"
+
+    rest = {k: v for k, v in r.checks.items() if k not in miss}
+    assert rest and all(v == 1.0 for v in rest.values()), rest
+
+    W = verify_mod.CHECK_WEIGHTS
+    num = sum(W[k] * v for k, v in r.checks.items() if k in W)
+    den = sum(W[k] for k in r.checks if k in W)
+    assert r.total == pytest.approx(num / den)
+    assert 0.0 < r.total < 0.5, r.total
+    assert r.passed is True, "score mode still passes on gates alone"
+    assert any("refusing an answerable question" in f for f in r.failures), \
+        r.failures
+
+
+@pytest.mark.parametrize("crop, pest, expect", [
+    ("onion", "Basal rot", "NO_REGISTERED_CHEMISTRY"),
+    ("cotton", "no such pest as this xyz", "PEST_UNKNOWN"),
+    ("rice", "Stem borer", "OUT_OF_SCOPE_CROP"),
+])
+def test_score_mode_empty_options_on_non_answerable_is_unaffected(
+        verify_mod, resources, crop, pest, expect):
+    """Where nothing is registered, the pest is unknown, or the crop is out
+    of scope, an empty option list is the right answer and no miss is
+    entered."""
+    A = verify_mod.Answerability
+    c = ctx_for(verify_mod, resources, crop, pest)
+    r = verify_mod.verify(_refusal(escalate=(expect == "PEST_UNKNOWN")),
+                          c, "score")
+    assert r.answerability is getattr(A, expect)
+    assert not (set(verify_mod.SCORE_REFUSAL_MISS_CHECKS) & set(r.checks)), \
+        r.checks
+    assert not any("refusing an answerable question" in f for f in r.failures)
+
+
+def test_gate_and_filter_modes_ignore_the_score_mode_refusal_rule(
+        verify_mod, resources, point_row):
+    """Same refusal, same answerable item: gate and filter never enter the
+    miss checks. Gate mode filtered the Phase 8 SFT data and filter mode
+    must not block a safe empty answer at inference."""
+    row, d, _canon, query = point_row
+    c = ctx_for(verify_mod, resources, row.crop_slug, query)
+    miss = set(verify_mod.SCORE_REFUSAL_MISS_CHECKS)
+
+    g = verify_mod.verify(_refusal(), c, "gate")
+    f = verify_mod.verify(_refusal(), c, "filter")
+    s = verify_mod.verify(_refusal(), c, "score")
+
+    assert not (miss & set(g.checks)), g.checks
+    assert not (miss & set(f.checks)), f.checks
+    assert g.total == 1.0 and g.passed, (g.total, g.checks, g.failures)
+    assert f.total == 1.0 and f.passed, (f.total, f.checks, f.failures)
+    assert s.total < g.total, "only score mode moved"
+    assert not any("refusing an answerable question" in x
+                   for x in g.failures + f.failures)
+
+
+def _snapshot_record(result) -> dict:
+    """Must stay identical to tools/phase10_gate_snapshot.py::record."""
+    return {
+        "passed": result.passed,
+        "total": result.total,
+        "gates": result.gates,
+        "checks": result.checks,
+        "failures": result.failures,
+        "excluded": result.excluded,
+        "exclusion_reason": result.exclusion_reason,
+        "ambiguous": list(result.ambiguous),
+        "answerability": (result.answerability.value
+                          if result.answerability else None),
+    }
+
+
+def test_gate_and_filter_modes_are_byte_identical_to_the_pre_phase10_snapshot(
+        verify_mod, resources):
+    """tests/fixtures/phase10_gate_filter_snapshot.json was recorded by
+    tools/phase10_gate_snapshot.py against the PRE-change verify.py: every
+    5th bench item, in gate and filter mode, as its gold advisory and as the
+    gold advisory with chemical_options and likely_causes emptied. Replaying
+    the same inputs must reproduce every field of every verdict.
+
+    Do not regenerate the fixture to make this pass; that would replace the
+    evidence with a tautology."""
+    if not BENCH.exists():
+        pytest.skip("bench.jsonl not present")
+    if not PHASE10_SNAPSHOT.exists():
+        pytest.skip("pre-change snapshot not present")
+    snap = json.loads(PHASE10_SNAPSHOT.read_text(encoding="utf-8"))
+    assert snap["n_items"] == 100 and snap["modes"] == ["gate", "filter"]
+
+    with open(BENCH, encoding="utf-8") as fh:
+        items = {it["item_id"]: it
+                 for it in (json.loads(l) for l in fh if l.strip())}
+    assert set(snap["results"]) <= set(items)
+
+    answerable_emptied = 0
+    diffs = []
+    for item_id, expected in snap["results"].items():
+        it = items[item_id]
+        c = ctx_for(verify_mod, resources, it["crop_slug"],
+                    it["canonical_pest"])
+        emptied = json.loads(json.dumps(it["gold_advisory"]))
+        emptied["chemical_options"] = []
+        emptied["likely_causes"] = []
+        for variant, payload in (("gold", it["gold_advisory"]),
+                                 ("emptied", emptied)):
+            for mode in snap["modes"]:
+                got = _snapshot_record(
+                    verify_mod.verify(json.dumps(payload), c, mode))
+                want = expected[f"{variant}/{mode}"]
+                if got != want:
+                    diffs.append((item_id, variant, mode, want, got))
+                if (variant == "emptied"
+                        and want["answerability"] == "ANSWERABLE"):
+                    answerable_emptied += 1
+    assert answerable_emptied > 0, "snapshot exercises no answerable refusal"
+    assert not diffs, f"{len(diffs)} verdict(s) moved; first: {diffs[0]}"

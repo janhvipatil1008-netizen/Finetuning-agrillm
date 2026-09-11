@@ -9,6 +9,9 @@ __pycache__/
 # --- Large artifacts ---
 *.parquet
 
+# --- Kaggle bundle (build artifact; rebuild with tools/bundle_for_kaggle.py) ---
+kaggle_upload/
+
 # --- Secrets & environments ---
 .env
 venv/

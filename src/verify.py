@@ -44,6 +44,33 @@ pydantic would need them. tests/test_verify.py pins the rejection at the
 pydantic layer instead, which is where it currently happens.
 
 
+SCORE MODE: AN EMPTY ANSWER TO AN ANSWERABLE QUESTION IS A MISS
+================================================================
+
+The graded total is a weighted mean over the checks that were ENTERED;
+inapplicable ones leave the denominator so a model is never punished for a
+gap in label_db. C1, C2 and C3 are entered per chemical option. So a
+schema-valid answer with `chemical_options = []` on an item where label_db
+has trainable chemistry entered nothing but C4, and scored 1.0 whenever its
+escalate flag happened to match. The untrained Phase 10 baseline got 148 of
+its 500 items to 1.0 this way (reports/phase10_stepA_baseline.md, section
+3, mechanism 3), and a fine-tuned model that learned to refuse S1 items
+would be indistinguishable from it on the headline mean.
+
+So in SCORE mode, when answerability is ANSWERABLE and the option list is
+empty, C1/C2/C3 are entered as 0.0 (`SCORE_REFUSAL_MISS_CHECKS`). The rule
+is scoped to score mode on purpose:
+
+    gate    UNCHANGED. Gate mode filtered the 5,629 Phase 8 SFT examples;
+            moving it would invalidate that dataset. Pinned byte-for-byte
+            against a pre-change snapshot in tests/fixtures/.
+    filter  UNCHANGED. At inference an empty answer is the safe outcome and
+            must not be blocked.
+
+Non-answerable items (out-of-scope crop, unknown pest, nothing registered)
+are untouched: there, an empty option list is the right answer.
+
+
 WHY UNCERTAINTY IS AN EXCLUSION, NOT LENIENCY
 ==============================================
 
@@ -174,6 +201,12 @@ CHECK_WEIGHTS: dict[str, float] = {
 }
 # Reported for eval, never weighted: a diagnostic beside C5_causes_top1.
 UNWEIGHTED_CHECKS = ("C5_causes_top3",)
+
+# SCORE MODE ONLY. Entered as 0.0 when a schema-valid answer offers no
+# chemical option on an item where label_db has trainable chemistry. These
+# are the per-option checks that an empty option list would otherwise skip;
+# C4 and C6 already run on every item and need no help.
+SCORE_REFUSAL_MISS_CHECKS = ("C1_dose", "C2_phi", "C3_formulation")
 
 # Checks that BLOCK in filter mode, scored pass/fail with no partial credit.
 # Dose and PHI are the two numbers that hurt a farmer if they are wrong; the
@@ -931,6 +964,22 @@ def verify(output: str, ctx: VerifyContext,
     _check_escalation(ctx, adv, matched, answerability, checks, failures)
     _check_causes(ctx, adv, gold, checks, failures)
     _check_non_chemical(ctx, adv, gold, answerability, checks, failures)
+
+    # ---- score mode only: refusing an answerable question is a miss -------
+    # Without this, an empty chemical_options on an ANSWERABLE item leaves
+    # C1/C2/C3 out of the denominator and the item is graded on C4 alone —
+    # a perfect 1.0 for saying nothing. See the module docstring section
+    # "SCORE MODE: AN EMPTY ANSWER TO AN ANSWERABLE QUESTION IS A MISS".
+    # Gate and filter mode are deliberately untouched.
+    if (mode == "score" and answerability is Answerability.ANSWERABLE
+            and not options):
+        for k in SCORE_REFUSAL_MISS_CHECKS:
+            checks[k] = 0.0
+        _fail(failures,
+              f"C1/C2/C3: no chemical option offered, but CIB&RC registers "
+              f"trainable chemistry for {ctx.pest_query!r} on "
+              f"{ctx.crop_slug} — refusing an answerable question "
+              f"(score mode)")
 
     return _result(gates, checks, failures, mode,
                    answerability=answerability, advisory=adv,
