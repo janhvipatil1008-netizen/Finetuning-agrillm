@@ -71,4 +71,38 @@ for rec in items:
     if r.total != 1.0 or r.excluded:
         failed = True
 
+# Phase 12 RAG ablation: the bundled retrieval.py, run against the bundled
+# resources, must rebuild the exact <fact_sheet> each prompt file carries.
+# Checks every Arm A item with rows plus every miss-line record, both arms.
+import re  # noqa: E402
+
+import retrieval  # noqa: E402
+
+assert Path(retrieval.__file__).parent == BUNDLE, \
+    "retrieval was imported from outside the bundle"
+bench = {}
+with open(DATA_DIR / "bench.jsonl", encoding="utf-8") as fh:
+    for line in fh:
+        rec = json.loads(line)
+        bench[rec["item_id"]] = rec
+fact_rx = re.compile(r"<fact_sheet>\n.*?\n</fact_sheet>", re.S)
+for arm in ("A", "B"):
+    with open(DATA_DIR / f"rag_prompts_{arm}.jsonl", encoding="utf-8") as fh:
+        prompts = [json.loads(line) for line in fh]
+    bad = []
+    for p in prompts:
+        rows = retrieval.retrieve_rows(p["crop_slug_used"], p["canonical_pest_used"],
+                                       resources, p["method_used"])
+        miss = retrieval.miss_reason_for(p["crop_slug_used"], p["canonical_pest_used"])
+        m = fact_rx.search(p["user_message"])
+        if (m is None or len(rows) != p["fact_sheet_rows"]
+                or m.group(0) != retrieval.format_fact_sheet(rows, miss)):
+            bad.append(p["item_id"])
+    status = "OK " if len(prompts) == len(bench) and not bad else "FAIL"
+    print(f"  [{status}] rag_prompts_{arm}: {len(prompts)} records, "
+          f"{len(prompts) - len(bad)} fact sheets rebuilt byte-identically"
+          + (f", mismatches={bad[:10]}" if bad else ""))
+    if status == "FAIL":
+        failed = True
+
 sys.exit(1 if failed else 0)

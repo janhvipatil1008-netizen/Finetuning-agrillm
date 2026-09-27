@@ -54,9 +54,21 @@ DATA_FILES = [
 # field, so the Kaggle eval script must re-extract it from query_text the way
 # generate_sft.py did (extract_method), or gate-mode candidate narrowing
 # diverges from generation.
+# retrieval is seeded for the Phase 12 RAG ablation: the prompts ship
+# prebuilt (INTERIM_FILES), but the module ships too so the Kaggle side can
+# re-derive a fact sheet and check it against the prompt file.
 SEED_MODULES = [
     "verify", "schema", "scope", "pest_matcher", "dose_parser",
     "parse_phi", "crop_mapper", "formulation_resolver", "application_method",
+    "retrieval",
+]
+
+# Phase 12 RAG-ablation prompts, built by tools/run_rag_eval.py. They live in
+# data/interim/ (derived, regenerable), not data/final/.
+INTERIM = ROOT / "data" / "interim"
+INTERIM_FILES = [
+    "rag_prompts_A.jsonl",
+    "rag_prompts_B.jsonl",
 ]
 
 CONFIG_FILES = ["system_prompt.txt"]
@@ -119,6 +131,7 @@ def main() -> None:
 
     copies: list[tuple[Path, str]] = []
     copies += [(FINAL / f, f) for f in DATA_FILES]
+    copies += [(INTERIM / f, f) for f in INTERIM_FILES]
     copies += [(SRC / f"{m}.py", f"{m}.py") for m in _trace_imports(SEED_MODULES)]
     copies += [(SRC / f, f) for f in CONFIG_FILES]
 
