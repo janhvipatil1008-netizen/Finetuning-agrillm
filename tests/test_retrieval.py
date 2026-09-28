@@ -108,7 +108,8 @@ def _fact_sheet_block(message: str) -> str:
 
 @pytest.mark.parametrize("crop,canon,method", BYTE_IDENTITY_PAIRS)
 def test_retrieve_rows_equals_generator(resources, gen, retrieval, crop, canon, method):
-    ours = retrieval.retrieve_rows(crop, canon, resources, method)
+    # max_rows=None: the uncapped path is the one pinned to Phase 8 (decision 4).
+    ours = retrieval.retrieve_rows(crop, canon, resources, method, max_rows=None)
     theirs = gen.label_db_fact_rows(resources, crop, canon, method)
     assert ours, f"no rows for {crop}/{canon} -- pick a pair with chemistry"
     assert ours == theirs
@@ -176,6 +177,20 @@ def test_ban_listed_row_excluded(resources, retrieval):
     assert out and ai not in {r["ai"] for r in out}
 
 
+def test_contradicted_row_excluded_uncapped(resources, retrieval):
+    """The capped test above passes vacuously: Pyriproxyfen sits at for_pair
+    positions 28-29 of 78, beyond the 15-row cap. This one runs uncapped so
+    the contradiction filter itself is exercised."""
+    out = retrieval.retrieve_rows("cotton", "Whitefly", resources, max_rows=None)
+    assert len(out) > 15 and "Pyriproxyfen 10%EC" not in {r["ai"] for r in out}
+
+
+def test_ban_listed_row_excluded_uncapped(resources, retrieval):
+    """Same reason: Monocrotophos sits at for_pair position 24 of 71."""
+    out = retrieval.retrieve_rows("cotton", "Aphid", resources, max_rows=None)
+    assert len(out) > 15 and "Monocrotophos 15%SG" not in {r["ai"] for r in out}
+
+
 def test_filter_chain_leaves_610_rows(resources):
     """The generation-usable count the chain is documented to produce."""
     kept = [r for r in resources.label_db.rows
@@ -188,6 +203,102 @@ def test_private_ai_key_never_reaches_the_sheet(resources, retrieval):
     rows = retrieval.retrieve_rows("cotton", "Whitefly", resources)
     assert all("_ai" in r for r in rows)
     assert '"_ai"' not in retrieval.format_fact_sheet(rows)
+
+
+# --------------------------------------------------------------------------
+# fact-sheet cap (decision 4)
+# --------------------------------------------------------------------------
+
+JASSID_NOTICE = ("Showing 15 of 86 registered options for this crop and pest "
+                 "(label order, not ranked). The list above is not exhaustive.")
+
+
+def test_cap_constant(retrieval):
+    assert retrieval.MAX_FACT_SHEET_ROWS == 15
+
+
+def test_cap_keeps_first_15_in_index_order(resources, gen, retrieval):
+    capped = retrieval.retrieve_rows("cotton", "Jassid", resources, max_rows=15)
+    uncapped = retrieval.retrieve_rows("cotton", "Jassid", resources, max_rows=None)
+    assert len(capped) == 15 and len(uncapped) == 86
+    assert capped == uncapped[:15]
+    assert capped == gen.label_db_fact_rows(resources, "cotton", "Jassid", None)[:15]
+    # and that prefix is label_db index order, not some other ordering
+    kept = [r for r in resources.label_db.for_pair("cotton", "Jassid")
+            if r.trainable and not r.defective and not r.contradiction
+            and not resources.restricted.check(r.ai_components, "cotton")]
+    idx = [r.index for r in kept]
+    assert idx == sorted(idx) and len(idx) == 86
+    assert [r["ai"] for r in capped] == [r.active_ingredient for r in kept[:15]]
+
+
+def test_cap_is_the_default(resources, retrieval):
+    assert (retrieval.retrieve_rows("cotton", "Jassid", resources)
+            == retrieval.retrieve_rows("cotton", "Jassid", resources, max_rows=15))
+
+
+def test_cap_applies_after_method_narrowing(resources, retrieval):
+    """Narrow first, then cap: a narrowed set under 15 is never truncated."""
+    r = retrieval.retrieve("tomato", "Whitefly", resources, "soil_drench", max_rows=15)
+    assert r.rows_available == r.rows_included < 15 and not r.truncated
+    assert all(x["application_method"] == "soil_drench" for x in r.rows)
+
+
+@pytest.mark.parametrize("crop,canon,max_rows,available,included", [
+    ("cotton", "Jassid", 15, 86, 15),      # capped
+    ("cotton", "Jassid", None, 86, 86),    # cap disabled
+    ("onion", "Thrips", 15, 7, 7),         # under the cap
+    ("cotton", "Powdery mildew", 15, 0, 0),  # resolved, no rows
+    ("cotton", None, 15, 0, 0),            # unresolved
+])
+def test_rows_available_and_included(resources, retrieval, crop, canon, max_rows,
+                                     available, included):
+    r = retrieval.retrieve(crop, canon, resources, max_rows=max_rows)
+    assert (r.rows_available, r.rows_included) == (available, included)
+    assert r.truncated == (included < available)
+
+
+@pytest.mark.parametrize("bad", [0, -1])
+def test_max_rows_below_one_raises(resources, retrieval, bad):
+    with pytest.raises(ValueError):
+        retrieval.retrieve("cotton", "Jassid", resources, max_rows=bad)
+
+
+def test_truncation_notice_when_truncated(resources, retrieval):
+    r = retrieval.retrieve("cotton", "Jassid", resources)
+    sheet = retrieval.format_fact_sheet(r.rows, rows_available=r.rows_available)
+    untruncated_body = retrieval.format_fact_sheet(r.rows)[len("<fact_sheet>\n"):-len("\n</fact_sheet>")]
+    assert sheet == f"<fact_sheet>\n{untruncated_body}\n{JASSID_NOTICE}\n</fact_sheet>"
+    assert sheet.count("Showing ") == 1
+
+
+@pytest.mark.parametrize("crop,canon,max_rows", [
+    ("onion", "Thrips", 15),     # under the cap
+    ("cotton", "Jassid", None),  # cap disabled
+])
+def test_no_truncation_notice_when_not_truncated(resources, retrieval, crop, canon, max_rows):
+    r = retrieval.retrieve(crop, canon, resources, max_rows=max_rows)
+    sheet = retrieval.format_fact_sheet(r.rows, rows_available=r.rows_available)
+    assert "Showing " not in sheet and "not exhaustive" not in sheet
+    assert sheet == retrieval.format_fact_sheet(r.rows)
+
+
+def test_no_truncation_notice_on_miss_lines(retrieval):
+    for reason in (retrieval.MISS_NO_ROWS, retrieval.MISS_UNRESOLVED):
+        assert "Showing " not in retrieval.format_fact_sheet([], reason, rows_available=0)
+
+
+def test_rows_available_below_rows_raises(resources, retrieval):
+    rows = retrieval.retrieve_rows("onion", "Thrips", resources)
+    with pytest.raises(ValueError):
+        retrieval.format_fact_sheet(rows, rows_available=len(rows) - 1)
+
+
+def test_rag_message_carries_notice(resources, retrieval):
+    r = retrieval.retrieve("cotton", "Jassid", resources)
+    msg = retrieval.build_rag_user_message("q", "cotton", r.rows,
+                                           rows_available=r.rows_available)
+    assert msg.endswith(f"\n{JASSID_NOTICE}\n</fact_sheet>")
 
 
 # --------------------------------------------------------------------------

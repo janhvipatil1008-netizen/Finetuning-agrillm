@@ -91,15 +91,20 @@ for arm in ("A", "B"):
         prompts = [json.loads(line) for line in fh]
     bad = []
     for p in prompts:
-        rows = retrieval.retrieve_rows(p["crop_slug_used"], p["canonical_pest_used"],
-                                       resources, p["method_used"])
+        # default cap (retrieval.MAX_FACT_SHEET_ROWS) -- the same call the
+        # prompt builder made; rows_available drives the truncation notice.
+        ret = retrieval.retrieve(p["crop_slug_used"], p["canonical_pest_used"],
+                                 resources, p["method_used"])
         miss = retrieval.miss_reason_for(p["crop_slug_used"], p["canonical_pest_used"])
         m = fact_rx.search(p["user_message"])
-        if (m is None or len(rows) != p["fact_sheet_rows"]
-                or m.group(0) != retrieval.format_fact_sheet(rows, miss)):
+        if (m is None
+                or (ret.rows_available, ret.rows_included, ret.truncated)
+                != (p["rows_available"], p["rows_included"], p["truncated"])
+                or m.group(0) != retrieval.format_fact_sheet(ret.rows, miss, ret.rows_available)):
             bad.append(p["item_id"])
+    n_trunc = sum(p["truncated"] for p in prompts)
     status = "OK " if len(prompts) == len(bench) and not bad else "FAIL"
-    print(f"  [{status}] rag_prompts_{arm}: {len(prompts)} records, "
+    print(f"  [{status}] rag_prompts_{arm}: {len(prompts)} records ({n_trunc} truncated), "
           f"{len(prompts) - len(bad)} fact sheets rebuilt byte-identically"
           + (f", mismatches={bad[:10]}" if bad else ""))
     if status == "FAIL":
