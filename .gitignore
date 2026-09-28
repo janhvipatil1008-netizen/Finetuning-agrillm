@@ -8,6 +8,8 @@ __pycache__/
 
 # --- Large artifacts ---
 *.parquet
+# trained adapters (models/agri_lora_final/adapter_model.safetensors is ~315 MB)
+models/
 
 # --- Kaggle bundle (build artifact; rebuild with tools/bundle_for_kaggle.py) ---
 kaggle_upload/
