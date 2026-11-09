@@ -71,7 +71,14 @@ INTERIM_FILES = [
     "rag_prompts_B.jsonl",
 ]
 
-CONFIG_FILES = ["system_prompt.txt"]
+# Phase 14 generation: the R2/R4 prompt files from tools/build_prompts.py
+# carry system + user on every row, so generate.py reads nothing else from
+# the bundle. system_prompt_base.txt ships for inspection beside them.
+PROMPTS = FINAL / "prompts"
+PROMPT_FILES = ["prompts_R2.jsonl", "prompts_R4.jsonl"]
+TOOL_FILES = ["generate.py"]
+
+CONFIG_FILES = ["system_prompt.txt", "system_prompt_base.txt"]
 
 KAGGLE_PATHS = '''\
 # kaggle_paths.py -- path resolution for the flattened Kaggle layout.
@@ -132,6 +139,8 @@ def main() -> None:
     copies: list[tuple[Path, str]] = []
     copies += [(FINAL / f, f) for f in DATA_FILES]
     copies += [(INTERIM / f, f) for f in INTERIM_FILES]
+    copies += [(PROMPTS / f, f) for f in PROMPT_FILES]
+    copies += [(ROOT / "tools" / f, f) for f in TOOL_FILES]
     copies += [(SRC / f"{m}.py", f"{m}.py") for m in _trace_imports(SEED_MODULES)]
     copies += [(SRC / f, f) for f in CONFIG_FILES]
 

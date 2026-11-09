@@ -3,3 +3,7 @@
 # Linux training run.
 src/schema.py -text
 src/system_prompt.txt -text
+# Same for the base-arm prompt (pinned in tests/test_prompts.py) and the
+# generation prompt files, whose sha256 each Kaggle run records in its manifest.
+src/system_prompt_base.txt -text
+data/final/prompts/*.jsonl -text
