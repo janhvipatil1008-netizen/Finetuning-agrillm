@@ -39,13 +39,18 @@ measures first, then chemical options with dose, basis, pre-harvest interval
 | base model | `unsloth/Qwen2.5-7B-Instruct-bnb-4bit` |
 | LoRA r / alpha / dropout | 32 / 64 / 0 |
 | target modules | `q_proj`, `k_proj`, `v_proj`, `o_proj`, `gate_proj`, `up_proj`, `down_proj` |
-| epochs | not recorded |
-| steps | not recorded |
-| learning rate | not recorded |
-| batch size | not recorded |
-| max sequence length | not recorded |
-| GPU | not recorded |
+| epochs | 1 (from session record) |
+| steps | 281 (from session record) |
+| learning rate | 2e-4, cosine schedule, 20 warmup steps (from session record) |
+| batch size | 2 per device × 8 gradient accumulation = 16 effective (from session record) |
+| optimizer / precision / seed | adamw_8bit, weight decay 0.01 / fp16 / 42 (from session record) |
+| max sequence length | 2048 (from session record) |
+| GPU | Kaggle T4 (from session record) |
 | training / held-out test examples | 4,493 / 1,136 |
+
+The training cell ran on Kaggle and was never committed. The session-record
+values have not been verified against a saved `trainer_state.json`; see
+`reports/training_config.md` in the GitHub repository.
 
 **The training data is synthetic:**
 
@@ -143,6 +148,13 @@ are right.
   trained or tested.
 - **No independent review.** Every score comes from the project's own
   verifier. No agronomist or expert has reviewed the answers.
+- **Loss over the whole sequence.** Training computed loss over system
+  prompt + query + answer, not the answer only (from session record). The
+  prompt is a median
+  72.5% of each training sequence. A future run should use answer-only
+  (completion-only) loss.
+- **One training run.** There was no hyperparameter sweep and no repeat
+  with other seeds.
 
 ## How to use
 

@@ -21,9 +21,13 @@ One commit to <username>/agri-llm-qwen2.5-7b-lora (public):
 After the commit it lists the repo and checks the Hub's sha256 of the
 adapter weights against the local file.
 
+--card-only runs the same checks and re-uploads README.md alone (Phase 14
+Step 8: the model card gained the training record).
+
 Usage:
     python tools/publish_hf.py --dry-run
     python tools/publish_hf.py
+    python tools/publish_hf.py --card-only [--dry-run]
 """
 
 from __future__ import annotations
@@ -65,6 +69,8 @@ def plan() -> list[tuple[str, Path]]:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="check and list, upload nothing")
+    ap.add_argument("--card-only", action="store_true",
+                    help="same checks, upload README.md (the model card) only")
     args = ap.parse_args()
 
     from huggingface_hub import CommitOperationAdd, HfApi
@@ -85,6 +91,8 @@ def main() -> None:
         sys.exit(f"{CARD.relative_to(ROOT)} does not name {repo_id}; fix the usage snippet first")
 
     files = plan()
+    if args.card_only:
+        files = [(dest, src) for dest, src in files if dest == "README.md"]
     print(f"repo: {repo_id} (public)")
     for dest, src in files:
         print(f"  {dest:<28} {src.stat().st_size:>12,} bytes  <- {src.relative_to(ROOT).as_posix()}")
@@ -97,7 +105,8 @@ def main() -> None:
     info = api.create_commit(
         repo_id=repo_id, repo_type="model",
         operations=[CommitOperationAdd(path_in_repo=dest, path_or_fileobj=str(src)) for dest, src in files],
-        commit_message="Add LoRA adapter, model card and frozen system prompt (phase 14 step 7)")
+        commit_message=("Update model card: training record (phase 14 step 8)" if args.card_only else
+                        "Add LoRA adapter, model card and frozen system prompt (phase 14 step 7)"))
     model = api.model_info(repo_id, files_metadata=True)
     remote = {s.rfilename: s for s in model.siblings}
     print(f"\nrepo URL: {url}")
