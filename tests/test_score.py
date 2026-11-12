@@ -1,4 +1,8 @@
-"""Pins for tools/score.py, the unified scoring CLI (Phase 14 Step 1).
+"""Pins for tools/score.py, the unified scoring CLI (Phase 14 Steps 1 and 5).
+
+--unwrap-advisory (Step 5) is pinned below the denominator tests: only an
+exact {"Advisory": {...}} is unwrapped, the inner object scores as if it had
+been sent bare, and the input is never rewritten.
 
 Three things: the 498-item denominator (500 bench items minus the two
 run_rag_eval.KNOWN_BENCH_DEFECTS, nothing else pre-removed), a missing
@@ -15,6 +19,7 @@ from __future__ import annotations
 
 import importlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -109,6 +114,65 @@ def test_unknown_item_id_is_refused(sc, env):
     v, res, bench = env
     with pytest.raises(ValueError, match="not in bench"):
         sc.score(v, res, bench, {"NOT_AN_ITEM": "{}"})
+
+
+# --------------------------------------------------------------------------
+# --unwrap-advisory
+# --------------------------------------------------------------------------
+
+def test_unwrap_advisory_only_exact_single_key_object(sc):
+    inner = {"in_scope": True, "likely_causes": [], "x": [1, 2.5, None]}
+    assert json.loads(sc.unwrap_advisory(json.dumps({"Advisory": inner}))) == inner
+    for raw in (json.dumps(inner),                            # already bare
+                json.dumps({"Advisory": inner, "note": 1}),   # a second key
+                json.dumps({"Advisory": [inner]}),            # value not an object
+                json.dumps({"Advisory": "text"}),
+                json.dumps({"advisory": inner}),              # key is case-sensitive
+                json.dumps([{"Advisory": inner}]),
+                '{"Advisory": {"in_scope": tr',               # torn
+                "not json"):
+        assert sc.unwrap_advisory(raw) is None, raw
+
+
+def test_unwrap_scores_the_inner_object_and_leaves_input_alone(sc, env):
+    v, res, bench = env
+    iid = next(i for i, it in bench.items()
+               if it["kind"] == "DOSE" and i not in sc.KNOWN_BENCH_DEFECTS)
+    sub = {iid: bench[iid]}
+    plain = json.dumps(bench[iid]["gold_advisory"])
+    wrapped = json.dumps({"Advisory": bench[iid]["gold_advisory"]})
+    responses = {iid: wrapped}
+    want = sc.score(v, res, sub, {iid: plain})["items"][0]
+    assert want["score"] > 0
+
+    off = sc.score(v, res, sub, responses)
+    row = off["items"][0]
+    assert (row["g2_schema"], row["score"], row["unwrapped"]) == (False, 0.0, False)
+    assert (off["summary"]["unwrap_advisory"], off["summary"]["n_unwrapped"]) == (False, 0)
+
+    on = sc.score(v, res, sub, responses, unwrap=True)
+    row = on["items"][0]
+    assert row["unwrapped"] and row["g2_schema"]
+    assert (row["score"], row["checks"]) == (want["score"], want["checks"])
+    assert (on["summary"]["unwrap_advisory"], on["summary"]["n_unwrapped"]) == (True, 1)
+    assert responses == {iid: wrapped}          # scoring never rewrites its input
+
+    bare = sc.score(v, res, sub, {iid: plain}, unwrap=True)["items"][0]
+    assert not bare["unwrapped"] and (bare["score"], bare["checks"]) == (want["score"], want["checks"])
+
+
+@pytest.mark.parametrize("responses, n_wrapped", [
+    ("R2_responses.jsonl", 132), ("R4_responses.jsonl", 0)])
+def test_wrapped_counts_in_phase14_runs(sc, responses, n_wrapped):
+    raw = sc.load_responses(EVAL / responses)
+    assert sum(sc.unwrap_advisory(r) is not None for r in raw.values()) == n_wrapped
+
+
+def test_unwrap_flag_on_cli(sc):
+    r = subprocess.run([sys.executable, str(REPO / "tools" / "score.py"), "--help"],
+                       capture_output=True, text=True, timeout=120)
+    assert r.returncode == 0, r.stderr
+    assert "--unwrap-advisory" in r.stdout
 
 
 # --------------------------------------------------------------------------

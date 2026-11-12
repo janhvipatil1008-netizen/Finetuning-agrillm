@@ -1,0 +1,40 @@
+{
+ "base_model": "unsloth/Qwen2.5-7B-Instruct-bnb-4bit",
+ "args": {
+  "prompts": "/kaggle/input/datasets/jann1008/agri-llm-bundle/prompts_R4.jsonl",
+  "out": "/kaggle/working/R4_responses.jsonl",
+  "adapter": "/kaggle/input/datasets/jann1008/agri-lora-final",
+  "max_new_tokens": 3072,
+  "max_seq_length": null,
+  "repetition_penalty": 1.05,
+  "limit": null
+ },
+ "max_new_tokens": 3072,
+ "max_seq_length": 5911,
+ "generate_kwargs": {
+  "max_new_tokens": 3072,
+  "do_sample": false,
+  "num_beams": 1,
+  "repetition_penalty": 1.05,
+  "temperature": null,
+  "top_p": null,
+  "top_k": null,
+  "use_cache": true
+ },
+ "batch_size": 1,
+ "prompts_sha256": "c9c14893b7cad5736b4f45ba0d2d68e6f4a9ec82a6544c08a90e7ca98ada00aa",
+ "n_prompts": 500,
+ "adapter_sha256": "39bd031706af3ee9e2233a461cbcfdabe511a5d218dfafe5299bcd9e762a3394",
+ "started_utc": "2026-11-10T08:12:37+00:00",
+ "gpu": "Tesla T4",
+ "versions": {
+  "python": "3.13.16",
+  "torch": "2.11.0+cu130",
+  "transformers": "5.17.0",
+  "unsloth": "2026.11.3",
+  "peft": "0.21.2",
+  "bitsandbytes": "0.50.2"
+ },
+ "already_done": 0,
+ "limit": null
+}

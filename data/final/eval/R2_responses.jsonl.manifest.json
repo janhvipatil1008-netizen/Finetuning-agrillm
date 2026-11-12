@@ -1,0 +1,70 @@
+{
+ "base_model": "unsloth/Qwen2.5-7B-Instruct-bnb-4bit",
+ "args": {
+  "prompts": "/kaggle/input/datasets/jann1008/agri-llm-bundle/prompts_R2.jsonl",
+  "out": "/kaggle/working/R2_responses.jsonl",
+  "adapter": null,
+  "max_new_tokens": 3072,
+  "max_seq_length": null,
+  "repetition_penalty": 1.05,
+  "limit": null
+ },
+ "max_new_tokens": 3072,
+ "max_seq_length": 6294,
+ "generate_kwargs": {
+  "max_new_tokens": 3072,
+  "do_sample": false,
+  "num_beams": 1,
+  "repetition_penalty": 1.05,
+  "temperature": null,
+  "top_p": null,
+  "top_k": null,
+  "use_cache": true
+ },
+ "batch_size": 1,
+ "prompts_sha256": "6dd4a60db28e0ef2a5f23ea981d8afdf874298fcfd6fdef4f77df317264ad41a",
+ "n_prompts": 500,
+ "adapter_sha256": null,
+ "started_utc": "2026-11-09T19:41:36+00:00",
+ "gpu": "Tesla T4",
+ "versions": {
+  "python": "3.13.15",
+  "torch": "2.11.0+cu128",
+  "transformers": "5.16.1",
+  "unsloth": "2026.11.3",
+  "peft": "0.20.0",
+  "bitsandbytes": "0.50.2"
+ },
+ "already_done": 0,
+ "limit": null,
+ "resumes": [
+  {
+   "started_utc": "2026-11-10T04:07:34+00:00",
+   "gpu": "Tesla T4",
+   "versions": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu128",
+    "transformers": "5.16.1",
+    "unsloth": "2026.11.3",
+    "peft": "0.20.0",
+    "bitsandbytes": "0.50.2"
+   },
+   "already_done": 98,
+   "limit": null
+  },
+  {
+   "started_utc": "2026-11-10T07:27:31+00:00",
+   "gpu": "Tesla T4",
+   "versions": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu128",
+    "transformers": "5.16.1",
+    "unsloth": "2026.11.3",
+    "peft": "0.20.0",
+    "bitsandbytes": "0.50.2"
+   },
+   "already_done": 500,
+   "limit": null
+  }
+ ]
+}

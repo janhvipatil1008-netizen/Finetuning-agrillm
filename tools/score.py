@@ -36,9 +36,18 @@ defects included -- for regression only. It reproduces baseline 0.1719
 (baseline_scores_v2.json) and SFT 0.5203 (trained_scores.json), and writes
 nothing.
 
+--unwrap-advisory is a SENSITIVITY, never the headline: a response that
+parses to exactly {"Advisory": {...}} -- one key, an object value -- is
+scored as the inner object (re-serialised, so verify() still gets a string).
+The base model wraps answers that way after reading "matching the Advisory
+schema"; the flag measures what that formatting slip costs. Scoring only:
+the responses file is never edited. Unwrapped items are flagged per item and
+counted in the summary (n_unwrapped).
+
 Usage:
     python tools/score.py <responses.jsonl> --label <name> [--force]
     python tools/score.py <responses.jsonl> --label <name> --legacy-500
+    python tools/score.py <responses.jsonl> --label <name> --unwrap-advisory
 """
 
 from __future__ import annotations
@@ -49,6 +58,7 @@ import re
 import sys
 from collections import Counter
 from pathlib import Path
+from typing import Optional
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -78,20 +88,39 @@ def scored_items(bench: dict, legacy_500: bool = False) -> dict:
     return {i: it for i, it in bench.items() if i not in KNOWN_BENCH_DEFECTS}
 
 
+def unwrap_advisory(raw: str) -> Optional[str]:
+    """The inner object, re-serialised, when `raw` parses to exactly
+    {"Advisory": {...}}; None for anything else, unparseable included."""
+    try:
+        obj = json.loads(raw)
+    except (json.JSONDecodeError, TypeError):
+        return None
+    if isinstance(obj, dict) and list(obj) == ["Advisory"] and isinstance(obj["Advisory"], dict):
+        return json.dumps(obj["Advisory"], ensure_ascii=False)
+    return None
+
+
 def score(v, res, bench: dict, responses: dict[str, str],
-          legacy_500: bool = False) -> dict:
+          legacy_500: bool = False, unwrap: bool = False) -> dict:
     """Per-item verdicts plus a summary. `bench` is keyed by item_id.
 
     A response whose item_id is not in the bench is refused rather than
     ignored -- it means the wrong responses file or the wrong bench. A
     response for a known-defect item is in the bench and is simply not
-    scored.
+    scored. With `unwrap`, {"Advisory": {...}} responses are scored as their
+    inner object; `responses` itself is not modified.
     """
     unknown = sorted(set(responses) - set(bench))
     if unknown:
         raise ValueError(f"{len(unknown)} response item_id(s) not in bench: "
                          f"{unknown[:10]}")
     items = scored_items(bench, legacy_500)
+    unwrapped: set[str] = set()
+    if unwrap:
+        inner = {iid: unwrap_advisory(raw) for iid, raw in responses.items() if iid in items}
+        unwrapped = {iid for iid, s in inner.items() if s is not None}
+        responses = {iid: inner[iid] if iid in unwrapped else raw
+                     for iid, raw in responses.items()}
     results = p10.rescore(v, res, items, responses)
     rows = []
     for iid in items:
@@ -100,6 +129,7 @@ def score(v, res, bench: dict, responses: dict[str, str],
             rows.append({"item_id": iid, "score": 0.0, "excluded": False,
                          "exclusion_reason": "", "missing": True,
                          "g1_json": False, "g2_schema": False, "checks": {},
+                         "unwrapped": False,
                          "failures": ["missing: no response for this item"]})
             continue
         rows.append({"item_id": iid,
@@ -109,11 +139,13 @@ def score(v, res, bench: dict, responses: dict[str, str],
                      "missing": False,
                      "g1_json": bool(r.gates.get("G1_json")),
                      "g2_schema": bool(r.gates.get("G2_schema")),
-                     "checks": r.checks, "failures": r.failures})
-    return {"summary": summarise(v, rows, legacy_500), "items": rows}
+                     "checks": r.checks,
+                     "unwrapped": iid in unwrapped,
+                     "failures": r.failures})
+    return {"summary": summarise(v, rows, legacy_500, unwrap), "items": rows}
 
 
-def summarise(v, rows: list[dict], legacy_500: bool) -> dict:
+def summarise(v, rows: list[dict], legacy_500: bool, unwrap: bool = False) -> dict:
     scored = [r for r in rows if not r["excluded"]]
     graded = [r for r in scored if not r["missing"]]
     n = len(rows)
@@ -125,6 +157,8 @@ def summarise(v, rows: list[dict], legacy_500: bool) -> dict:
         checks[c] = {"mean": round(p10.mean(xs), 6) if xs else None, "n": len(xs)}
     return {
         "convention": "legacy_500" if legacy_500 else "bench_minus_known_defects",
+        "unwrap_advisory": unwrap,
+        "n_unwrapped": sum(r["unwrapped"] for r in rows),
         "n_items": n,
         "n_scored": len(scored),
         "n_excluded": n - len(scored),
@@ -154,6 +188,9 @@ def print_summary(s: dict) -> None:
     print(f"  mean        {_fmt(s['mean'])}  over n_scored={s['n_scored']}")
     print(f"  items {s['n_items']}  scored {s['n_scored']}  "
           f"excluded {s['n_excluded']}  missing {s['n_missing']}")
+    if s["unwrap_advisory"]:
+        print(f"  --unwrap-advisory: {s['n_unwrapped']} {{\"Advisory\": ...}} "
+              f"responses scored as their inner object (sensitivity only)")
     print(f"  G1 json     {s['g1_json_pct']:.1f}%  ({s['n_g1_json']}/{s['n_items']})")
     print(f"  G2 schema   {s['g2_schema_pct']:.1f}%  ({s['n_g2_schema']}/{s['n_items']})")
     for c, m in s["checks"].items():
@@ -172,6 +209,9 @@ def main() -> None:
     ap.add_argument("--legacy-500", action="store_true",
                     help="pre-Phase-14 500-item convention; regression only, "
                          "writes nothing")
+    ap.add_argument("--unwrap-advisory", action="store_true",
+                    help='score {"Advisory": {...}} responses as the inner object '
+                         "(sensitivity; the responses file is not edited)")
     ap.add_argument("--force", action="store_true",
                     help="replace an existing scores_<label>.json")
     args = ap.parse_args()
@@ -184,7 +224,8 @@ def main() -> None:
     v = p10.load_verify()
     res = v.VerifyResources.load()
     bench = {r["item_id"]: r for r in p10.jsonl(p10.BENCH)}
-    report = score(v, res, bench, load_responses(args.responses), args.legacy_500)
+    report = score(v, res, bench, load_responses(args.responses), args.legacy_500,
+                   args.unwrap_advisory)
     report["summary"] = {"label": args.label, "responses": _rel(args.responses),
                          **report["summary"]}
     print_summary(report["summary"])
