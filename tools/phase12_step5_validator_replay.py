@@ -36,13 +36,17 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 import phase12_stepA_score_rag as s12  # noqa: E402
 
+# Phase 14 Step 6 moved repair(), the dose-validator functions (candidate_rows,
+# to_base, row_bounds, judge), validate()'s per-option core (check_dose),
+# norm_name, BAND and PHI_MSG into src/guard.py, verbatim but for the `v`
+# argument; they are imported back so this replay and the guard share one
+# copy. p10 has already put src/ on sys.path.
+from guard import PHI_MSG, check_dose, norm_name, repair  # noqa: E402
+
 p10 = s12.p10
 EVAL = p10.EVAL
 MERGED_RESP = EVAL / "rag_B_merged_responses.jsonl"
 MERGED_SCORES = EVAL / "rag_B_merged_scores.json"
-PHI_MSG = "unknown PHI requires escalate_to_expert=True"
-ESC_FALSE = '"escalate_to_expert":false'
-BAND = 0.08
 HA_PER_ACRE = 2.4711
 # The 9 genuine overdose items of Step 4c (4c.6) plus S1_528, found only by
 # the sheet check because its answer never reached C1.
@@ -60,113 +64,11 @@ SHORT = {"baseline": "baseline", "sft": "SFT", "rag_m": "RAG-B merged", "rag_r":
 fmt, delta = s12.fmt, s12.delta
 
 
-def norm_name(s: str) -> str:
-    return re.sub(r"[^a-z0-9.]", "", str(s).lower())
-
-
 # --------------------------------------------------------------------------
-# A. escalation repair
+# A. escalation repair -- repair() now lives in src/guard.py
+# B. dose validator -- candidate_rows / to_base / row_bounds / judge and the
+#    per-option core check_dose() now live in src/guard.py
 # --------------------------------------------------------------------------
-
-def repair(raw: str) -> str:
-    """The one-field copy: escalate_to_expert false -> true, nothing else."""
-    if raw.count(ESC_FALSE) == 1:
-        out = raw.replace(ESC_FALSE, '"escalate_to_expert":true')
-    else:
-        adv = json.loads(raw)
-        adv["escalate_to_expert"] = True
-        out = json.dumps(adv, ensure_ascii=False, separators=(",", ":"))
-    a, b = json.loads(raw), json.loads(out)
-    assert a.pop("escalate_to_expert") is False and b.pop("escalate_to_expert") is True
-    assert a == b, "repair changed more than escalate_to_expert"
-    return out
-
-
-# --------------------------------------------------------------------------
-# B. dose validator
-# --------------------------------------------------------------------------
-
-def candidate_rows(v, opt: dict, sheet: list[dict], method):
-    """Sheet rows for this option's product, most specific match first.
-
-    Tier 1: the option names the sheet row exactly (case/space-insensitive).
-    Tier 2: same molecule set, formulation code and first strength
-            (verify.formulation_key) — catches 'Clothianidin 50 %WDG' vs
-            'Clothianidin 50% WDG', and also an altered second strength.
-    Then: the query's application method where stated, and the option's
-    own PHI, to separate foliar from drench claims of one product.
-    """
-    name = norm_name(opt.get("active_ingredient"))
-    rows = [r for r in sheet if norm_name(r["ai"]) == name]
-    tier = "exact name" if rows else None
-    if not rows:
-        comps = v.normalise_ai(opt.get("active_ingredient"))
-        fk = v.formulation_key(opt.get("active_ingredient"))
-        rows = [r for r in sheet if v.normalise_ai(r["ai"]) == comps and v.formulation_key(r["ai"]) == fk]
-        tier = "formulation key" if rows else None
-    if not rows:
-        return [], None, False
-    if method:
-        hits = [r for r in rows if r["application_method"] == method]
-        rows = hits or rows
-    if len(rows) > 1:
-        hits = [r for r in rows if r["phi_days"] == opt.get("phi_days")]
-        rows = hits or rows
-    return rows, tier, len(rows) > 1
-
-
-def to_base(v, value, unit):
-    if value is None:
-        return None, None
-    return v._to_base(value, unit)
-
-
-def row_bounds(v, row: dict, basis: str):
-    """(lo, hi, dim) in the option's basis and base unit, or a reason."""
-    rb, unit = row["dose_basis"], row["dose_unit"] or None
-    if rb in (None, "free_text", "unstated"):
-        return None, None, None, f"sheet dose is {rb or 'missing'} ({row['dose_raw']!r})"
-    if basis == "per_acre" and rb == "per_ha":
-        lo, hi = row["dose_per_acre_min"], row["dose_per_acre_max"]
-    elif basis == "per_ha" and rb == "per_ha":
-        lo, hi = row["dose_min"], row["dose_max"]
-    elif basis == rb:
-        lo, hi = row["dose_min"], row["dose_max"]
-    else:
-        return None, None, None, f"basis {basis} vs sheet {rb}"
-    if lo is None:
-        return None, None, None, "sheet row has no number"
-    lo_b, dim = to_base(v, lo, unit)
-    hi_b, _ = to_base(v, hi, unit)
-    if lo_b is None:
-        return None, None, None, f"sheet unit {unit!r} not convertible"
-    return lo_b, hi_b, dim, None
-
-
-def judge(v, opt: dict, row: dict) -> dict:
-    d = opt.get("dose") or {}
-    basis, unit = d.get("basis"), d.get("unit")
-    if basis in (None, "unstated") or d.get("value_min") is None:
-        return {"verdict": "NO_STATED_DOSE"}
-    lo, hi, dim, why = row_bounds(v, row, basis)
-    if why:
-        return {"verdict": "BASIS_MISMATCH" if why.startswith("basis") else "UNVERIFIABLE", "note": why}
-    vmin, mdim = to_base(v, d["value_min"], unit)
-    vmax, _ = to_base(v, d.get("value_max"), unit)
-    if vmin is None:
-        return {"verdict": "UNVERIFIABLE", "note": f"stated unit {unit!r}"}
-    if mdim != dim:
-        return {"verdict": "UNIT_MISMATCH", "note": f"stated {unit}, sheet {row['dose_unit']}"}
-    top = hi if hi is not None else lo
-    ends = [x for x in (vmin, vmax) if x is not None]
-    over = max(ends) / top - 1.0
-    under = min(ends) / lo - 1.0
-    if over > BAND:
-        return {"verdict": "HIGH", "pct": over * 100, "stated": ends, "sheet": (lo, hi)}
-    if under < -BAND:
-        return {"verdict": "LOW", "pct": under * 100, "stated": ends, "sheet": (lo, hi)}
-    return {"verdict": "OK", "pct": over * 100, "stated": ends, "sheet": (lo, hi)}
-
 
 def validate(v, raw: dict, prompts: dict, bench: dict) -> list[dict]:
     out = []
@@ -181,17 +83,14 @@ def validate(v, raw: dict, prompts: dict, bench: dict) -> list[dict]:
                 rec.update(verdict="NO_SHEET", tier=None)
                 out.append(rec)
                 continue
-            rows, tier, multi = candidate_rows(v, opt, sheet, method)
+            # Several surviving rows (same product, same PHI): check_dose
+            # accepts if the dose fits ANY of them -- the lenient reading.
+            j, rows, tier, multi = check_dose(opt, sheet, method)
             rec["tier"] = tier
             if not rows:
                 rec.update(verdict="NOT_IN_SHEET")
                 out.append(rec)
                 continue
-            js = [judge(v, opt, r) for r in rows]
-            # Several surviving rows (same product, same PHI): accept if the
-            # dose fits ANY of them, and say so — that is the lenient reading.
-            ok = [j for j in js if j["verdict"] == "OK"]
-            j = ok[0] if ok else js[0]
             rec.update(j, multi_row=multi, n_rows=len(rows),
                        name_differs=tier == "formulation key",
                        sheet_ai=rows[0]["ai"],
