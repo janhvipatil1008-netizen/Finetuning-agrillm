@@ -150,12 +150,16 @@ proof.
   is given), not free text.
   - Example: `B4b_7` is a grape query, but its answer names "pomegranate"
     in its evidence. It still scores 1.000 once the guard escalates it.
-- **A ground-truth basis error the scorer inherits.** label_db records some
-  seed-treatment (FS) doses as per hectare, where the label's bare number
-  means per kg of seed. The scorer then accepts a per-acre dose for them.
-  - Example: `S1_140` scores 1.000 while recommending 1.6187 ml per acre of
-    two Sedaxane + Fludioxonil + Thiamethoxam FS products. Their cotton
-    label dose is 4.0 ml per kg of seed.
+- **A ground-truth basis error the scorer inherits.** label_db records
+  **12 of its 38 seed-treatment rows** as per hectare, where the label's
+  bare number means per kg of seed; 7 more are unclear. The scorer, the
+  guard and the training data then all accept a per-acre dose for them.
+  - **Reach:** it touches **7 benchmark items** and **52 of 4,493 training
+    examples** (plus 11 of 1,136 test examples).
+  - **Effect on the results:** excluding the 7 items moves no arm's mean
+    by more than **+0.0069**, and no comparison's confidence interval
+    changes sign. The fix is future work
+    ([`reports/phase14_clean_eval.md`](reports/phase14_clean_eval.md) §10).
 
 **Guard:**
 - **Some answers are only escalated, not validated.** If no crop resolves,

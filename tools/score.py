@@ -44,10 +44,17 @@ schema"; the flag measures what that formatting slip costs. Scoring only:
 the responses file is never edited. Unwrapped items are flagged per item and
 counted in the summary (n_unwrapped).
 
+--exclude-items <json> is a SENSITIVITY too: it removes the listed item_ids
+(the file's "items" list) from the item universe before scoring, on top of
+the known defects. The summary records the list and the file, so a reduced
+denominator is never mistaken for the 498. Used for the seed-treatment basis
+check (data/final/eval/seedexcl_items.json, Phase 14).
+
 Usage:
     python tools/score.py <responses.jsonl> --label <name> [--force]
     python tools/score.py <responses.jsonl> --label <name> --legacy-500
     python tools/score.py <responses.jsonl> --label <name> --unwrap-advisory
+    python tools/score.py <responses.jsonl> --label <name> --exclude-items <json>
 """
 
 from __future__ import annotations
@@ -101,20 +108,25 @@ def unwrap_advisory(raw: str) -> Optional[str]:
 
 
 def score(v, res, bench: dict, responses: dict[str, str],
-          legacy_500: bool = False, unwrap: bool = False) -> dict:
+          legacy_500: bool = False, unwrap: bool = False,
+          exclude: frozenset[str] = frozenset()) -> dict:
     """Per-item verdicts plus a summary. `bench` is keyed by item_id.
 
     A response whose item_id is not in the bench is refused rather than
     ignored -- it means the wrong responses file or the wrong bench. A
     response for a known-defect item is in the bench and is simply not
     scored. With `unwrap`, {"Advisory": {...}} responses are scored as their
-    inner object; `responses` itself is not modified.
+    inner object; `responses` itself is not modified. `exclude` removes those
+    item_ids from the item universe (a sensitivity; recorded in the summary).
     """
     unknown = sorted(set(responses) - set(bench))
     if unknown:
         raise ValueError(f"{len(unknown)} response item_id(s) not in bench: "
                          f"{unknown[:10]}")
-    items = scored_items(bench, legacy_500)
+    stray = sorted(set(exclude) - set(bench))
+    if stray:
+        raise ValueError(f"exclude names {len(stray)} item_id(s) not in bench: {stray[:10]}")
+    items = {i: it for i, it in scored_items(bench, legacy_500).items() if i not in exclude}
     unwrapped: set[str] = set()
     if unwrap:
         inner = {iid: unwrap_advisory(raw) for iid, raw in responses.items() if iid in items}
@@ -142,7 +154,11 @@ def score(v, res, bench: dict, responses: dict[str, str],
                      "checks": r.checks,
                      "unwrapped": iid in unwrapped,
                      "failures": r.failures})
-    return {"summary": summarise(v, rows, legacy_500, unwrap), "items": rows}
+    summary = summarise(v, rows, legacy_500, unwrap)
+    if exclude:
+        summary["convention"] += "_minus_listed_items"
+        summary["excluded_up_front"] = sorted(exclude)
+    return {"summary": summary, "items": rows}
 
 
 def summarise(v, rows: list[dict], legacy_500: bool, unwrap: bool = False) -> dict:
@@ -188,6 +204,9 @@ def print_summary(s: dict) -> None:
     print(f"  mean        {_fmt(s['mean'])}  over n_scored={s['n_scored']}")
     print(f"  items {s['n_items']}  scored {s['n_scored']}  "
           f"excluded {s['n_excluded']}  missing {s['n_missing']}")
+    if s.get("excluded_up_front"):
+        print(f"  --exclude-items: {len(s['excluded_up_front'])} items removed up front "
+              f"({s['exclude_items_file']}; sensitivity only)")
     if s["unwrap_advisory"]:
         print(f"  --unwrap-advisory: {s['n_unwrapped']} {{\"Advisory\": ...}} "
               f"responses scored as their inner object (sensitivity only)")
@@ -212,6 +231,9 @@ def main() -> None:
     ap.add_argument("--unwrap-advisory", action="store_true",
                     help='score {"Advisory": {...}} responses as the inner object '
                          "(sensitivity; the responses file is not edited)")
+    ap.add_argument("--exclude-items", type=Path,
+                    help='JSON file whose "items" list is removed from the item '
+                         "universe (sensitivity; recorded in the summary)")
     ap.add_argument("--force", action="store_true",
                     help="replace an existing scores_<label>.json")
     args = ap.parse_args()
@@ -224,9 +246,13 @@ def main() -> None:
     v = p10.load_verify()
     res = v.VerifyResources.load()
     bench = {r["item_id"]: r for r in p10.jsonl(p10.BENCH)}
+    exclude = frozenset()
+    if args.exclude_items:
+        exclude = frozenset(json.loads(args.exclude_items.read_text(encoding="utf-8"))["items"])
     report = score(v, res, bench, load_responses(args.responses), args.legacy_500,
-                   args.unwrap_advisory)
+                   args.unwrap_advisory, exclude)
     report["summary"] = {"label": args.label, "responses": _rel(args.responses),
+                         **({"exclude_items_file": _rel(args.exclude_items)} if exclude else {}),
                          **report["summary"]}
     print_summary(report["summary"])
     if args.legacy_500:

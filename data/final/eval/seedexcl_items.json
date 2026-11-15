@@ -1,0 +1,47 @@
+{
+ "generated_by": "tools/phase14_seed_basis.py --write-items",
+ "description": "Bench items whose gold advisory is graded against a label_db row with the seed-treatment basis error (WRONG_BASIS). Consumed by tools/score.py --exclude-items for the _seedexcl sensitivity scores.",
+ "wrong_basis_rows": [
+  150,
+  151,
+  152,
+  248,
+  249,
+  256,
+  257,
+  541,
+  542,
+  543,
+  629,
+  630
+ ],
+ "items": [
+  "B3_25",
+  "B4b_4",
+  "S1_101",
+  "S1_1261",
+  "S1_140",
+  "S1_180",
+  "S1_5582"
+ ],
+ "items_any_arm": [
+  "B3_11",
+  "B3_25",
+  "B4a_6",
+  "B4a_7",
+  "B4b_4",
+  "S1_101",
+  "S1_104",
+  "S1_1261",
+  "S1_140",
+  "S1_15",
+  "S1_162",
+  "S1_180",
+  "S1_237",
+  "S1_247",
+  "S1_496",
+  "S1_5582",
+  "S1_5682",
+  "S1_604"
+ ]
+}

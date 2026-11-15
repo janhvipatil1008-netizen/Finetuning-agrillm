@@ -202,3 +202,48 @@ def test_legacy_500_reproduces_recorded_scores(sc, env, responses, recorded,
             assert r["item_id"] in s["excluded"]
         else:
             assert round(r["score"], 6) == round(w["total"], 6), r["item_id"]
+
+
+# --------------------------------------------------------------------------
+# --exclude-items and the seed-treatment basis sensitivity
+# --------------------------------------------------------------------------
+
+def test_exclude_items_removes_and_records(sc, env):
+    v, res, bench = env
+    out = sc.score(v, res, bench, {}, exclude=frozenset({"S1_140", "B3_25"}))
+    s = out["summary"]
+    assert s["n_items"] == 496 and s["excluded_up_front"] == ["B3_25", "S1_140"]
+    assert s["convention"].endswith("_minus_listed_items")
+    assert not {"S1_140", "B3_25"} & {r["item_id"] for r in out["items"]}
+    with pytest.raises(ValueError, match="exclude names"):
+        sc.score(v, res, bench, {}, exclude=frozenset({"NOT_AN_ITEM"}))
+
+
+SEEDEXCL_ARMS = ["R0_baseline", "R3_sft", "R2_base_rag", "R2_base_rag_unwrapped",
+                 "R4_sft_rag", "R4_sft_rag_guarded"]
+
+
+@pytest.mark.parametrize("label", SEEDEXCL_ARMS)
+def test_seedexcl_scores_follow_the_item_list(label):
+    """Each _seedexcl file is its arm's 498-item file minus the listed items."""
+    listed = json.loads((EVAL / "seedexcl_items.json").read_text(encoding="utf-8"))["items"]
+    sx = json.loads((EVAL / f"scores_{label}_seedexcl.json").read_text(encoding="utf-8"))
+    base = json.loads((EVAL / f"scores_{label}.json").read_text(encoding="utf-8"))
+    assert sx["summary"]["excluded_up_front"] == sorted(listed) and sx["summary"]["n_items"] == 491
+    want = {r["item_id"]: r for r in base["items"] if r["item_id"] not in set(listed)}
+    assert [r["item_id"] for r in sx["items"]] == list(want)
+    assert all(r["score"] == want[r["item_id"]]["score"] for r in sx["items"])
+
+
+def test_seed_basis_review_covers_every_seed_treatment_row(sc, env):
+    v, res, bench = env
+    sb = importlib.import_module("phase14_seed_basis")
+    assert len(sb.seed_rows(v, res)) == 38          # asserts the review covers exactly these
+    counts = {c: len(sb.by_class(c)) for c in ("CORRECT", "WRONG_BASIS", "UNCLEAR", "NOT_RECORDED")}
+    assert counts == {"CORRECT": 14, "WRONG_BASIS": 12, "UNCLEAR": 7, "NOT_RECORDED": 5}
+    listed = json.loads((EVAL / "seedexcl_items.json").read_text(encoding="utf-8"))
+    assert listed["wrong_basis_rows"] == sorted(sb.by_class("WRONG_BASIS"))
+    # every WRONG_BASIS / UNCLEAR row is one label_db recorded per hectare
+    df = res.label_db.df
+    assert {i for i in sb.ROW_REVIEW if df.at[i, "dose_formulation_basis"] == "per_ha"} == \
+        sb.by_class("WRONG_BASIS") | sb.by_class("UNCLEAR")

@@ -154,12 +154,15 @@ are right.
     "pomegranate" in its evidence. It still scores 1.000 once the guard
     escalates it.
 - **A ground-truth basis error the scorer inherits.** The label database
-  records some seed-treatment (FS) doses as per hectare, where the label's
-  bare number means per kg of seed. The scorer then accepts a per-acre dose
-  for them.
-  - Example: item S1_140 scores 1.000 while recommending 1.6187 ml per acre
-    of two Sedaxane + Fludioxonil + Thiamethoxam FS products. Their cotton
-    label dose is 4.0 ml per kg of seed.
+  records **12 of its 38 seed-treatment rows** as per hectare, where the
+  label's bare number means per kg of seed; 7 more are unclear. The scorer,
+  the guard and the training data then all accept a per-acre dose for them.
+  - **Reach:** it touches **7 benchmark items** and **52 of 4,493 training
+    examples** (plus 11 of 1,136 test examples).
+  - **Effect on the results:** excluding the 7 items moves no arm's mean
+    by more than **+0.0069**, and no comparison's confidence interval
+    changes sign. See `reports/phase14_clean_eval.md` §10 in the GitHub
+    repository.
 - **Loss over the whole sequence.** Training computed loss over system
   prompt + query + answer, not the answer only (from session record). The
   prompt is a median

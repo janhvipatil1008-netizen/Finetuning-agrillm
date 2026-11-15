@@ -368,6 +368,156 @@ on the same number.
 7. **`R2_base_rag_unwrapped` is a scoring sensitivity, not model
    output.** Report R2_base_rag as the base arm's score, and the
    unwrapped figure only alongside it.
+8. **A ground-truth error in label_db: seed-treatment doses recorded per
+   hectare.** See §10. It does not move any headline figure here.
+
+## 10. Ground-truth error: seed-treatment basis
+
+Found 2026-11-15 while checking `S1_140`. This section is report-only:
+label_db, `bench.jsonl`, `verify.py` and the SFT data are unchanged.
+
+```bash
+python tools/phase14_seed_basis.py --write-items        # data/final/eval/seedexcl_items.json
+python tools/score.py <responses> --label <arm>_seedexcl --exclude-items data/final/eval/seedexcl_items.json   # x6
+python tools/phase14_seed_basis.py --md <tables.md>     # every table below, plus the full 38-row table
+```
+
+### The error
+
+**Where it comes from.** CIB&RC heads its dose column "Dosage/ha
+(Formulation)" (fungicides p.43). For seed-treatment products, though,
+that column usually holds a dose per kg of **seed**, or per 10 kg or
+100 kg.
+
+**When the parser gets it right.** If the cell says so ("8-10 ml/kg
+seed"), label_db records `per_kg_seed`.
+
+**When it doesn't.** If the cell is a bare number, the parser took the
+header literally and recorded `per_ha`. `verify()` then derives a
+per-acre figure and accepts per-acre answers against it.
+
+For example, `S1_140` scores 1.000 while recommending 1.6187 ml per acre
+of two Sedaxane + Fludioxonil + Thiamethoxam FS products. Their cotton
+label dose is 4.0 ml per kg of seed.
+
+### Rows
+
+I checked every label_db row whose `verify.formulation_key` code is a
+seed-treatment code (FS, ES, WS, DS) against its PDF page: 38 rows.
+
+| class | rows | meaning |
+|---|---:|---|
+| CORRECT | 14 | the recorded basis is what the label prints; every one is an explicit "/kg seed" or "/10 kg seed" cell |
+| **WRONG_BASIS** | **12** | a bare number recorded `per_ha`, where the page ties that product's dose to seed |
+| UNCLEAR | 7 | a bare number under the per-ha header, with no seed statement for that product on the page; a seed-treatment code alone is not taken as proof |
+| NOT_RECORDED | 5 | no dose recorded (the parser refused), so the row is never graded |
+
+- **All 19 per-hectare rows are suspect.** Every row recorded `per_ha`
+  is either WRONG_BASIS (12) or UNCLEAR (7).
+- **A fourth class.** NOT_RECORDED goes beyond the three classes
+  originally planned. A row with no dose has no basis to be wrong.
+- **One code false positive.** Row #672 is a foliar *Bt* product: "ES"
+  is not a seed treatment there.
+
+The 19 rows recorded per hectare:
+
+| row | crop | product | recorded | page | class | what the page shows |
+|---:|---|---|---|---|---|---|
+| 150 | cotton | Imidacloprid 48% FS | 500–900 ml / ha | insecticides p.36 | WRONG_BASIS | product header "dosage per 100 kg of seeds" |
+| 151 | soybean | Imidacloprid 48% FS | 125 ml / ha | insecticides p.36 | WRONG_BASIS | same header |
+| 152 | gram | Imidacloprid 48% FS | 0.25 ml / ha | insecticides p.36 | WRONG_BASIS | same header; 0.25 per 100 kg is implausibly small, so the scale is uncertain too |
+| 153 | cotton | Imidacloprid 70% WS | 500–1000 g / ha | insecticides p.36 | UNCLEAR | no seed statement for this product |
+| 248 | cotton | Thiamethoxam 30% FS | 10 ml / ha | insecticides p.52 | WRONG_BASIS | "This is used as seed dresser"; the product's explicit cotton row prints 8–10 ml/kg seed |
+| 249 | soybean | Thiamethoxam 30% FS | 10 ml / ha | insecticides p.52 | WRONG_BASIS | "This is used as seed dresser" |
+| 256 | cotton | Thiamethoxam 70% WS | 430 g / ha | insecticides p.53 | WRONG_BASIS | "Use as seed dresser at the time of sowing"; seed quantity not printed |
+| 257 | tomato | Thiamethoxam 70% WS | 600 g / ha | insecticides p.53 | WRONG_BASIS | same |
+| 275 | soybean | Azoxystrobin + Carbendazim + Thiamethoxam 30% FS | 100 ml / ha | insecticides p.58 | UNCLEAR | bare "100"; dilution and PHI "NA" |
+| 491 | cotton | Thiram 75% WS | 25–30 g / ha | fungicides p.40 | UNCLEAR | bare "25-30gm"; PHI 7–10 |
+| 504 | soybean | Azoxystrobin + Carbendazim + Thiamethoxam 30% FS | 100 ml / ha | fungicides p.43 | UNCLEAR | bare "100" directly under "Dosage/ha (Formulation)" |
+| 528 | soybean | Azoxystrobin + Thiophanate methyl + Thiamethoxam 25% FS | 100 ml / ha | fungicides p.50 | UNCLEAR | bare "100" |
+| 541 | gram | Carbendazim 25% + Mancozeb 50% WS | 30 g / ha | fungicides p.54 | WRONG_BASIS | the product's groundnut row prints "(for 10 kg seed)"; same a.i. 7.5+15 |
+| 542 | soybean | Carbendazim 25% + Mancozeb 50% WS | 30 g / ha | fungicides p.54 | WRONG_BASIS | same |
+| 543 | onion | Carbendazim 25% + Mancozeb 50% WS | 30 g / ha | fungicides p.54 | WRONG_BASIS | same |
+| 616 | soybean | Penflufen + Trifloxystrobin FS | 80–100 ml / ha | fungicides p.71 | UNCLEAR | only the product's rice row describes a per-kg-seed slurry, at another scale |
+| 617 | gram | Penflufen + Trifloxystrobin FS | 80–100 ml / ha | fungicides p.71 | UNCLEAR | same |
+| 629 | cotton | Sedaxane 2.5% + Fludioxonil 2.5% + Thiamethoxam 26.25% w/v FS | 4.0 ml / ha | fungicides p.77 | WRONG_BASIS | the same claim as #630 (4.0 ml carrying 1.25 g a.i.); its dilution "10" is #630's per-kg-seed slurry |
+| 630 | cotton | Sedaxane 2.2% + Fludioxonil 2.2% + Thiamethoxam 22.8% w/w FS | 4.0 ml / ha | fungicides p.77 | WRONG_BASIS | block prints "slurry volume … 10–12 ml/kg cotton seeds" and doses in "ml/kg seed" |
+
+**PHI flags:**
+- **Explicit (1).** On #630, the merged PHI cell says "waiting period is
+  not applicable", but label_db records the PHI as unknown.
+- **Possible (6).**
+  - #248, #249, #256, #257: "seed dresser" is printed in the dilution
+    column, and the block has no PHI column.
+  - #275, #643: the PHI cell prints "NA", which could mean "not
+    applicable" or "not available".
+
+### What it touches
+
+An option counts as using a row if `verify()` would grade it against
+that row. That is `for_triple` on crop, pest and a.i., then `verify()`'s
+own candidate narrowing.
+
+- **Benchmark: 7 items** have a gold advisory that uses a WRONG_BASIS
+  row.
+  - `B3_25`, `B4b_4`, `S1_1261` use row #152.
+  - `S1_101`, `S1_140`, `S1_180`, `S1_5582` use rows #629/#630.
+  - 5 more use UNCLEAR rows; those are not excluded.
+- **Model answers graded against a WRONG_BASIS row:** R0 2, R3 2, R2 10,
+  R4 5 (R4 guarded 5). Counting gold and all arms together: 18 items.
+- **SFT data:** **52 of 4,493** training examples and **11 of 1,136** test
+  examples use a WRONG_BASIS row. Another 14 and 2 use UNCLEAR rows.
+
+### Sensitivity: the 7 gold-affected items excluded
+
+The six score files with the suffix `_seedexcl` exclude the 7 items
+listed in `seedexcl_items.json`, leaving 491 items. The last two columns
+use the stricter 18-item set (gold or any arm), computed in memory.
+
+| arm | mean, 498 | mean, excl. 7 | Δ | n scored | mean, excl. 18 | Δ |
+|---|---:|---:|---:|---:|---:|---:|
+| R0_baseline | 0.1726 | 0.1750 | +0.0025 | 491 | 0.1767 | +0.0041 |
+| R3_sft | 0.5220 | 0.5255 | +0.0034 | 480 | 0.5318 | +0.0097 |
+| R2_base_rag | 0.2060 | 0.2079 | +0.0018 | 490 | 0.2108 | +0.0048 |
+| R2_base_rag_unwrapped | 0.2912 | 0.2943 | +0.0031 | 480 | 0.2970 | +0.0058 |
+| R4_sft_rag | 0.5840 | 0.5899 | +0.0058 | 491 | 0.6013 | +0.0173 |
+| R4_sft_rag_guarded | 0.6597 | 0.6666 | +0.0069 | 491 | 0.6671 | +0.0074 |
+
+| A vs B | Δ, 498 [95% CI] | Δ, excl. 7 [95% CI] | Δ, excl. 18 [95% CI] | CI sign changes? |
+|---|---|---|---|---|
+| R4_sft_rag vs R2_base_rag | +0.3792 [+0.3236, +0.4337] | +0.3832 [+0.3273, +0.4365] | +0.3918 [+0.3355, +0.4473] | no |
+| R4_sft_rag vs R2_base_rag_unwrapped | +0.2879 [+0.2306, +0.3446] | +0.2907 [+0.2317, +0.3478] | +0.2997 [+0.2392, +0.3573] | no |
+| R4_sft_rag vs R3_sft | +0.0586 [+0.0229, +0.0939] | +0.0611 [+0.0259, +0.0955] | +0.0665 [+0.0315, +0.1021] | no |
+| R2_base_rag_unwrapped vs R0_baseline | +0.1183 [+0.0710, +0.1667] | +0.1189 [+0.0715, +0.1681] | +0.1198 [+0.0716, +0.1693] | no |
+
+**The headline does not move.**
+- Dropping the 7 gold-affected items moves no arm by more than +0.0069
+  (R4 guarded).
+- Dropping all 18 moves no arm by more than +0.0173 (R4).
+- No comparison's confidence interval changes sign.
+- Every mean rises slightly: the affected items score below average, so
+  they pull the reported means down, not up.
+
+**It is still a correctness defect.** On these rows, the scorer, the
+guard and the training data all accept a per-acre dose for a seed
+treatment.
+
+### Future work (not done; it changes frozen files)
+
+1. **Fix the parser.** Parse bare-number cells on seed-treatment
+   formulations as `per_kg_seed`.
+   - Scale by the seed quantity the product block prints, where it prints
+     one (per 10 kg, per 100 kg).
+   - Leave UNCLEAR rows unparsed rather than `per_ha`.
+   - Carry the merged "not applicable" PHI cells (#630) through.
+2. **Version the benchmark.** Make a `bench.jsonl` v2 with the 7 items'
+   gold regenerated, and re-score every arm on it.
+3. **Regenerate the affected training examples:** 52 train and 11 test.
+   Whether to retrain on them is a judgment call: 52 of 4,493 is about 1%
+   of the training set.
+
+These change label_db, `bench.jsonl` and the SFT data, all of which are
+frozen, so they need a deliberate re-freeze.
 
 ## Outputs
 
@@ -380,3 +530,7 @@ on the same number.
 | `data/final/eval/scores_R4_sft_rag.json` | R4, per-item verdicts + summary |
 | `tools/score.py` | `--unwrap-advisory` added (sensitivity only) |
 | `tools/phase14_step5_eval.py` | integrity, noise floor, canonical table, paired comparisons |
+| `tools/phase14_seed_basis.py` | §10: the 38-row review, affected items, sensitivity tables |
+| `data/final/eval/seedexcl_items.json` | §10: the 7 gold-affected items (and the 18-item set) |
+| `data/final/eval/scores_<arm>_seedexcl.json` (6) | §10: R0, R3, R2, R2 unwrapped, R4, R4 guarded on 491 items |
+| `tools/score.py` | `--exclude-items` added (sensitivity only; recorded in the summary) |
