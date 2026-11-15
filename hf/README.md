@@ -143,11 +143,23 @@ are right.
   model wrapped 132 of 500 answers in `{"Advisory": …}`. This adapter
   wrapped none.
 - **Narrow scope.** Eight crops only, all in Maharashtra.
-- **English-form queries only.** Training and benchmark queries are in
-  English or romanised (Latin-script) text. Devanagari input was never
-  trained or tested.
+- **Latin-script queries only (English and romanized Hindi); no
+  Devanagari.**
 - **No independent review.** Every score comes from the project's own
   verifier. No agronomist or expert has reviewed the answers.
+- **Free text is not graded.** The verifier grades chemicals, doses, PHI and
+  escalation (plus the top cause's name, and whether any non-chemical advice
+  is given), not free text.
+  - Example: benchmark item B4b_7 is a grape query, but its answer names
+    "pomegranate" in its evidence. It still scores 1.000 once the guard
+    escalates it.
+- **A ground-truth basis error the scorer inherits.** The label database
+  records some seed-treatment (FS) doses as per hectare, where the label's
+  bare number means per kg of seed. The scorer then accepts a per-acre dose
+  for them.
+  - Example: item S1_140 scores 1.000 while recommending 1.6187 ml per acre
+    of two Sedaxane + Fludioxonil + Thiamethoxam FS products. Their cotton
+    label dose is 4.0 ml per kg of seed.
 - **Loss over the whole sequence.** Training computed loss over system
   prompt + query + answer, not the answer only (from session record). The
   prompt is a median

@@ -145,6 +145,17 @@ proof.
   differed between runs, and the earliest runs recorded none.
 - **One arm is missing.** The base model with the schema but no fact sheet
   was not run, so its schema and fact-sheet effects can't be separated.
+- **Free text is not graded.** `verify()` grades chemicals, doses, PHI and
+  escalation (plus the top cause's name, and whether any non-chemical advice
+  is given), not free text.
+  - Example: `B4b_7` is a grape query, but its answer names "pomegranate"
+    in its evidence. It still scores 1.000 once the guard escalates it.
+- **A ground-truth basis error the scorer inherits.** label_db records some
+  seed-treatment (FS) doses as per hectare, where the label's bare number
+  means per kg of seed. The scorer then accepts a per-acre dose for them.
+  - Example: `S1_140` scores 1.000 while recommending 1.6187 ml per acre of
+    two Sedaxane + Fludioxonil + Thiamethoxam FS products. Their cotton
+    label dose is 4.0 ml per kg of seed.
 
 **Guard:**
 - **Some answers are only escalated, not validated.** If no crop resolves,
@@ -164,7 +175,7 @@ proof.
 
 **Scope:**
 - Eight crops in Maharashtra only.
-- Latin-script queries only (English or romanised Hindi/Marathi).
+- Latin-script queries only (English and romanized Hindi); no Devanagari.
 
 ## Reproduce
 
